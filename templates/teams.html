@@ -13,13 +13,13 @@
         <!-- Mobile Metas -->
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Theme CSS -->
-        <link href="assets/css/main.css" rel="stylesheet" media="screen">
+        <link href="{% static 'assets/css/main.css' %}" rel="stylesheet" media="screen">
 
         <!-- Favicons -->
-        <link rel="shortcut icon" href="img/icons/favicon.ico">
-        <link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="img/icons/apple-touch-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="img/icons/apple-touch-icon-114x114.png">
+        <link rel="shortcut icon" href="{% static 'img/icons/favicon.ico' %}">
+        <link rel="apple-touch-icon" href="{% static 'img/icons/apple-touch-icon.png' %}">
+        <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/icons/apple-touch-icon-72x72.png' %}">
+        <link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/icons/apple-touch-icon-114x114.png' %}">
     </head>
 
     <body>
@@ -36,7 +36,7 @@
                             <div class="col">
                                <div class="logo">
                                    <a href="index.html" title="Return Home">
-                                        <img src="img/logo.png" alt="Logo" class="logo_img">
+                                        <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo_img">
                                     </a>
                                </div>
                             </div>
@@ -46,7 +46,7 @@
                             <div class="col">
                                 <div class="adds">
                                     <a href="http://themeforest.net/user/iwthemes/portfolio?ref=iwthemes" target="_blank">
-                                        <img src="img/adds/banner.jpg" alt="" class="img-responsive">
+                                        <img src="{% static 'img/adds/banner.jpg' %}    " alt="" class="img-responsive">
                                     </a>
                                 </div>
 
@@ -109,7 +109,7 @@
                                     <div class="col-md-3">
                                       <h5><i class="fa fa-users" aria-hidden="true"></i> Teams List</h5>
                                       <div class="img-hover">
-                                         <img src="img/blog/1.jpg" alt="" class="img-responsive">
+                                         <img src="{% static 'img/blog/1.jpg' %}" alt="" class="img-responsive">
                                          <div class="overlay"><a href="teams.html">+</a></div>
                                       </div>
                                     </div>
@@ -117,7 +117,7 @@
                                     <div class="col-md-3">
                                       <h5><i class="fa fa-futbol-o" aria-hidden="true"></i> Players List</h5>
                                       <div class="img-hover">
-                                         <img src="img/blog/2.jpg" alt="" class="img-responsive">
+                                         <img src="{% static 'img/blog/2.jpg' %}" alt="" class="img-responsive">
                                          <div class="overlay"><a href="players.html">+</a></div>
                                       </div>
                                     </div>
@@ -125,7 +125,7 @@
                                     <div class="col-md-3">
                                       <h5><i class="fa fa-gamepad" aria-hidden="true"></i> Results Info</h5>
                                       <div class="img-hover">
-                                         <img src="img/blog/3.jpg" alt="" class="img-responsive">
+                                         <img src="{% static 'img/blog/3.jpg' %}" alt="" class="img-responsive">
                                          <div class="overlay"><a href="results.html">+</a></div>
                                       </div>
                                     </div>
@@ -466,12 +466,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-a">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/rusia.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/rusia.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/rusia.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/rusia.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Rusia</h4>
                                     <span class="location-team">
@@ -492,12 +492,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-a">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/arabia.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/arabia.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/arabia.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/arabia.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Saudi Arabia</h4>
                                     <span class="location-team">
@@ -518,12 +518,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-a">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/egypt.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/egypt.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/egy.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/egy.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Egypt</h4>
                                     <span class="location-team">
@@ -544,12 +544,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-a">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/uruguay.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/uruguay.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-news.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/uru.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/uru.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Uruguay</h4>
                                     <span class="location-team">
@@ -570,12 +570,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-b">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/portugal.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/portugal.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/por.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/por.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Portugal</h4>
                                     <span class="location-team">
@@ -596,12 +596,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-b">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/spain.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/spain.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/esp.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/esp.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Spain</h4>
                                     <span class="location-team">
@@ -622,12 +622,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-b">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/morocco.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/morocco.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/mar.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/mar.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Morocco</h4>
                                     <span class="location-team">
@@ -648,12 +648,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-b">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/iran.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/iran.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/irn.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/irn.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Ir Iran</h4>
                                     <span class="location-team">
@@ -674,12 +674,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-c">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/france.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/france.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/fra.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/fra.png' %}" alt="logo-team">
                                     </span>
                                     <h4>France</h4>
                                     <span class="location-team">
@@ -700,12 +700,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-c">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/australia.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/australia.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/aus.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/aus.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Australia</h4>
                                     <span class="location-team">
@@ -726,12 +726,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-c">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/peru.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/peru.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/per.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/per.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Peru</h4>
                                     <span class="location-team">
@@ -752,12 +752,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-c">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/denmark.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/denmark.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-news.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/den.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/den.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Denmark</h4>
                                     <span class="location-team">
@@ -778,12 +778,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-d">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/argentina.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/argentina.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/arg.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/arg.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Argentina</h4>
                                     <span class="location-team">
@@ -804,12 +804,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-d">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/iceland.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/iceland.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/isl.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/isl.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Iceland</h4>
                                     <span class="location-team">
@@ -830,12 +830,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-d">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/croatia.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/croatia.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/cro.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/cro.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Croatia</h4>
                                     <span class="location-team">
@@ -856,12 +856,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-d">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/nigeria.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/nigeria.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/nga.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/nga.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Nigeria</h4>
                                     <span class="location-team">
@@ -882,12 +882,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-e">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/brazil.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/brazil.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/bra.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/bra.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Brazil</h4>
                                     <span class="location-team">
@@ -908,12 +908,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-e">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/switzerland.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/switzerland.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/sui.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/sui.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Switzerland</h4>
                                     <span class="location-team">
@@ -934,12 +934,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-e">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/costa-rica.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/costa-rica.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/costa-rica.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/costa-rica.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Costa Rica</h4>
                                     <span class="location-team">
@@ -960,12 +960,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-e">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/serbia.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/serbia.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-news.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/sen.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/sen.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Serbia</h4>
                                     <span class="location-team">
@@ -986,12 +986,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-f">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/germany.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/germany.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/ger.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/ger.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Germany</h4>
                                     <span class="location-team">
@@ -1012,12 +1012,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-f">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/mexico.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/mexico.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/mex.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/mex.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Mexico</h4>
                                     <span class="location-team">
@@ -1038,12 +1038,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-f">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/sweden.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/sweden.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/swe.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/swe.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Sweden</h4>
                                     <span class="location-team">
@@ -1064,12 +1064,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-f">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/corea.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/corea.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/kor.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/kor.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Korea Rep</h4>
                                     <span class="location-team">
@@ -1090,12 +1090,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-g">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/belgium.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/belgium.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/bel.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/bel.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Belgium</h4>
                                     <span class="location-team">
@@ -1116,12 +1116,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-g">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/panama.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/panama.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/pan.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/pan.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Panama</h4>
                                     <span class="location-team">
@@ -1142,12 +1142,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-g">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/tunisia.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/tunisia.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/tun.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/tun.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Tunisia</h4>
                                     <span class="location-team">
@@ -1168,12 +1168,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-g">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/england.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/england.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-news.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/eng.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/eng.png' %}" alt="logo-team">
                                     </span>
                                     <h4>England</h4>
                                     <span class="location-team">
@@ -1194,12 +1194,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-h">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/poland.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/poland.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/pol.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/pol.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Poland</h4>
                                     <span class="location-team">
@@ -1220,12 +1220,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-h">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/senegal.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/senegal.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/sen.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/sen.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Senegal</h4>
                                     <span class="location-team">
@@ -1246,12 +1246,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-h">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/colombia.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/colombia.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/colombia.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/colombia.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Colombia</h4>
                                     <span class="location-team">
@@ -1272,12 +1272,12 @@
                         <div class="col-md-6 col-lg-4 col-xl-3 group-h">
                             <div class="item-team">
                                 <div class="head-team">
-                                    <img src="img/clubs-teams/japan.jpg" alt="location-team">
+                                    <img src="{% static 'img/clubs-teams/japan.jpg' %}" alt="location-team">
                                     <div class="overlay"><a href="single-team.html">+</a></div>
                                 </div>
                                 <div class="info-team">
                                     <span class="logo-team">
-                                        <img src="img/clubs-logos/japan.png" alt="logo-team">
+                                        <img src="{% static 'img/clubs-logos/japan.png' %}" alt="logo-team">
                                     </span>
                                     <h4>Japan</h4>
                                     <span class="location-team">
@@ -1498,18 +1498,18 @@
 
         <!-- ======================= JQuery libs =========================== -->
         <!-- jQuery local-->
-        <script type="9f73f8f756e93a92a3191d57-text/javascript" src="assets/js/jquery.js"></script>
+        <script type="9f73f8f756e93a92a3191d57-text/javascript" src="{% static 'assets/js/jquery.js' %}"></script>
         <!-- popper.js-->
-        <script type="9f73f8f756e93a92a3191d57-text/javascript" src="assets/js/popper.min.js"></script>
+        <script type="9f73f8f756e93a92a3191d57-text/javascript" src="{% static 'assets/js/popper.min.js' %}"></script>
         <!-- bootstrap.min.js-->
-        <script type="9f73f8f756e93a92a3191d57-text/javascript" src="assets/js/bootstrap.min.js"></script>
+        <script type="9f73f8f756e93a92a3191d57-text/javascript" src="{% static 'assets/js/bootstrap.min.js' %}"></script>
         <!-- required-scripts.js-->
-        <script type="9f73f8f756e93a92a3191d57-text/javascript" src="assets/js/theme-scripts.js"></script>
+        <script type="9f73f8f756e93a92a3191d57-text/javascript" src="{% static 'assets/js/theme-scripts.js' %}"></script>
         <!-- theme-main.js-->
-        <script type="9f73f8f756e93a92a3191d57-text/javascript" src="assets/js/theme-main.js"></script>
+        <script type="9f73f8f756e93a92a3191d57-text/javascript" src="{% static 'assets/js/theme-main.js' %}"></script>
         <!-- ======================= End JQuery libs =========================== -->
 
-    <script src="../../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="9f73f8f756e93a92a3191d57-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"56295f114ba5467d8767bbed7e63ce1e","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+    <script src="{% static '../../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js' %}" data-cf-settings="9f73f8f756e93a92a3191d57-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"56295f114ba5467d8767bbed7e63ce1e","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 
 <!-- Mirrored from html.iwthemes.com/sportscup/run/teams.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Jun 2026 21:26:13 GMT -->
