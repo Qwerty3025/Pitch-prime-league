@@ -33,11 +33,19 @@
             }
             @media (max-width: 991.98px) {
                 .custom-navbar .navbar-nav {
-                    justify-content: center;
+                    justify-content: flex-end;
+                }
+                .custom-navbar .navbar-collapse {
+                    text-align: right;
                 }
                 .custom-navbar .nav-link {
                     padding-top: 0.5rem;
                     padding-bottom: 0.5rem;
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+                .custom-navbar .navbar-toggler {
+                    margin-left: auto;
                 }
             }
         </style>
@@ -72,13 +80,12 @@
                             <!-- Adds nav-->
                             <div class="col col-xl-10">
                                 <!-- mainmenu-->
-                                <nav class="navbar navbar-expand-lg navbar-dark bg-transparent custom-navbar">
+                                <nav class="navbar navbar-expand-lg navbar-dark bg-transparent custom-navbar fixed-top">
                                     <div class="container px-0">
-                                        <a class="navbar-brand d-lg-none" href="index.html">Pitch Prime League</a>
-                                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                                        <button class="navbar-toggler order-1 ml-auto" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                                             <span class="navbar-toggler-icon"></span>
                                         </button>
-                                        <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
+                                        <div class="collapse navbar-collapse justify-content-center order-2" id="mainNavbar">
                                             <ul class="navbar-nav">
                                                 <li class="nav-item active">
                                                     <a class="nav-link" href="index.html">Home</a>
@@ -103,10 +110,6 @@
                                     </div>
                                 </nav>
                                 <!-- End mainmenu-->
-
-                                <!-- Call Nav Menu-->
-                                <a class="mobile-nav" href="#mobile-nav"><i class="fa fa-bars"></i></a>
-                                <!-- End Call Nav Menu-->
                             </div>
                             <!-- End nav Header-->
                         </div>
@@ -115,23 +118,6 @@
                 <!-- End headerbox-->
             </header>
             <!-- End Header-->
-
-            <!-- Mobile Nav-->
-            <div id="mobile-nav">
-                <!-- Menu-->
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="teams.html">Teams</a></li>
-                    <li><a href="players.html">Players</a></li>
-                    <li><a href="fixtures.html">Fixtures</a></li>
-                    <li><a href="results.html">Results</a></li>
-                    <li><a href="table-point.html">League Table</a></li>
-                </ul>
-                <!-- End Menu-->
-
-                
-            </div>
-            <!-- End Mobile Nav-->
 
             {% block content %} {% endblock %}
 
