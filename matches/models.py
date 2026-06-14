@@ -23,11 +23,31 @@ class Match(models.Model):
     home_score = models.PositiveIntegerField(default=0)
     away_score = models.PositiveIntegerField(default=0)
 
+    def get_winner(self):
+        if self.status != self.Status.COMPLETED:
+            return None
+        if self.home_score > self.away_score:
+            return self.home_team
+        if self.away_score > self.home_score:
+            return self.away_team
+        return None  # Represents a draw
+
     class Meta:
         ordering = ['scheduled_time']
 
     def __str__(self):
         return f'{self.home_team.name} vs {self.away_team.name}'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        from league.models import recalculate_season_standings
+        recalculate_season_standings(self.season)
+
+    def delete(self, *args, **kwargs):
+        season = self.season
+        super().delete(*args, **kwargs)
+        from league.models import recalculate_season_standings
+        recalculate_season_standings(season)
 
 
 class MatchEvent(models.Model):
