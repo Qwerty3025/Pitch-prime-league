@@ -1,0 +1,8 @@
+*.pyc
+*.pyc
+/core/__pycache__
+/league/__pycache__
+/accounts/__pycache__
+/cards/__pycache__
+*.pyc
+/core/__pycache__

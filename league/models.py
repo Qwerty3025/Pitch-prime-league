@@ -13,6 +13,7 @@ class Season(models.Model):
     season_number = models.PositiveIntegerField()
     start_date = models.DateField()
     end_date = models.DateField()
+    is_active = models.BooleanField(default=False, help_text="Mark this as the current live season")
     standings_table = models.JSONField(default=dict, blank=True)
 
     class Meta:
@@ -44,18 +45,18 @@ class Team(models.Model):
 
     name = models.CharField(max_length=150)
 
-    logo_url = models.URLField(blank=True)
+    logo = models.ImageField(upload_to='team_logos/', blank=True, null=True)
 
     foundation_year = models.PositiveIntegerField(
         blank=True,
         null=True
     )
-
+    
     manager_name = models.CharField(
         max_length=150,
         blank=True
     )
-
+    description = models.TextField(blank=True)
     total_titles = models.PositiveIntegerField(
         default=0
     )

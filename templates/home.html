@@ -1,1282 +1,367 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block content %}
 
-<!-- section-hero-->
-            <!-- <div class="hero-video">
-                <div class="video-foreground">
-                    <iframe src="https://www.youtube.com/embed/W0LHTWG-UmQ?controls=0&amp;showinfo=0&amp;rel=0&amp;autoplay=1&amp;loop=1&amp;playlist=W0LHTWG-UmQ" frameborder="0" allowfullscreen></iframe>
-                </div>
-
-                <div class="info-hero">
-                    <div class="container">
-                        <div class="row align-items-center justify-content-end">
-                            <div class="col">
-                                <h1>
-                                    PPL
-                                    <span>Pitch Prime League</span>
-                                </h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-
-
-            <div class="hero-video">
+<!-- Hero Banner Section -->
+<div class="hero-video reveal visible">
     <div class="video-foreground">
-        <img src="/static/img/homepage-g.jpeg" alt="PPL Hero Background">
+        <img src="{% static 'img/homepage-g.jpeg' %}" alt="Pitch Prime League Hero Background" style="filter: brightness(0.4) contrast(1.1);">
     </div>
 
     <div class="info-hero">
         <div class="container">
-            <div class="row align-items-center justify-content-end">
-                <div class="col">
-                    <h1>
+            <div class="row align-items-center">
+                <div class="col-lg-8 text-left">
+                    <h1 class="display-3 font-weight-extrabold text-uppercase" style="letter-spacing: -2px; line-height: 0.95;">
                         PPL
-                        <span>Pitch Prime League</span>
+                        <span class="text-gradient d-block mt-2" style="background: linear-gradient(90deg, #00ff66, #ffcc00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Pitch Prime League</span>
                     </h1>
+                    <p class="lead text-white-50 mt-3" style="max-width: 600px; font-weight: 500;">
+                        Nigerian youth football redefined. Experience high-octane 6-a-side indoor action, cultural legends, and dynamic digital integration.
+                    </p>
+                    <div class="mt-4 d-flex gap-3">
+                        {% if next_match %}
+                        <button class="btn btn-premium px-4 py-3" data-toggle="modal" data-target="#countdownModal">
+                            Next Match Details <i class="fa fa-arrow-right ml-2"></i>
+                        </button>
+                        {% endif %}
+                        <a href="{% url 'matches:fixture_list' %}" class="btn btn-outline-premium px-4 py-3">View Fixtures</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-            <!-- End section-hero-->
-
-            <!-- Section Area - Content Central -->
-            <section class="content-info">
-
-                <!-- Dark Home -->
-                <div class="container">
-                   <div class="dark-home above">
-                        <div class="row">
-                            <!-- Left Content - Tabs and Carousel -->
-                            <div class="col-xl-9 col-md-12">
-                                <!-- Nav Tabs -->
-                                <ul class="nav nav-tabs" id="myTab">
-                                   <li class="active"><a href="#statistics" data-toggle="tab">STATISTICS</a></li>
-                                   <!-- <li><a href="#groups" data-toggle="tab">GROUPS</a></li> -->
-                                   <li><a href="#description" data-toggle="tab">DESCRIPTION</a></li>
-                                </ul>
-                                <!-- End Nav Tabs -->
-
-                                <!-- Content Tabs -->
-                                <div class="tab-content">
-                                    <!-- Tab Theree - statistics -->
-                                    <div class="tab-pane active" id="statistics">
-                                        <div class="row">
-                                           <!-- Club Ranking -->
-                                           <div class="col-lg-4">
-                                               <div class="club-ranking">
-                                                    <h5><a href="group-list.html">League Standing</a></h5>
-                                                    <div class="info-ranking">
-                                                        <ul>
-                                                            <li>
-                                                              <span class="position">
-                                                                  1
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/rusia.png' %}" alt="">
-                                                                    Russia
-                                                                </a>
-                                                                <span class="points">
-                                                                    90
-                                                                </span>
-                                                            </li>
-
-                                                            <li>
-                                                              <span class="position">
-                                                                  2
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/arabia.png' %}" alt="">
-                                                                    Saudi Arabia
-                                                                </a>
-                                                                <span class="points">
-                                                                    86
-                                                                </span>
-                                                            </li>
-
-                                                            <li>
-                                                              <span class="position">
-                                                                  3
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/egy.png' %}" alt="">
-                                                                    Egypt
-                                                                </a>
-                                                                <span class="points">
-                                                                    84
-                                                                </span>
-                                                            </li>
-
-                                                            <li>
-                                                              <span class="position">
-                                                                  4
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/uru.png' %}" alt="">
-                                                                    Uruguay
-                                                                </a>
-                                                                <span class="points">
-                                                                  70
-                                                               </span>
-                                                            </li>
-
-                                                            <li>
-                                                              <span class="position">
-                                                                  5
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/por.png' %}" alt="">
-                                                                    Portugal
-                                                                </a>
-                                                                <span class="points">
-                                                                    67
-                                                                </span>
-                                                            </li>
-
-                                                            <li>
-                                                              <span class="position">
-                                                                  6
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/esp.png' %}" alt="">
-                                                                    Spain
-                                                                </a>
-                                                                <span class="points">
-                                                                    60
-                                                                </span>
-                                                            </li>
-
-                                                            <li>
-                                                              <span class="position">
-                                                                  55
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/mar.png' %}" alt="">
-                                                                    Morocco
-                                                                </a>
-                                                                <span class="points">
-                                                                    90
-                                                                </span>
-                                                            </li>
-
-                                                            <li>
-                                                              <span class="position">
-                                                                  8
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/irn.png' %}" alt="">
-                                                                     IR Iran
-                                                                </a>
-                                                                <span class="points">
-                                                                    53
-                                                                </span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                               </div>
-                                            </div>
-                                           <!-- End Club Ranking -->
-
-                                            <!-- recent-results -->
-                                            <div class="col-lg-4">
-                                               <div class="recent-results">
-                                                    <h5><a href="group-list.html">Recent Result</a></h5>
-                                                    <div class="info-results">
-                                                        <ul>
-                                                            <li>
-                                                                <span class="head">
-                                                                    Portugal Vs Spain <span class="date">27 Jun 2017</span>
-                                                                </span>
-
-                                                                <div class="goals-result">
-                                                                    <a href="single-team.html">
-                                                                        <img src="{% static 'img/clubs-logos/por.png' %}" alt="">
-                                                                        Portugal
-                                                                    </a>
-
-                                                                    <span class="goals">
-                                                                        <b>2</b> - <b>3</b>
-                                                                    </span>
-
-                                                                    <a href="single-team.html">
-                                                                        <img src="{% static 'img/clubs-logos/esp.png' %}" alt="">
-                                                                        Spain
-                                                                    </a>
-                                                                </div>
-                                                            </li>
-
-                                                            <li>
-                                                                <span class="head">
-                                                                    Rusia Vs Colombia <span class="date">30 Jun 2017</span>
-                                                                </span>
-
-                                                                <div class="goals-result">
-                                                                    <a href="single-team.html">
-                                                                        <img src="{% static 'img/clubs-logos/rusia.png' %}" alt="">
-                                                                        Rusia
-                                                                    </a>
-
-                                                                    <span class="goals">
-                                                                        <b>2</b> - <b>3</b>
-                                                                    </span>
-
-                                                                    <a href="single-team.html">
-                                                                        <img src="{% static 'img/clubs-logos/colombia.png' %}" alt="">
-                                                                         Colombia
-                                                                    </a>
-                                                                </div>
-                                                            </li>
-
-                                                            <li>
-                                                                <span class="head">
-                                                                    Uruguay Vs Portugal <span class="date">31 Jun 2017</span>
-                                                                </span>
-
-                                                                <div class="goals-result">
-                                                                    <a href="single-team.html">
-                                                                        <img src="{% static 'img/clubs-logos/uru.png' %}" alt="">
-                                                                        Uruguay
-                                                                    </a>
-
-                                                                    <span class="goals">
-                                                                        <b>2</b> - <b>3</b>
-                                                                    </span>
-
-                                                                    <a href="single-team.html">
-                                                                        <img src="{% static 'img/clubs-logos/por.png' %}" alt="">
-                                                                         Portugal
-                                                                    </a>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                               </div>
-                                            </div>
-                                            <!-- end recent-results -->
-
-                                            <!-- Top player -->
-                                            <!-- <div class="col-lg-4">
-                                               <div class="player-ranking">
-                                                    <h5><a href="group-list.html">Top player</a></h5>
-                                                    <div class="info-player">
-                                                        <ul>
-                                                            <li>
-                                                              <span class="position">
-                                                                  1
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/players/1.jpg' %}" alt="">
-                                                                    Cristiano R.
-                                                                </a>
-                                                                <span class="points">
-                                                                    90
-                                                                </span>
-                                                            </li>
-
-                                                            <li>
-                                                              <span class="position">
-                                                                  2
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/players/2.jpg' %}" alt="">
-                                                                    Lionel Messi
-                                                                </a>
-                                                                <span class="points">
-                                                                    88
-                                                                </span>
-                                                            </li>
-
-                                                            <li>
-                                                              <span class="position">
-                                                                  3
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/players/3.jpg' %}" alt="">
-                                                                    Neymar
-                                                                </a>
-                                                                <span class="points">
-                                                                    86
-                                                                </span>
-                                                            </li>
-
-                                                            <li>
-                                                              <span class="position">
-                                                                  4
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/players/4.jpg' %}" alt="">
-                                                                    Luis Suárez
-                                                                </a>
-                                                                <span class="points">
-                                                                  80
-                                                               </span>
-                                                            </li>
-
-                                                            <li>
-                                                              <span class="position">
-                                                                  5
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/players/5.jpg' %}" alt="">
-                                                                    Gareth Bale
-                                                                </a>
-                                                                <span class="points">
-                                                                    76
-                                                                </span>
-                                                            </li>
-
-                                                            <li>
-                                                              <span class="position">
-                                                                  6
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/players/6.jpg' %}" alt="">
-                                                                    Sergio Agüero
-                                                                </a>
-                                                                <span class="points">
-                                                                    74
-                                                                </span>
-                                                            </li>
-
-                                                            <li>
-                                                              <span class="position">
-                                                                  7
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/players/2.jpg' %}" alt="">
-                                                                    Jamez R.
-                                                                </a>
-                                                                <span class="points">
-                                                                    70
-                                                                </span>
-                                                            </li>
-
-                                                            <li>
-                                                              <span class="position">
-                                                                  8
-                                                              </span>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/players/1.jpg' %}" alt="">
-                                                                     Falcao Garcia
-                                                                </a>
-                                                                <span class="points">
-                                                                    65
-                                                                </span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                               </div>
-                                            </div> -->
-                                            <!-- End Top player -->
-                                        </div>
-                                    </div>
-                                    <!-- Tab Theree - statistics -->
-
-                                    <!-- Tab One - Groups List -->
-                                    <!-- <div class="tab-pane" id="groups">
-                                        <div class="groups-list">
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-6">
-                                                   <h5><a href="groups.html">GROUP A</a></h5>
-                                                    <div class="item-group">
-                                                        <ul>
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/rusia.png' %}" alt="">
-                                                                    Russia
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/arabia.png' %}" alt="">
-                                                                    Saudi Arabia
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/egy.png' %}" alt="">
-                                                                    Egypt
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/uru.png' %}" alt="">
-                                                                    Uruguay
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-3 col-md-6">
-                                                   <h5><a href="groups.html">GROUP B</a></h5>
-                                                    <div class="item-group">
-                                                        <ul>
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/por.png' %}" alt="">
-                                                                    Portugal
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/esp.png' %}" alt="">
-                                                                    Spain
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/mar.png' %}" alt="">
-                                                                    Morocco
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/irn.png' %}" alt="">
-                                                                    IR Iran
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-3 col-md-6">
-                                                   <h5><a href="group-list.html">GROUP C</a></h5>
-                                                    <div class="item-group">
-                                                        <ul>
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/fra.png' %}" alt="">
-                                                                    France
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/aus.png' %}" alt="">
-                                                                    Australia
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/per.png' %}" alt="">
-                                                                    Peru
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/den.png' %}" alt="">
-                                                                    Denmark
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-3 col-md-6">
-                                                   <h5><a href="group-list.html">GROUP D</a></h5>
-                                                    <div class="item-group">
-                                                        <ul>
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/arg.png' %}" alt="">
-                                                                    Argentina
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/isl.png' %}" alt="">
-                                                                    Iceland
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/cro.png' %}" alt="">
-                                                                    Croatia
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/nga.png' %}" alt="">
-                                                                    Nigeria
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-6">
-                                                   <h5><a href="group-list-html.html">GROUP E</a></h5>
-                                                    <div class="item-group">
-                                                        <ul>
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/bra.png' %}" alt="">
-                                                                    Brazil
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/sui.png' %}" alt="">
-                                                                    Switzerland
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/costa-rica.png' %}" alt="">
-                                                                    Costa rica
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/srb.png' %}" alt="">
-                                                                    Serbia
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-3 col-md-6">
-                                                   <h5><a href="group-list-html.html">GROUP F</a></h5>
-                                                    <div class="item-group">
-                                                        <ul>
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/ger.png' %}" alt="">
-                                                                    Germany
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/mex.png' %}" alt="">
-                                                                    Mexico
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/swe.png' %}" alt="">
-                                                                    Sweden
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/kor.png' %}" alt="">
-                                                                    Korea Rep
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-3 col-md-6">
-                                                   <h5><a href="group-list-html.html">GROUP G</a></h5>
-                                                    <div class="item-group">
-                                                        <ul>
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/bel.png' %}" alt="">
-                                                                    Belgium
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/pan.png' %}" alt="">
-                                                                    Panama
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/tun.png' %}" alt="">
-                                                                    Tunisia
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/eng.png' %}" alt="">
-                                                                    England
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-3 col-md-6">
-                                                   <h5><a href="group-list-html.html">GROUP H</a></h5>
-                                                    <div class="item-group">
-                                                        <ul>
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/pol.png' %}" alt="">
-                                                                    Poland
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/sen.png' %}" alt="">
-                                                                    Senegal
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/colombia.png' %}" alt="">
-                                                                    Colombia
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                               <a href="single-team.html">
-                                                                    <img src="{% static 'img/clubs-logos/japan.png' %}" alt="">
-                                                                    Japan
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-                                    <!-- End Tab One - Groups List -->
-
-                                    <!-- Tab Two - Destinations -->
-                                    <div class="tab-pane" id="description">
-                                       <div class="info-general">
-                                            <div class="row">
-                                               <div class="col-md-4">
-                                                  <img src="{% static 'img/locations/1.jpg' %}" alt="">
-                                               </div>
-
-                                               <div class="col-md-8">
-                                                   <h3>2026 Pitch Prime League</h3>
-                                                   <p class="lead">The Pitch Prime League (PPL) is a revolutionary sports entertainment product designed
-specifically for the Nigerian youth market. It is a highly-produced, fast-paced 6-a-side indoor
-football league hosted in state-of-the-art venues in Lagos and Abuja..</p>
-                                               </div>
-
-                                               <div class="col-md-12">
-                                                   <p>The PPL’s core strength lies in its digital-first content strategy, integrating top Nigerian sports
-content creators and cultural icons (celebrities, music stars, and football legends) to generate
-massive organic reach and engagement. This proposal seeks strategic sponsorship partners
-whose brand values align with innovation, youth engagement, and African excellence.</p>
-                                                   <h4>Management Team.</h4>
-                                               </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Tab Two - Destinations -->
-                                </div>
-                                <!-- Content Tabs -->
-                            </div>
-                            <!-- Left Content - Tabs and Carousel
-
-                            <-- Right Content - Content Counter -->
-                             <div class="col-xl-3 col-md-12">
-                                <div class="counter-home-wraper">
-                                    <div class="title-color text-center">
-                                        <h4>Pitch Prime League 2026</h4>
-                                    </div>
-
-                                    <div class="content-counter content-counter-home">
-                                        <p class="text-center">
-                                            <i class="fa fa-clock-o"></i>
-                                            Countdown Till Start
-                                        </p>
-                                        <div id="event-one" class="counter"></div>
-                                        <ul class="post-options">
-                                            <li><i class="fa fa-calendar"></i>14 June, 2018</li>
-                                            <li><i class="fa fa-clock-o"></i>Kick-of, 12:00 PM</li>
-                                        </ul>
-
-                                        <div class="list-groups">
-                                            <div class="row align-items-center">
-
-                                                <div class="col-md-12">
-                                                    <p>GROUP A, Luzhniki Stadium Moscow</p>
-                                                </div>
-
-                                                <div class="col-md-5">
-                                                    <img src="{% static 'img/clubs-logos/rusia.png' %}" alt="">
-                                                    <span>RUSSIA</span>
-                                                </div>
-
-                                                <div class="col-md-2">
-                                                    <div class="vs">Vs</div>
-                                                </div>
-
-                                                <div class="col-md-5">
-                                                    <img src="{% static 'img/clubs-logos/arabia.png' %}" alt="">
-                                                    <span>SAUDI ARABIA</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <a class="btn btn-primary" href="#">
-                                            PURCHASE TICKETS
-                                            <i class="fa fa-trophy"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Content Counter -->
-                            </div>
-                            <!-- End Right Content - Content Counter -->
-                        </div>
+<!-- End Hero Banner Section -->
+
+<!-- Content Area -->
+<section class="content-info pt-5 pb-5">
+    <div class="container">
+        
+        <!-- Featured Poster Banner Section -->
+        {% if featured_poster %}
+        <div class="row reveal">
+            <div class="col-md-12">
+                <div class="poster-hero" onclick="{% if featured_poster.target_url %}window.location.href='{{ featured_poster.target_url }}'{% endif %}">
+                    <img src="{{ featured_poster.image.url }}" alt="{{ featured_poster.title }}">
+                    <div class="poster-overlay">
+                        <span class="poster-badge">Featured Event</span>
+                        <h2 class="poster-title">{{ featured_poster.title }}</h2>
+                        {% if featured_poster.target_url %}
+                        <p class="text-white-50 mb-0">Click to learn more about this special event <i class="fa fa-external-link ml-1"></i></p>
+                        {% endif %}
                     </div>
                 </div>
-                <!-- Dark Home -->
+            </div>
+        </div>
+        {% endif %}
+        <!-- End Featured Poster Section -->
 
-                <div class="container padding-top">
-                   <div class="black-section paddings">
-                        <div class="row">
-                            <div class="col-md-6 col-xl-3">
-                                <div class="item-feature dark">
-                                    <i class="fa fa-cogs"></i>
-                                    <h3>Host selection</h3>
-                                    <p>The bidding procedure to host the 2018 and 2022 FIFA World Cups began in January 2009, and national associations.</p>
-                                    <a href="#">Learn More</a>
+        <div class="row mt-4">
+            <!-- Left Content: Standings & Results Tabs -->
+            <div class="col-xl-9 col-md-12 reveal">
+                <div class="glass-panel mb-4">
+                    <!-- Nav Tabs -->
+                    <ul class="nav nav-tabs border-0 mb-4" id="homeTabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active border-0 text-uppercase font-weight-bold" id="stats-tab" data-toggle="tab" href="#statistics" role="tab" style="letter-spacing: 1px; border-radius: 8px;">Statistics</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link border-0 text-uppercase font-weight-bold" id="desc-tab" data-toggle="tab" href="#description" role="tab" style="letter-spacing: 1px; border-radius: 8px;">About PPL</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab Contents -->
+                    <div class="tab-content" id="homeTabsContent">
+                        
+                        <!-- Statistics Tab -->
+                        <div class="tab-pane fade show active" id="statistics" role="tabpanel">
+                            <div class="row">
+                                <!-- League Standings Table -->
+                                <div class="col-lg-7 mb-4 mb-lg-0">
+                                    <h4 class="font-weight-bold text-uppercase mb-3" style="letter-spacing: 1px; font-size: 1.1rem; color: #fff;">
+                                        <i class="fa fa-trophy text-warning mr-2"></i>League Standing
+                                    </h4>
+                                    
+                                    {% if standings %}
+                                    <div class="standings-table-container">
+                                        <table class="table-ppl">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" style="width: 50px;">No</th>
+                                                    <th>Team</th>
+                                                    <th class="text-center" style="width: 50px;">P</th>
+                                                    <th class="text-center" style="width: 50px;">GD</th>
+                                                    <th class="text-center" style="width: 60px;">PTS</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for team in standings %}
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <span class="rank-badge {% if forloop.counter == 1 %}rank-1{% elif forloop.counter == 2 %}rank-2{% elif forloop.counter == 3 %}rank-3{% else %}rank-other{% endif %}">
+                                                            {{ forloop.counter }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center gap-3" style="gap: 12px;">
+                                                            {% if team.logo %}
+                                                                <img class="team-logo-img" src="{{ team.logo.url }}" alt="{{ team.name }} Logo">
+                                                            {% else %}
+                                                                <div class="team-logo-badge">{{ team.name|slice:":1" }}</div>
+                                                            {% endif %}
+                                                            <span class="font-weight-bold">{{ team.name }}</span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center text-white-50 font-weight-bold">{{ team.games_played }}</td>
+                                                    <td class="text-center {% if team.goal_difference > 0 %}text-success{% elif team.goal_difference < 0 %}text-danger{% else %}text-muted{% endif %} font-weight-bold">
+                                                        {% if team.goal_difference > 0 %}+{% endif %}{{ team.goal_difference }}
+                                                    </td>
+                                                    <td class="text-center text-warning font-weight-bold">{{ team.total_points }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="mt-3 text-right">
+                                        {% if current_season %}
+                                        <a class="btn btn-outline-premium btn-sm" href="{% url 'league:standings_table' current_season.id %}">
+                                            Full Standings <i class="fa fa-external-link ml-1"></i>
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                    {% else %}
+                                    <p class="text-muted my-4 text-center">No active standings available for this season.</p>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Recent Results -->
+                                <div class="col-lg-5">
+                                    <h4 class="font-weight-bold text-uppercase mb-3" style="letter-spacing: 1px; font-size: 1.1rem; color: #fff;">
+                                        <i class="fa fa-history text-info mr-2"></i>Recent Results
+                                    </h4>
+                                    
+                                    {% if recent_results %}
+                                    <div class="results-list d-flex flex-column" style="gap: 16px;">
+                                        {% for match in recent_results %}
+                                        <div class="glass-panel p-3 border-light-subtle hover-transform" style="background: rgba(255,255,255,0.01);">
+                                            <div class="text-center text-white-50 small mb-2" style="font-size: 0.75rem;">
+                                                {{ match.scheduled_time|date:"d M Y" }} | {{ match.season }}
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <!-- Home Team -->
+                                                <div class="text-center flex-grow-1" style="width: 40%;">
+                                                    {% if match.home_team.logo %}
+                                                        <img class="team-logo-img mb-1" src="{{ match.home_team.logo.url }}" alt="{{ match.home_team.name }}">
+                                                    {% else %}
+                                                        <div class="team-logo-badge mb-1">{{ match.home_team.name|slice:":1" }}</div>
+                                                    {% endif %}
+                                                    <span class="d-block font-weight-bold small text-truncate">{{ match.home_team.name }}</span>
+                                                </div>
+
+                                                <!-- Score -->
+                                                <div class="text-center px-2 flex-shrink-0">
+                                                    <span class="score-badge">
+                                                        {{ match.home_score }} - {{ match.away_score }}
+                                                    </span>
+                                                    <span class="d-block text-uppercase text-muted mt-1" style="font-size: 0.55rem; letter-spacing: 1px;">FT</span>
+                                                </div>
+
+                                                <!-- Away Team -->
+                                                <div class="text-center flex-grow-1" style="width: 40%;">
+                                                    {% if match.away_team.logo %}
+                                                        <img class="team-logo-img mb-1" src="{{ match.away_team.logo.url }}" alt="{{ match.away_team.name }}">
+                                                    {% else %}
+                                                        <div class="team-logo-badge mb-1">{{ match.away_team.name|slice:":1" }}</div>
+                                                    {% endif %}
+                                                    <span class="d-block font-weight-bold small text-truncate">{{ match.away_team.name }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="mt-3 text-right">
+                                        <a class="btn btn-outline-premium btn-sm" href="{% url 'matches:result_list' %}">
+                                            All Results <i class="fa fa-chevron-right ml-1"></i>
+                                        </a>
+                                    </div>
+                                    {% else %}
+                                    <p class="text-muted my-4 text-center">No completed matches yet.</p>
+                                    {% endif %}
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="col-md-6 col-xl-3">
-                                <div class="item-feature dark">
-                                    <i class="fa fa-users"></i>
-                                    <h3>Teams</h3>
-                                    <p>For the first time in the history of the FIFA World Cup, all eligible nations – the 209 FIFA member associations.</p>
-                                    <a href="#">Learn More</a>
+                        <!-- Description Tab -->
+                        <div class="tab-pane fade" id="description" role="tabpanel">
+                            <div class="row align-items-center">
+                                <div class="col-md-4 mb-3 mb-md-0">
+                                    <img src="{% static 'img/locations/1.jpg' %}" alt="PPL Arena" class="img-fluid rounded-lg shadow-lg border border-secondary" style="border-radius: 12px;">
                                 </div>
-                            </div>
-
-                            <div class="col-md-6 col-xl-3">
-                                <div class="item-feature dark">
-                                    <i class="fa fa-calendar"></i>
-                                    <h3>Venues</h3>
-                                    <p>The final choice of host cities was announced on 29 September 2012. The number of cities was further reduced to 1.</p>
-                                    <a href="#">Learn More</a>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 col-xl-3">
-                                <div class="item-feature dark">
-                                    <i class="fa fa-soccer-ball-o"></i>
-                                    <h3>Marketing</h3>
-                                    <p>The tournament logo was unveiled on 28 October 2014 by cosmonauts at the International Space Station.</p>
-                                    <a href="#">Learn More</a>
+                                <div class="col-md-8">
+                                    <h3 class="font-weight-extrabold text-white mb-2">2026 Pitch Prime League</h3>
+                                    <p class="text-white-50 lead" style="font-size: 0.95rem; line-height: 1.6;">
+                                        The Pitch Prime League (PPL) is Nigeria's most exciting digital-first 6-a-side indoor football tournament. Hosted in world-class stadiums in Lagos and Abuja, PPL brings together cultural icons, content creators, and elite young footballers.
+                                    </p>
+                                    <p class="text-white-50" style="font-size: 0.9rem; line-height: 1.6;">
+                                        Integrating state-of-the-art interactive graphics, live streams, and high-impact entertainment events, PPL connects football, lifestyle, and music under one glowing roof. Join us for a new season of raw rivalry, dynamic gameplay cards, and pure excitement.
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- White Section -->
-                <div class="padding-bottom">
-                    <div class="container">
-                        <div class="row padding-top">
-                            <div class="col-md-6 col-xl-4">
-                                <a href="single-team.html">
-                                    <div class="item-boxed-img" style="background: url({% static 'img/blog/2.jpg' %});">
-                                        <i class="fa fa-soccer-ball-o"></i>
-                                        <h4>Soccer Team </h4>
-                                        <p>Best Sports Features</p>
-                                    </div>
-                                </a>
-                            </div>
+            <!-- Right Sidebar: Upcoming Match & Countdown -->
+            <div class="col-xl-3 col-md-12 reveal">
+                {% if next_match %}
+                <div class="counter-home-wrapper" data-toggle="modal" data-target="#countdownModal">
+                    <p class="text-center text-uppercase font-weight-bold text-white-50 mb-2" style="font-size: 0.75rem; letter-spacing: 2px;">
+                        <i class="fa fa-clock-o text-success mr-2"></i>Next Up
+                    </p>
+                    
+                    <!-- Countdown Numbers Grid -->
+                    <div id="event-one"></div>
 
-                            <div class="col-md-6 col-xl-4">
-                                <a href="page-about.html">
-                                    <div class="item-boxed-img" style="background: url({% static 'img/blog/3.jpg' %});">
-                                        <i class="fa fa-soccer-ball-o"></i>
-                                        <h4>Club Features</h4>
-                                        <p>Best Sports Features</p>
-                                    </div>
-                                </a>
-                            </div>
+                    <!-- Match Details -->
+                    <ul class="list-unstyled text-center text-white-50 mt-3 mb-0 small border-top pt-3 border-secondary" style="font-size: 0.8rem;">
+                        <li class="mb-1"><i class="fa fa-calendar mr-2 text-warning"></i>{{ next_match.scheduled_time|date:"l, d F Y" }}</li>
+                        <li><i class="fa fa-clock-o mr-2 text-warning"></i>Kick-off: {{ next_match.scheduled_time|date:"H:i A" }}</li>
+                    </ul>
 
-                            <div class="col-md-6 col-xl-4">
-                                <a href="services.html">
-                                    <div class="item-boxed-img" style="background: url({% static 'img/blog/4.jpg' %});">
-                                        <i class="fa fa-soccer-ball-o"></i>
-                                        <h4>Technical body</h4>
-                                        <p>Best Sports Features</p>
-                                    </div>
-                                </a>
-                            </div>
+                    <!-- Matchup mini-card -->
+                    <div class="matchup-mini">
+                        <div class="matchup-team">
+                            {% if next_match.home_team.logo %}
+                                <img class="team-logo-img" src="{{ next_match.home_team.logo.url }}" alt="{{ next_match.home_team.name }}">
+                            {% else %}
+                                <div class="team-logo-badge">{{ next_match.home_team.name|slice:":1" }}</div>
+                            {% endif %}
+                            <span>{{ next_match.home_team.name }}</span>
+                        </div>
+                        <div class="matchup-vs">VS</div>
+                        <div class="matchup-team">
+                            {% if next_match.away_team.logo %}
+                                <img class="team-logo-img" src="{{ next_match.away_team.logo.url }}" alt="{{ next_match.away_team.name }}">
+                            {% else %}
+                                <div class="team-logo-badge">{{ next_match.away_team.name|slice:":1" }}</div>
+                            {% endif %}
+                            <span>{{ next_match.away_team.name }}</span>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <button class="btn btn-premium btn-block py-2 font-weight-bold" style="font-size: 0.8rem;">
+                            View Hype Details
+                        </button>
+                    </div>
+                </div>
+                {% else %}
+                <!-- Fallback when there is no next match -->
+                <div class="glass-panel text-center">
+                    <p class="text-uppercase font-weight-bold text-white-50 mb-2" style="font-size: 0.75rem; letter-spacing: 2px;">
+                        <i class="fa fa-calendar-check-o text-muted mr-2"></i>Status
+                    </p>
+                    <i class="fa fa-soccer-ball-o fa-3x text-muted my-3 animate-spin" style="animation: spin 10s linear infinite;"></i>
+                    <h5 class="font-weight-bold text-white">Season Paused</h5>
+                    <p class="small text-muted">No upcoming matches are scheduled at this time. Stay tuned for dates!</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Countdown Details Modal -->
+{% if next_match %}
+<div class="modal fade blur-modal" id="countdownModal" tabindex="-1" role="dialog" aria-labelledby="countdownModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-content-glass">
+            
+            <div class="modal-header modal-header-clean">
+                <h5 class="modal-title font-weight-bold text-uppercase" id="countdownModalTitle" style="letter-spacing: 1.5px; font-size: 1rem;">
+                    Matchday Countdown
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body modal-body-spacing text-center">
+                <p class="text-uppercase text-white-50 font-weight-bold mb-1" style="font-size: 0.75rem; letter-spacing: 2px;">
+                    LIVE COUNTDOWN
+                </p>
+                
+                <!-- Live ticking modal countdown -->
+                <div id="modal-countdown" class="my-4"></div>
+
+                <div class="matchup-modal-card p-4 rounded-lg border border-secondary bg-black-50 my-4" style="background: rgba(0,0,0,0.3); border-radius: 16px;">
+                    <div class="row align-items-center">
+                        <div class="col-5">
+                            {% if next_match.home_team.logo %}
+                                <img class="team-logo-img mb-2" src="{{ next_match.home_team.logo.url }}" alt="{{ next_match.home_team.name }}" style="width: 64px; height: 64px;">
+                            {% else %}
+                                <div class="team-logo-badge mb-2" style="width: 64px; height: 64px; font-size: 1.8rem;">{{ next_match.home_team.name|slice:":1" }}</div>
+                            {% endif %}
+                            <h5 class="font-weight-bold text-white mb-0">{{ next_match.home_team.name }}</h5>
+                            <span class="small text-muted">Home</span>
+                        </div>
+                        <div class="col-2 font-weight-extrabold text-warning" style="font-size: 1.5rem;">
+                            VS
+                        </div>
+                        <div class="col-5">
+                            {% if next_match.away_team.logo %}
+                                <img class="team-logo-img mb-2" src="{{ next_match.away_team.logo.url }}" alt="{{ next_match.away_team.name }}" style="width: 64px; height: 64px;">
+                            {% else %}
+                                <div class="team-logo-badge mb-2" style="width: 64px; height: 64px; font-size: 1.8rem;">{{ next_match.away_team.name|slice:":1" }}</div>
+                            {% endif %}
+                            <h5 class="font-weight-bold text-white mb-0">{{ next_match.away_team.name }}</h5>
+                            <span class="small text-muted">Away</span>
                         </div>
                     </div>
                 </div>
-                <!-- End White Section -->
 
-                <!-- <div class="dark-section paddings-big">
-                   <div class="scale">
-                       <div class="skewmask-block"></div>
-                   </div>
+                <ul class="list-unstyled text-white-50 small my-3" style="font-size: 0.85rem; line-height: 1.8;">
+                    <li><i class="fa fa-calendar mr-2 text-warning"></i>{{ next_match.scheduled_time|date:"l, d F Y" }}</li>
+                    <li><i class="fa fa-clock-o mr-2 text-warning"></i>Kick-off: {{ next_match.scheduled_time|date:"H:i A" }}</li>
+                    <li><i class="fa fa-map-marker mr-2 text-warning"></i>PPL Arena (Nigeria)</li>
+                </ul>
+            </div>
 
-                    <div class="container">
-                        <div class="row">
-                           <div class="col-lg-5 padding-top">
-                               <h2>2018 FIFA World Cup</h2>
-                               <p class="lead">The 2018 FIFA World Cup will be the 21st FIFA World Cup, a quadrennial international football tournament contested by the men's national teams. West of the Ural Mountains to keep travel time manageable.</p>
+            <div class="modal-footer modal-footer-clean justify-content-between">
+                <button type="button" class="btn btn-outline-premium" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-premium" onclick="alert('Tickets will go live soon! Check our socials for priority list.')">
+                    Get Tickets
+                </button>
+            </div>
 
-                               <div class="row">
-                                   <div class="col-6">
-                                       <ul class="list-style">
-                                           <li><a href="#"><i class="fa fa-angle-right"></i>Qualifiers</a></li>
-                                           <li><a href="#"><i class="fa fa-angle-right"></i> Statistics</a></li>
-                                           <li><a href="#"><i class="fa fa-angle-right"></i> Teams</a></li>
-                                           <li><a href="#"><i class="fa fa-angle-right"></i> Qualifiers</a></li>
-                                           <li><a href="#"><i class="fa fa-angle-right"></i> Ticketing</a></li>
-                                       </ul>
-                                   </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
-                                   <div class="col-6">
-                                       <ul class="list-style">
-                                           <li><a href="#"><i class="fa fa-angle-right"></i> Volunteers</a></li>
-                                           <li><a href="#"><i class="fa fa-angle-right"></i> Committees</a></li>
-                                           <li><a href="#"><i class="fa fa-angle-right"></i> Official Documents</a></li>
-                                           <li><a href="#"><i class="fa fa-angle-right"></i> Terms Of Service</a></li>
-                                           <li><a href="#"><i class="fa fa-angle-right"></i> Organisation</a></li>
-                                       </ul>
-                                   </div>
-                               </div>
-                           </div>
+<!-- Javascript Event Countdown Trigger -->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        {% if next_match %}
+        // Parse python date formatted string
+        var matchDateString = "{{ next_match.scheduled_time|date:'Y/m/d H:i:s' }}";
+        
+        // Target element IDs for JQuery Countdown
+        $('#event-one, #modal-countdown').countdown(matchDateString, function(event) {
+            $(this).html(
+                '<div class="counter-grid">' +
+                '  <div class="counter-item"><span>' + event.strftime('%D') + '</span><small>Days</small></div>' +
+                '  <div class="counter-item"><span>' + event.strftime('%H') + '</span><small>Hours</small></div>' +
+                '  <div class="counter-item"><span>' + event.strftime('%M') + '</span><small>Mins</small></div>' +
+                '  <div class="counter-item"><span>' + event.strftime('%S') + '</span><small>Secs</small></div>' +
+                '</div>'
+            );
+        });
+        {% endif %}
+    });
+</script>
 
-                           <div class="col-lg-7">
-                               <div class="row">
-                                    <div class="col-md-6 col-xl-4">
-                                        <a href="single-team.html">
-                                            <div class="item-boxed-img small" style="background: url({% static 'img/players/1.jpg' %});">
-                                                <h4>School </h4>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="col-md-6 col-xl-4">
-                                        <a href="page-about.html">
-                                            <div class="item-boxed-img small" style="background: url({% static 'img/players/2.jpg' %});">
-                                                <h4>Gallery</h4>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="col-md-6 col-xl-4">
-                                        <a href="services.html">
-                                            <div class="item-boxed-img small" style="background: url({% static 'img/players/3.jpg' %});">
-                                                <h4>Cups</h4>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-6 col-xl-4">
-                                        <a href="single-team.html">
-                                            <div class="item-boxed-img small" style="background: url({% static 'img/players/4.jpg' %});">
-                                                <h4>Videos </h4>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="col-md-6 col-xl-4">
-                                        <a href="page-about.html">
-                                            <div class="item-boxed-img small" style="background: url({% static 'img/players/5.jpg' %});">
-                                                <h4>Positions</h4>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="col-md-6 col-xl-4">
-                                        <a href="services.html">
-                                            <div class="item-boxed-img small" style="background: url({% static 'img/players/6.jpg' %});">
-                                                <h4>Locations</h4>
-                                            </div>
-                                        </a>
-                                    </div>
-                               </div>
-                           </div>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- Parallax Section - Testimonials -->
-                <!-- <div class="parallax-section parallax-total" style="background:url({% static 'img/slide/3.jpg' %});">
-                   <div class="scale-bottom">
-                        <div class="skewmask-block"></div>
-                    </div>
-
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-md-12">
-                                <div class="text-center padding-bottom">
-                                    <h2>We have earned the trust of <span class="text-resalt">25,869</span> Club Members.</h2>
-                                    <p>Duis non lorem porta,  eros sit amet, tempor sem. semper a tempus et.</p>
-                                </div>
-
-                                <ul class="testimonials testimonials-carousel">
-                                    <li>
-                                        <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rutrum pellentesque!.</p>
-                                        <img src="{% static 'img/testimonials/1.jpg' %}" alt="">
-                                        <strong>Federic Gordon</strong><a href="#">@iwthemes</a></blockquote>
-                                    </li>
-                                    <li>
-                                        <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rutrum pellentesque!.</p>
-                                        <img src="{% static 'img/testimonials/2.jpg' %}" alt="">
-                                        <strong>Federic Gordon</strong><a href="#">@iwthemes</a></blockquote>
-                                    </li>
-                                    <li>
-                                        <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rutrum pellentesque!.</p>
-                                        <img src="{% static 'img/testimonials/3.jpg' %}" alt="">
-                                        <strong>Federic Gordon</strong><a href="#">@iwthemes</a></blockquote>
-                                    </li>
-                                    <li>
-                                        <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rutrum pellentesque!.</p>
-                                        <img src="{% static 'img/testimonials/4.jpg' %}" alt="">
-                                        <strong>Federic Gordon</strong><a href="#">@iwthemes</a></blockquote>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- End Gray Section - Testimonials -->
-
-
-                <!-- Finall pages before footer -->
-
-                <!-- Content Central -->
-                <!-- <div class="container padding-top">
-                    <div class="row"> -->
-
-                        <!-- content Column Left -->
-                        <!-- <div class="col-lg-6 col-xl-7"> -->
-                            <!-- Recent Post -->
-                            <!-- <div class="panel-box">
-
-                                <div class="titles">
-                                    <h4>Recent News</h4>
-                                </div> -->
-
-                                <!-- Post Item -->
-                                <!-- <div class="post-item">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="img-hover">
-                                               <img src="{% static 'img/blog/1.jpg' %}" alt="" class="img-responsive">
-                                               <div class="overlay"><a href="single-news.html">+</a></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <h5><a href="single-news.html">Group Stage Breakdown</a></h5>
-                                            <span class="data-info">January 3, 2014  / <i class="fa fa-comments"></i><a href="#">0</a></span>
-                                            <p>While familiar with fellow European nation France, Hareide admits that South American side Peru.<a href="single-news.html">Read More [+]</a></p>
-                                        </div>
-                                   </div>
-                                </div> -->
-                                 <!-- End Post Item -->
-
-                                 <!-- Post Item -->
-                                <!-- <div class="post-item">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="img-hover">
-                                               <img src="{% static 'img/blog/2.jpg' %}" alt="" class="img-responsive">
-                                               <div class="overlay"><a href="single-news.html">+</a></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <h5><a href="single-news.html">Russia 2018’s potential classic match-ups</a></h5>
-                                            <span class="data-info">January 9, 2014  / <i class="fa fa-comments"></i><a href="#">5</a></span>
-                                            <p>Our goal is very clear, it didn’t change after the draw. We should qualify for the knockout stage.<a href="single-news.html">Read More [+]</a></p>
-                                        </div>
-                                   </div>
-                                </div> -->
-                                 <!-- End Post Item -->
-
-                                 <!-- Post Item -->
-                                <!-- <div class="post-item">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="img-hover">
-                                               <img src="{% static 'img/blog/3.jpg' %}" alt="" class="img-responsive">
-                                               <div class="overlay"><a href="single-news.html">+</a></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <h5><a href="single-news.html">World Cup rivalries reprised</a></h5>
-                                            <span class="data-info">January  4, 2014  / <i class="fa fa-comments"></i><a href="#">3</a></span>
-                                            <p>The outdoor exhibition on Manezhnaya Square comprises 11 figures that symbolise the main sites of interest.<a href="single-news.html">Read More [+]</a></p>
-                                        </div>
-                                   </div>
-                                </div> -->
-                                 <!-- End Post Item -->
-
-                                 <!-- Post Item -->
-                                <!-- <div class="post-item">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="img-hover">
-                                               <img src="{% static 'img/blog/4.jpg' %}" alt="" class="img-responsive">
-                                               <div class="overlay"><a href="single-news.html">+</a></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <h5><a href="single-news.html">All set for your trip to Russia?</a></h5>
-                                            <span class="data-info">January 8, 2014  / <i class="fa fa-comments"></i><a href="#">2</a></span>
-                                            <p>Colombia play Japan on 19 June at the Mordovia Arena, where the piling and casting operations.<a href="single-news.html">Read More [+]</a></p>
-                                        </div>
-                                   </div>
-                                </div> -->
-                                 <!-- End Post Item -->
-                            <!-- </div> -->
-                            <!-- End Recent Post -->
-
-                            <!-- Experts -->
-                            <!-- <div class="panel-box">
-                                <div class="titles">
-                                    <h4>Best Players</h4>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-3 col-md-4 col-lg-4">
-                                        <div class="box-info">
-                                            <a href="single-player.html">
-                                                <img src="{% static 'img/players/1.jpg' %}" alt="" class="img-responsive">
-                                            </a>
-                                            <h6 class="entry-title"><a href="single-player.html">Cristiano Ronaldo</a></h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-3 col-md-4 col-lg-4">
-                                        <div class="box-info">
-                                            <a href="single-player.html">
-                                                <img src="{% static 'img/players/2.jpg' %}" alt="" class="img-responsive">
-                                            </a>
-                                            <h6 class="entry-title"><a href="single-player.html">Lionel Messi</a></h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-3 col-md-4 col-lg-4">
-                                        <div class="box-info">
-                                            <a href="single-player.html">
-                                                <img src="{% static 'img/players/3.jpg' %}" alt="" class="img-responsive">
-                                            </a>
-                                            <h6 class="entry-title"><a href="single-player.html">Neymar</a></h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-3 col-md-4 col-lg-4">
-                                        <div class="box-info">
-                                            <a href="single-player.html">
-                                                <img src="{% static 'img/players/4.jpg' %}" alt="" class="img-responsive">
-                                            </a>
-                                            <h6 class="entry-title"><a href="single-player.html">Luis Suárez</a></h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-3 col-md-4 col-lg-4">
-                                        <div class="box-info">
-                                            <a href="single-player.html">
-                                                <img src="{% static 'img/players/5.jpg' %}" alt="" class="img-responsive">
-                                            </a>
-                                            <h6 class="entry-title"><a href="single-player.html"> Gareth Bale</a></h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-3 col-md-4 col-lg-4">
-                                        <div class="box-info">
-                                            <a href="single-player.html">
-                                                <img src="{% static 'img/players/6.jpg' %}" alt="" class="img-responsive">
-                                            </a>
-                                            <h6 class="entry-title"><a href="single-player.html">Sergio Agüero</a></h6>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div> -->
-                            <!-- End Experts -->
-                        <!-- </div> -->
-                         <!-- End content Left -->
-
-                        <!-- content Sidebar Center -->
-                        <!-- <aside class="col-sm-6 col-lg-3 col-xl-3"> -->
-                            <!-- Locations -->
-                            <!-- <div class="panel-box">
-                                <div class="titles no-margin">
-                                    <h4>Locations</h4>
-                                </div> -->
-                                <!-- Locations Carousel -->
-                                <!-- <ul class="single-carousel">
-                                    <li>
-                                        <img src="{% static 'img/locations/1.jpg' %}" alt="" class="img-responsive">
-                                        <div class="info-single-carousel">
-                                            <h4>Saint Petersburg</h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo cillum dolore eu fugiat nulla  sit amet, consectetur adipisicing elit, pariatur.</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="{% static 'img/locations/2.jpg' %}" alt="" class="img-responsive">
-                                        <div class="info-single-carousel">
-                                            <h4>Ekaterinburg</h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo cillum dolore eu fugiat nulla pariatur.</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="{% static 'img/locations/3.jpg' %}" alt="" class="img-responsive">
-                                        <div class="info-single-carousel">
-                                            <h4>Nizhny Novgorod</h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo cillum dolore eu fugiat nulla pariatur.</p>
-                                        </div>
-                                    </li>
-                                </ul> -->
-                                <!-- Locations Carousel -->
-                            <!-- </div> -->
-                            <!-- End Locations -->
-
-                            <!-- Video presentation -->
-                            <!-- <div class="panel-box">
-                                <div class="titles no-margin">
-                                    <h4>Presentation</h4>
-                                </div> -->
-                                <!-- Locations Video -->
-                                <!-- <div class="row">
-                                    <iframe src="https://www.youtube.com/embed/AfOlAUd7u4o" class="video"></iframe>
-                                    <div class="info-panel">
-                                        <h4>Rio de Janeiro</h4>
-                                        <p>Lorem ipsum dolor sit amet, sit amet, consectetur adipisicing elit, elit, incididunt ut labore et dolore magna aliqua sit amet, consectetur adipisicing elit,</p>
-                                    </div>
-                                </div> -->
-                                <!-- End Locations Video -->
-                            <!-- </div> -->
-                            <!-- End Video presentation-->
-
-                            <!-- Widget img-->
-                            <!-- <div class="panel-box">
-                                <div class="titles no-margin">
-                                    <h4>Widget Image</h4>
-                                </div>
-                                <img src="{% static 'img/slide/1.jpg' %}" alt="">
-                                <div class="row">
-                                   <div class="info-panel">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,  ut sit amet, consectetur adipisicing elit, labore et dolore.</p>
-                                   </div>
-                                </div>
-                            </div> -->
-                            <!-- End Widget img-->
-                        <!-- </aside> -->
-                        <!-- End content Sidebar Center -->
-
-                        <!-- content Sidebar Right -->
-                        <!-- <aside class="col-sm-6 col-lg-3 col-xl-2"> -->
-                            <!-- Diary -->
-                            <!-- <div class="panel-box">
-                                <div class="titles">
-                                    <h4><i class="fa fa-calendar"></i>Diary</h4>
-                                </div> -->
-
-                                <!-- List Diary -->
-                                <!-- <ul class="list-diary"> -->
-                                    <!-- Item List Diary -->
-                                    <!-- <li>
-                                        <h6>GROUP A <span>14 JUN 2018 - 18:00</span></h6>
-                                        <ul class="club-logo">
-                                            <li>
-                                                <img src="{% static 'img/clubs-logos/rusia.png' %}" alt="">
-                                                <span>RUSSIA</span>
-                                            </li>
-                                            <li>
-                                                <img src="{% static 'img/clubs-logos/arabia.png' %}" alt="">
-                                                <span>SAUDI ARABIA</span>
-                                            </li>
-                                        </ul>
-                                    </li> -->
-                                    <!-- End Item List Diary -->
-
-                                    <!-- Item List Diary -->
-                                    <!-- <li>
-                                        <h6>GROUP E <span>22 JUN 2018 - 15:00</span></h6>
-                                        <ul class="club-logo">
-                                            <li>
-                                                <img src="{% static 'img/clubs-logos/bra.png' %}" alt="">
-                                                <span>BRAZIL</span>
-                                            </li>
-                                            <li>
-                                                <img src="{% static 'img/clubs-logos/costa-rica.png' %}" alt="">
-                                                <span>COSTA RICA</span>
-                                            </li>
-                                        </ul>
-                                    </li> -->
-                                    <!-- End Item List Diary -->
-
-                                    <!-- Item List Diary -->
-                                    <!-- <li>
-                                        <h6>GROUP H <span>19 JUN 2018 - 15:00</span></h6>
-                                        <ul class="club-logo">
-                                            <li>
-                                                <img src="{% static 'img/clubs-logos/colombia.png' %}" alt="">
-                                                <span>COLOMBIA</span>
-                                            </li>
-                                            <li>
-                                                <img src="{% static 'img/clubs-logos/japan.png' %}" alt="">
-                                                <span>JAPAN</span>
-                                            </li>
-                                        </ul>
-                                    </li> -->
-                                    <!-- End Item List Diary -->
-
-                                    <!-- Item List Diary -->
-                                    <!-- <li>
-                                        <h6>GROUP C <span>16 JUN 2018 - 15:00</span></h6>
-                                        <ul class="club-logo">
-                                            <li>
-                                                <img src="{% static 'img/clubs-logos/fra.png' %}" alt="">
-                                                <span>FRANCE</span>
-                                            </li>
-                                            <li>
-                                                <img src="{% static 'img/clubs-logos/aus.png' %}" alt="">
-                                                <span>AUSTRALIA</span>
-                                            </li>
-                                        </ul>
-                                    </li> -->
-                                    <!-- End Item List Diary -->
-                                <!-- </ul> -->
-                                <!-- End List Diary -->
-                            <!-- </div> -->
-                            <!-- End Diary -->
-
-                            <!-- Adds Sidebar -->
-                            <!-- <div class="panel-box">
-                               <div class="titles no-margin">
-                                    <h4><i class="fa fa-link"></i>Cta</h4>
-                                </div>
-                                <a href="http://themeforest.net/user/iwthemes/portfolio?ref=iwthemes" target="_blank">
-                                    <img src="{% static 'img/adds/sidebar.png' %}" class="img-responsive" alt="">
-                                </a>
-                            </div> -->
-                            <!-- End Adds Sidebar -->
-                        <!-- </aside> -->
-                        <!-- End content Sidebar Right -->
-
-                    <!-- </div>
-                </div> -->
-                <!-- End Content Central -->
-
-                {% endblock %}
+{% endblock %}

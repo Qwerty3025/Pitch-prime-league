@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('league', '0002_remove_league_country_team_draws_team_games_played_and_more'),
+        ('league', '0003_remove_team_logo_url_season_is_active_team_logo'),
     ]
 
     operations = [

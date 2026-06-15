@@ -15,24 +15,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Theme CSS -->
         <link href="{% static 'assets/css/main.css' %}" rel="stylesheet" media="screen">
+        <link href="{% static 'assets/css/custom.css' %}" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
         <style>
+            /* ===== Navbar Glass Effect ===== */
             .custom-navbar {
-                background-color: rgba(0, 0, 0, 0.7) !important;
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
+                background-color: rgba(0, 0, 0, 0.72) !important;
+                backdrop-filter: blur(14px);
+                -webkit-backdrop-filter: blur(14px);
                 padding: 12px 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                transition: all 0.3s ease;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                transition: all 0.35s ease;
             }
             .custom-navbar .navbar-brand img {
                 max-height: 45px;
                 width: auto;
             }
             .custom-navbar .nav-link {
-                color: rgba(255, 255, 255, 0.85) !important;
+                color: rgba(255, 255, 255, 0.82) !important;
                 font-weight: 600;
                 text-transform: uppercase;
-                font-size: 0.8rem;
+                font-size: 0.78rem;
                 letter-spacing: 1px;
                 padding: 0.5rem 1.2rem !important;
                 position: relative;
@@ -47,7 +50,7 @@
                 height: 2px;
                 bottom: 0;
                 left: 50%;
-                background-color: #00e676; /* Brand Accent Color */
+                background-color: #00e676;
                 transition: all 0.3s ease;
                 transform: translateX(-50%);
             }
@@ -63,10 +66,10 @@
             }
             @media (max-width: 991.98px) {
                 .custom-navbar .navbar-collapse {
-                    background-color: rgba(0, 0, 0, 0.95);
+                    background-color: rgba(0, 0, 0, 0.96);
                     padding: 1.5rem;
                     margin-top: 10px;
-                    border-radius: 10px;
+                    border-radius: 12px;
                     text-align: center;
                 }
                 .custom-navbar .nav-link::after { display: none; }
@@ -105,17 +108,17 @@
                                 <a class="nav-link" href="players.html">Players</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="fixtures.html">Fixtures</a>
+                                <a class="nav-link" href="{% url 'matches:fixture_list' %}">Fixtures</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="results.html">Results</a>
+                                <a class="nav-link" href="{% url 'matches:result_list' %}">Results</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="table-point.html">League Table</a>
+                                <a class="nav-link" href="{% url 'league:season_list' %}">League Table</a>
                             </li>
                         </ul>
                         <div class="navbar-nav">
-                            <a href="contact.html" class="btn btn-primary btn-nav-cta px-4">Contact</a>
+                            <a href="#" class="btn btn-primary btn-nav-cta px-4">Contact</a>
                         </div>
                     </div>
                 </div>
@@ -337,6 +340,22 @@
         <!-- theme-main.js-->
         <script type="text/javascript" src="{% static 'assets/js/theme-main.js' %}"></script>
         <!-- ======================= End JQuery libs =========================== -->
+        <!-- Scroll Reveal Script -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const revealElements = document.querySelectorAll('.reveal');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.05 });
+                
+                revealElements.forEach(el => observer.observe(el));
+            });
+        </script>
 </body>
 
 

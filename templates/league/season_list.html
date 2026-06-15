@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Page Hero -->
+<div class="standings-page-hero reveal visible" style="margin-top: 70px;">
+    <div style="position:absolute; inset:0; background: url('{% static 'img/slide/1.jpg' %}') center center / cover no-repeat; filter: brightness(0.22) saturate(1.2); z-index:0;"></div>
+    <div style="position:absolute; inset:0; background: linear-gradient(180deg, rgba(7,7,9,0.3) 0%, rgba(7,7,9,0.9) 100%); z-index:1;"></div>
+    <div class="container" style="position:relative; z-index:2; padding: 80px 15px 60px;">
+        <span class="standings-eyebrow">
+            <i class="fa fa-trophy mr-2"></i>Competitions
+        </span>
+        <h1 class="standings-main-title">
+            League <span class="standings-title-accent">Seasons</span>
+        </h1>
+        <p class="standings-subtitle">Select a season to view its full standings and stats.</p>
+    </div>
+</div>
+
+<!-- Season Cards Grid -->
+<section class="content-info py-5">
+    <div class="container">
+        {% if seasons %}
+        <div class="row">
+            {% for season in seasons %}
+            <div class="col-md-6 col-lg-4 mb-4 reveal">
+                <a href="{% url 'league:standings_table' season.id %}" class="season-card-link">
+                    <div class="season-card glass-panel {% if season.is_active %}season-card-active{% endif %}">
+                        {% if season.is_active %}
+                        <div class="season-active-badge">
+                            <span class="live-dot"></span> Live
+                        </div>
+                        {% endif %}
+                        <div class="mb-3">
+                            <p class="text-muted mb-1" style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px;">
+                                {{ season.league.name }}
+                            </p>
+                            <h4 class="font-weight-extrabold text-white mb-0" style="font-size: 1.3rem;">
+                                Season {{ season.season_number }}
+                            </h4>
+                        </div>
+                        <ul class="list-unstyled text-muted mb-3" style="font-size: 0.8rem; line-height: 2;">
+                            <li><i class="fa fa-calendar text-warning mr-2"></i>{{ season.start_date|date:"d M Y" }} &mdash; {{ season.end_date|date:"d M Y" }}</li>
+                            <li><i class="fa fa-users text-warning mr-2"></i>{{ season.teams.count }} Team{{ season.teams.count|pluralize }}</li>
+                            <li><i class="fa fa-futbol-o text-warning mr-2"></i>{{ season.matches.filter.count }} Matches</li>
+                        </ul>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span class="standings-eyebrow" style="font-size: 0.65rem; padding: 4px 12px;">View Standings</span>
+                            <i class="fa fa-arrow-right text-muted"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="glass-panel text-center py-5">
+            <i class="fa fa-futbol-o fa-3x text-muted mb-3 d-block"></i>
+            <h4 class="text-white">No Seasons Available</h4>
+            <p class="text-muted">Check back soon for league seasons and standings.</p>
+            <a href="{% url 'home' %}" class="btn btn-outline-premium mt-3">Back to Home</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+.season-card-link {
+    text-decoration: none !important;
+    display: block;
+    height: 100%;
+}
+
+.season-card {
+    height: 100%;
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+.season-card:hover {
+    border-color: rgba(255, 204, 0, 0.25);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(255,204,0,0.08);
+}
+
+.season-card-active {
+    border-color: rgba(0, 230, 118, 0.2) !important;
+}
+
+.season-card-active:hover {
+    border-color: rgba(0, 230, 118, 0.4) !important;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(0,230,118,0.1);
+}
+
+.season-active-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(0, 230, 118, 0.1);
+    border: 1px solid rgba(0, 230, 118, 0.25);
+    color: var(--accent-green);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    animation: pulse-dot 1.5s ease-in-out infinite;
+    display: inline-block;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* Inherit eyebrow from standings page styles if on a different page */
+.standings-eyebrow {
+    display: inline-block;
+    background: rgba(255, 204, 0, 0.1);
+    border: 1px solid rgba(255, 204, 0, 0.25);
+    color: var(--accent-gold);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+}
+
+.standings-main-title {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1;
+    color: #fff;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+.standings-title-accent {
+    background: linear-gradient(90deg, #ffcc00, #00ff66);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.standings-subtitle {
+    color: rgba(255,255,255,0.5);
+    font-size: 1rem;
+    font-weight: 500;
+}
+</style>
+
+{% endblock %}

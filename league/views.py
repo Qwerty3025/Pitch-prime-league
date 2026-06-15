@@ -10,7 +10,23 @@ def season_list(request):
 def standings_table(request, season_id):
     season = get_object_or_404(Season, pk=season_id)
     standings = season.get_standings()
-    return render(request, 'league/standings.html', {'season': season, 'teams': standings})
+
+    # Aggregate season stats for the info bar
+    total_matches_played = season.matches.filter(status='completed').count()
+    total_goals = sum(
+        (m.home_score or 0) + (m.away_score or 0)
+        for m in season.matches.filter(status='completed')
+    )
+    avg_goals = round(total_goals / total_matches_played, 1) if total_matches_played else 0
+
+    context = {
+        'season': season,
+        'standings': standings,
+        'total_matches_played': total_matches_played,
+        'total_goals': total_goals,
+        'avg_goals': avg_goals,
+    }
+    return render(request, 'league/standings.html', context)
 
 def team(request):
     teams = Team.objects.select_related(

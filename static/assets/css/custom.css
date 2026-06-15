@@ -1,0 +1,544 @@
+/* ============================================================
+   Custom CSS for Pitch Prime League — Premium Dark Redesign
+   ============================================================ */
+
+/* ===== CSS Variables / Design Tokens ===== */
+:root {
+    --bg-dark: #070709;
+    --card-bg: rgba(18, 18, 22, 0.75);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --accent-gold: #ffcc00;
+    --accent-green: #00e676;
+    --accent-red: #ff3366;
+    --text-muted: #8e8e93;
+    --text-white: #f5f5f7;
+    --glow-gold: 0 0 18px rgba(255, 204, 0, 0.3);
+    --glow-green: 0 0 18px rgba(0, 230, 118, 0.3);
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    --radius-card: 16px;
+    --radius-sm: 8px;
+}
+
+/* ===== Base Reset ===== */
+body {
+    background-color: var(--bg-dark) !important;
+    color: var(--text-white) !important;
+    font-family: 'Inter', sans-serif !important;
+    overflow-x: hidden;
+}
+
+/* ===== Glassmorphism Panel ===== */
+.glass-panel {
+    background: #0e0e16 !important;
+    background-color: #0e0e16 !important;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: 24px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    transition: var(--transition-smooth);
+}
+
+.glass-panel:hover {
+    border-color: rgba(255, 255, 255, 0.13);
+    box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.55);
+}
+
+/* ===== Hover Lift / Transform Utilities ===== */
+.hover-transform {
+    transition: var(--transition-smooth);
+}
+
+.hover-transform:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* ===== Scroll Reveal Animation ===== */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===== Premium Buttons ===== */
+.btn-premium {
+    background: linear-gradient(90deg, var(--accent-green), #0284c7);
+    border: none;
+    color: #000 !important;
+    font-weight: 700;
+    border-radius: 50px;
+    padding: 12px 30px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    box-shadow: 0 4px 14px rgba(0, 230, 118, 0.2);
+    transition: var(--transition-smooth);
+    text-decoration: none !important;
+}
+
+.btn-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 230, 118, 0.45), var(--glow-green);
+    color: #000 !important;
+}
+
+.btn-outline-premium {
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.15);
+    color: #fff !important;
+    font-weight: 700;
+    border-radius: 50px;
+    padding: 10px 28px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    transition: var(--transition-smooth);
+    text-decoration: none !important;
+}
+
+.btn-outline-premium:hover {
+    border-color: rgba(255,255,255,0.5);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-1px);
+    color: #fff !important;
+}
+
+/* ===== LEAGUE TABLE — Shared Styles ===== */
+.standings-table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    background: transparent !important;
+}
+
+.table-ppl {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 6px !important;
+    min-width: 480px;
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Kill any inherited white background from Bootstrap/theme on table elements */
+.table-ppl,
+.table-ppl > *,
+.table-ppl thead,
+.table-ppl tbody,
+.table-ppl tfoot {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+.table-ppl th {
+    background: #0d0d12 !important;
+    background-color: #0d0d12 !important;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.42) !important;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.table-ppl tbody tr {
+    background: #111116 !important;
+    background-color: #111116 !important;
+    transition: var(--transition-smooth);
+    cursor: default;
+}
+
+.table-ppl tbody tr:hover {
+    background: #1a1a24 !important;
+    background-color: #1a1a24 !important;
+    transform: scale(1.008);
+}
+
+.table-ppl td {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: rgba(255,255,255,0.88) !important;
+    padding: 14px 14px;
+    vertical-align: middle;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.88rem;
+    font-weight: 600 !important;
+    white-space: nowrap;
+}
+
+.table-ppl td:first-child {
+    border-left: 1px solid var(--border-color);
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.table-ppl td:last-child {
+    border-right: 1px solid var(--border-color);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* ===== Rank / Position Badges ===== */
+.rank-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-weight: 800;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+.rank-1 {
+    background: linear-gradient(135deg, #ffe066 0%, #f59e0b 100%);
+    color: #000;
+    box-shadow: var(--glow-gold);
+}
+
+.rank-2 {
+    background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 100%);
+    color: #000;
+}
+
+.rank-3 {
+    background: linear-gradient(135deg, #ffedd5 0%, #c2410c 100%);
+    color: #fff;
+}
+
+.rank-other {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--text-muted);
+}
+
+/* ===== Team Logo / Badge ===== */
+.team-logo-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: var(--accent-gold);
+    border: 1px solid var(--border-color);
+    font-size: 0.88rem;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+}
+
+.team-logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* ===== Homepage League Table Form Indicator ===== */
+.form-bubble {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    font-size: 0.6rem;
+    font-weight: 700;
+    margin: 0 1px;
+    flex-shrink: 0;
+}
+
+.form-w { background: rgba(0, 230, 118, 0.15); color: var(--accent-green); border: 1px solid rgba(0,230,118,0.3); }
+.form-d { background: rgba(255, 255, 255, 0.06); color: var(--text-muted); border: 1px solid var(--border-color); }
+.form-l { background: rgba(255, 51, 102, 0.12); color: var(--accent-red); border: 1px solid rgba(255,51,102,0.25); }
+
+/* ===== Featured Poster Banner ===== */
+.poster-hero {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.poster-hero:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 204, 0, 0.35);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8), var(--glow-gold);
+}
+
+.poster-hero img {
+    width: 100%;
+    height: auto;
+    max-height: 480px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.poster-hero:hover img {
+    transform: scale(1.04);
+}
+
+.poster-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(
+        to top,
+        rgba(7, 7, 9, 0.97) 0%,
+        rgba(7, 7, 9, 0.55) 55%,
+        transparent 100%
+    );
+    padding: 36px 30px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.poster-badge {
+    align-self: flex-start;
+    background: var(--accent-gold);
+    color: #000;
+    font-weight: 800;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 5px 14px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    box-shadow: var(--glow-gold);
+}
+
+.poster-title {
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 900;
+    color: #fff;
+    margin: 0 0 8px 0;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    line-height: 1.2;
+}
+
+/* ===== Countdown Sidebar Widget ===== */
+.counter-home-wrapper {
+    background: rgba(14, 14, 18, 0.9);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.counter-home-wrapper:hover {
+    border-color: var(--accent-green);
+    box-shadow: 0 18px 56px rgba(0, 0, 0, 0.7), var(--glow-green);
+    transform: translateY(-3px);
+}
+
+.counter-home-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-green), var(--accent-gold));
+}
+
+/* ===== Countdown Number Grid ===== */
+.counter-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.counter-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 10px 4px;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.counter-item:hover {
+    border-color: rgba(0, 230, 118, 0.2);
+    background: rgba(0, 230, 118, 0.04);
+}
+
+.counter-item span {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--accent-green);
+    display: block;
+    line-height: 1;
+    text-shadow: var(--glow-green);
+}
+
+.counter-item small {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.8px;
+    margin-top: 4px;
+    display: block;
+}
+
+/* ===== Matchup Mini Card (sidebar) ===== */
+.matchup-mini {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px 12px;
+    margin: 16px 0;
+}
+
+.matchup-team {
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.matchup-team img,
+.matchup-team .team-logo-badge {
+    margin: 0 auto 6px;
+    display: block;
+}
+
+.matchup-team span {
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-white);
+}
+
+.matchup-vs {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+    margin: 0 6px;
+}
+
+/* ===== Countdown Modal (Blur Overlay) ===== */
+.blur-modal .modal-backdrop,
+.blur-modal {
+    background: rgba(5, 5, 8, 0.65) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+}
+
+.modal-content-glass {
+    background: rgba(16, 16, 22, 0.92) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 24px 72px rgba(0,0,0,0.85) !important;
+    color: #fff !important;
+}
+
+.modal-header-clean {
+    border-bottom: 1px solid var(--border-color) !important;
+    padding: 20px 24px !important;
+}
+
+.modal-header-clean .close {
+    color: #fff !important;
+    text-shadow: none !important;
+    opacity: 0.55;
+    transition: var(--transition-smooth);
+    font-size: 1.4rem;
+}
+
+.modal-header-clean .close:hover {
+    opacity: 1;
+}
+
+.modal-body-spacing {
+    padding: 28px 24px !important;
+}
+
+.modal-footer-clean {
+    border-top: 1px solid var(--border-color) !important;
+    padding: 16px 24px !important;
+}
+
+/* ===== Nav Tab Overrides ===== */
+.nav-tabs .nav-link {
+    color: var(--text-muted) !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 10px 18px !important;
+    border-radius: var(--radius-sm) !important;
+    transition: var(--transition-smooth);
+    font-size: 0.8rem;
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--text-white) !important;
+    background: rgba(255,255,255,0.04) !important;
+}
+
+.nav-tabs .nav-link.active {
+    color: #fff !important;
+    background: rgba(255,255,255,0.08) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+/* ===== Score Badge (Recent Results) ===== */
+.score-badge {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border-color);
+    color: var(--accent-gold);
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    letter-spacing: 2px;
+    white-space: nowrap;
+}
+
+/* ===== Responsive Tweaks ===== */
+@media (max-width: 767.98px) {
+    .glass-panel { padding: 16px; }
+    .table-ppl td, .table-ppl th { padding: 10px 8px; }
+    .counter-grid { gap: 5px; }
+    .counter-item span { font-size: 1.1rem; }
+    .poster-title { font-size: 1.2rem; }
+    .poster-overlay { padding: 20px 16px 16px; }
+    .btn-premium, .btn-outline-premium { padding: 10px 20px; font-size: 0.75rem; }
+}
+
+@media (max-width: 575.98px) {
+    .standings-stat-pills { justify-content: flex-start; }
+    .stat-pill { min-width: 68px; padding: 10px 14px; }
+    .stat-pill-value { font-size: 1.2rem; }
+}

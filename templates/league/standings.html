@@ -1,0 +1,579 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════════════════════════
+     STANDINGS PAGE — SCOPED OVERRIDES
+     Force all table elements to dark theme regardless of
+     Bootstrap or theme CSS inheritance.
+═══════════════════════════════════════════════════════════ -->
+<style>
+/* ── Hero Section ──────────────────────────────────────── */
+.sp-hero {
+    position: relative;
+    padding: 90px 0 64px;
+    margin-top: 70px;
+    overflow: hidden;
+}
+.sp-hero__bg {
+    position: absolute;
+    inset: 0;
+    background: url("{% static 'img/slide/1.jpg' %}") no-repeat center center / cover;
+    filter: brightness(0.2) saturate(1.3);
+    z-index: 0;
+}
+.sp-hero__grad {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+        rgba(7,7,9,0.2) 0%,
+        rgba(7,7,9,0.92) 100%);
+    z-index: 1;
+}
+.sp-hero__body {
+    position: relative;
+    z-index: 2;
+}
+
+/* eyebrow pill */
+.sp-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,204,0,.1);
+    border: 1px solid rgba(255,204,0,.28);
+    color: #ffcc00;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+}
+
+/* main heading */
+.sp-title {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -1.5px;
+    margin-bottom: 10px;
+}
+.sp-title__accent {
+    background: linear-gradient(90deg, #ffcc00 0%, #00e676 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* season subtitle */
+.sp-subtitle {
+    color: rgba(255,255,255,.52);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
+/* meta chips row */
+.sp-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.sp-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    color: rgba(255,255,255,.65);
+    font-size: .75rem;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 20px;
+}
+.sp-chip--live {
+    background: rgba(0,230,118,.08);
+    border-color: rgba(0,230,118,.25);
+    color: #00e676;
+}
+.sp-chip__dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #00e676;
+    animation: blink 1.6s ease-in-out infinite;
+}
+@keyframes blink {
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%    { opacity:.4; transform:scale(.7); }
+}
+
+/* ── Stat Pills ─────────────────────────────────────────── */
+.sp-pills {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+.sp-pill {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px;
+    padding: 14px 22px;
+    text-align: center;
+    min-width: 82px;
+    backdrop-filter: blur(10px);
+}
+.sp-pill__val {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #ffcc00;
+    line-height: 1;
+}
+.sp-pill__lbl {
+    display: block;
+    font-size: .62rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: rgba(255,255,255,.4);
+    margin-top: 5px;
+}
+
+/* breadcrumb */
+.sp-bc { font-size: .8rem; margin-top: 12px; }
+.sp-bc a { color: #ffcc00; font-weight: 600; text-decoration: none; }
+.sp-bc a:hover { color: #fff; }
+.sp-bc__sep { color: rgba(255,255,255,.25); margin: 0 6px; }
+.sp-bc__cur { color: rgba(255,255,255,.45); }
+
+/* ── Glass Panel ─────────────────────────────────── */
+.sp-panel {
+    background: #0e0e16 !important;
+    background-color: #0e0e16 !important;
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.6);
+}
+
+/* ── Full Standings Table ────────────────────────────────── */
+/*
+   ALL rules use !important to defeat Bootstrap + theme's
+   global white/light table backgrounds.
+*/
+.spt-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 12px;
+    background: transparent !important;
+}
+
+/* Kill any global table background from main.css / Bootstrap */
+.spt,
+.spt > *,
+.spt tbody,
+.spt thead,
+.spt tfoot {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+.spt {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 5px !important;
+    min-width: 580px;
+}
+
+/* ── Header ── */
+.spt thead tr {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+.spt thead th {
+    background: #0d0d12 !important;
+    background-color: #0d0d12 !important;
+    color: rgba(255,255,255,.42) !important;
+    font-size: .68rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+    padding: 12px 14px !important;
+    border: none !important;
+    white-space: nowrap;
+}
+.spt thead th:first-child { border-radius: 8px 0 0 8px !important; }
+.spt thead th:last-child  { border-radius: 0 8px 8px 0 !important; }
+
+/* ── Body Rows ── */
+.spt tbody tr {
+    background: #111116 !important;
+    background-color: #111116 !important;
+    transition: background .2s ease, transform .25s ease !important;
+    cursor: default;
+}
+.spt tbody tr:hover {
+    background: #1a1a24 !important;
+    background-color: #1a1a24 !important;
+    transform: scale(1.006);
+}
+
+/* Gold/Silver/Bronze left accent */
+.spt tbody tr.row-gold   { border-left: 3px solid #f59e0b !important; }
+.spt tbody tr.row-silver { border-left: 3px solid #94a3b8 !important; }
+.spt tbody tr.row-bronze { border-left: 3px solid #c2410c !important; }
+
+/* ── Cells ── */
+.spt tbody td {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: rgba(255,255,255,.88) !important;
+    border-top: 1px solid rgba(255,255,255,.06) !important;
+    border-bottom: 1px solid rgba(255,255,255,.06) !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding: 14px 14px !important;
+    vertical-align: middle !important;
+    font-size: .88rem !important;
+    font-weight: 600 !important;
+    white-space: nowrap;
+}
+
+.spt tbody td:first-child {
+    border-left: 1px solid rgba(255,255,255,.06) !important;
+    border-radius: 8px 0 0 8px !important;
+}
+.spt tbody td:last-child {
+    border-right: 1px solid rgba(255,255,255,.06) !important;
+    border-radius: 0 8px 8px 0 !important;
+}
+
+/* ── Column colour semantics ── */
+.spt .col-wins   { color: #00e676 !important; }
+.spt .col-draws  { color: rgba(255,255,255,.5) !important; }
+.spt .col-losses { color: #ff4d6d !important; }
+.spt .col-gd-pos { color: #00e676 !important; }
+.spt .col-gd-neg { color: #ff4d6d !important; }
+.spt .col-gd-neu { color: rgba(255,255,255,.4) !important; }
+.spt .col-muted  { color: rgba(255,255,255,.45) !important; }
+.spt .col-club   { color: #fff !important; }
+
+/* ── Rank badge ── */
+.spt .rb {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    font-weight: 800;
+    font-size: .8rem;
+}
+.spt .rb-1 { background: linear-gradient(135deg,#ffe066,#f59e0b); color:#000 !important; box-shadow:0 0 14px rgba(255,204,0,.35); }
+.spt .rb-2 { background: linear-gradient(135deg,#e2e8f0,#94a3b8); color:#000 !important; }
+.spt .rb-3 { background: linear-gradient(135deg,#ffedd5,#c2410c); color:#fff !important; }
+.spt .rb-n { background: rgba(255,255,255,.07); color:rgba(255,255,255,.55) !important; }
+
+/* ── Team logo / initial badge ── */
+.spt .team-avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+.spt .team-init {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: .9rem;
+    color: #ffcc00 !important;
+    flex-shrink: 0;
+}
+.spt .club-name {
+    font-weight: 700 !important;
+    color: #fff !important;
+    font-size: .9rem !important;
+    line-height: 1.2;
+}
+.spt .club-loc {
+    font-size: .68rem !important;
+    color: rgba(255,255,255,.4) !important;
+    font-weight: 500 !important;
+    margin-top: 1px;
+}
+
+/* ── Points badge ── */
+.spt .pts-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 34px;
+    background: rgba(255,204,0,.14);
+    border: 1px solid rgba(255,204,0,.3);
+    border-radius: 8px;
+    color: #ffcc00 !important;
+    font-weight: 900 !important;
+    font-size: 1rem !important;
+    padding: 0 8px;
+}
+
+/* Row stagger animation */
+.spt tbody tr {
+    animation: rowIn .35s ease-out both;
+}
+@keyframes rowIn {
+    from { opacity:0; transform:translateX(-8px); }
+    to   { opacity:1; transform:translateX(0); }
+}
+{% for i in standings %}
+.spt tbody tr:nth-child({{ forloop.counter }}) { animation-delay: {{ forloop.counter0 }}0ms; }
+{% endfor %}
+
+/* ── Legend bar ── */
+.sp-legend {
+    font-size: .75rem;
+    color: rgba(255,255,255,.38);
+    line-height: 1.8;
+}
+.sp-legend strong { color: rgba(255,255,255,.6) !important; font-weight: 700; }
+.sp-legend .pts-accent { color: #ffcc00 !important; font-weight: 700; }
+
+/* ── Divider ── */
+.sp-divider { border-color: rgba(255,255,255,.07) !important; }
+
+/* ── Responsive ── */
+@media (max-width:767px) {
+    .sp-pills { justify-content: flex-start; }
+    .sp-pill  { min-width:70px; padding:10px 14px; }
+    .sp-pill__val { font-size:1.2rem; }
+    .sp-hero { padding:60px 0 40px; }
+    .sp-panel { padding:16px; }
+}
+</style>
+
+<!-- ══════════════════════════════════════════════
+     HERO BANNER
+══════════════════════════════════════════════ -->
+<div class="sp-hero reveal visible">
+    <div class="sp-hero__bg"></div>
+    <div class="sp-hero__grad"></div>
+    <div class="container sp-hero__body">
+        <div class="row align-items-center">
+
+            <!-- Left: title block -->
+            <div class="col-md-7 mb-4 mb-md-0">
+                <span class="sp-eyebrow">
+                    <i class="fa fa-trophy"></i> Official Standings
+                </span>
+                <h1 class="sp-title">
+                    League <span class="sp-title__accent">Table</span>
+                </h1>
+                <p class="sp-subtitle">{{ season.league.name }} &mdash; Season {{ season.season_number }}</p>
+                <div class="sp-chips">
+                    <span class="sp-chip">
+                        <i class="fa fa-calendar"></i>
+                        {{ season.start_date|date:"d M Y" }} &ndash; {{ season.end_date|date:"d M Y" }}
+                    </span>
+                    {% if season.is_active %}
+                    <span class="sp-chip sp-chip--live">
+                        <span class="sp-chip__dot"></span> Live Season
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Right: stat pills + breadcrumb -->
+            <div class="col-md-5 text-md-right">
+                <div class="sp-pills">
+                    <div class="sp-pill">
+                        <span class="sp-pill__val">{{ standings|length }}</span>
+                        <span class="sp-pill__lbl">Teams</span>
+                    </div>
+                    <div class="sp-pill">
+                        <span class="sp-pill__val">{{ total_matches_played }}</span>
+                        <span class="sp-pill__lbl">Played</span>
+                    </div>
+                    <div class="sp-pill">
+                        <span class="sp-pill__val">{{ total_goals }}</span>
+                        <span class="sp-pill__lbl">Goals</span>
+                    </div>
+                    <div class="sp-pill">
+                        <span class="sp-pill__val">{{ avg_goals }}</span>
+                        <span class="sp-pill__lbl">Avg/Match</span>
+                    </div>
+                </div>
+                <div class="sp-bc text-md-right">
+                    <a href="{% url 'home' %}" class="sp-bc"><i class="fa fa-home mr-1"></i>Home</a>
+                    <span class="sp-bc__sep">/</span>
+                    <span class="sp-bc__cur">Standings</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════════════ -->
+<section class="py-5">
+    <div class="container">
+
+        <div class="sp-panel reveal">
+
+            <!-- Panel header -->
+            <div class="d-flex align-items-start justify-content-between flex-wrap mb-4" style="gap:12px;">
+                <div>
+                    <h3 class="font-weight-extrabold text-white mb-1" style="font-size:1.25rem; letter-spacing:.3px;">
+                        <i class="fa fa-list-ol mr-2" style="color:#ffcc00;"></i>Full Standings
+                    </h3>
+                    <p class="mb-0" style="font-size:.78rem; color:rgba(255,255,255,.4);">
+                        {{ season }} &bull; Points &rarr; Goal Difference &rarr; Goals For
+                    </p>
+                </div>
+                <!-- position legend -->
+                <div class="d-flex align-items-center" style="gap:8px; flex-wrap:wrap;">
+                    <span class="sp-chip" style="font-size:.66rem; padding:3px 10px;">
+                        <span style="width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,#ffe066,#f59e0b);display:inline-block;"></span> 1st
+                    </span>
+                    <span class="sp-chip" style="font-size:.66rem; padding:3px 10px;">
+                        <span style="width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,#e2e8f0,#94a3b8);display:inline-block;"></span> 2nd
+                    </span>
+                    <span class="sp-chip" style="font-size:.66rem; padding:3px 10px;">
+                        <span style="width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,#ffedd5,#c2410c);display:inline-block;"></span> 3rd
+                    </span>
+                </div>
+            </div>
+
+            <!-- ─── TABLE ─────────────────────────────────── -->
+            {% if standings %}
+            <div class="spt-wrap">
+                <table class="spt" id="standings-full-table">
+
+                    <!-- Header -->
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width:54px;">Pos</th>
+                            <th class="text-left">Club</th>
+                            <th class="text-center" title="Played">P</th>
+                            <th class="text-center" title="Won" style="color:#00e676 !important;">W</th>
+                            <th class="text-center" title="Drawn">D</th>
+                            <th class="text-center" title="Lost" style="color:#ff4d6d !important;">L</th>
+                            <th class="text-center" title="Goals For">GF</th>
+                            <th class="text-center" title="Goals Against">GA</th>
+                            <th class="text-center" title="Goal Difference">GD</th>
+                            <th class="text-center" title="Points" style="width:80px; color:#ffcc00 !important;">Pts</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Body -->
+                    <tbody>
+                        {% for team in standings %}
+                        <tr class="{% if forloop.counter == 1 %}row-gold{% elif forloop.counter == 2 %}row-silver{% elif forloop.counter == 3 %}row-bronze{% endif %}">
+
+                            <!-- Position -->
+                            <td class="text-center">
+                                <span class="rb {% if forloop.counter == 1 %}rb-1{% elif forloop.counter == 2 %}rb-2{% elif forloop.counter == 3 %}rb-3{% else %}rb-n{% endif %}">
+                                    {{ forloop.counter }}
+                                </span>
+                            </td>
+
+                            <!-- Club -->
+                            <td class="text-left col-club">
+                                <div class="d-flex align-items-center" style="gap:12px;">
+                                    {% if team.logo %}
+                                        <img class="team-avatar" src="{{ team.logo.url }}" alt="{{ team.name }}">
+                                    {% else %}
+                                        <span class="team-init">{{ team.name|slice:":1"|upper }}</span>
+                                    {% endif %}
+                                    <div>
+                                        <span class="club-name">{{ team.name }}</span>
+                                        {% if team.location %}
+                                        <span class="club-loc d-block">{{ team.location }}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
+
+                            <!-- Played -->
+                            <td class="text-center col-muted">{{ team.games_played }}</td>
+
+                            <!-- Won -->
+                            <td class="text-center col-wins">{{ team.wins }}</td>
+
+                            <!-- Drawn -->
+                            <td class="text-center col-draws">{{ team.draws }}</td>
+
+                            <!-- Lost -->
+                            <td class="text-center col-losses">{{ team.losses }}</td>
+
+                            <!-- Goals For -->
+                            <td class="text-center col-muted">{{ team.goals_for }}</td>
+
+                            <!-- Goals Against -->
+                            <td class="text-center col-muted">{{ team.goals_against }}</td>
+
+                            <!-- Goal Difference -->
+                            <td class="text-center {% if team.goal_difference > 0 %}col-gd-pos{% elif team.goal_difference < 0 %}col-gd-neg{% else %}col-gd-neu{% endif %}">
+                                {% if team.goal_difference > 0 %}+{% endif %}{{ team.goal_difference }}
+                            </td>
+
+                            <!-- Points -->
+                            <td class="text-center">
+                                <span class="pts-badge">{{ team.total_points }}</span>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Legend / Key -->
+            <hr class="sp-divider mt-4 mb-3">
+            <div class="d-flex align-items-center justify-content-between flex-wrap sp-legend" style="gap:8px;">
+                <div>
+                    <strong>P</strong> Played &bull;
+                    <strong>W</strong> Won &bull;
+                    <strong>D</strong> Drawn &bull;
+                    <strong>L</strong> Lost &bull;
+                    <strong>GF</strong> Goals For &bull;
+                    <strong>GA</strong> Goals Against &bull;
+                    <strong>GD</strong> Goal Diff &bull;
+                    <span class="pts-accent">Pts</span> Points
+                </div>
+                <div>Win = 3pts &bull; Draw = 1pt &bull; Loss = 0pts</div>
+            </div>
+
+            {% else %}
+            <div class="text-center py-5">
+                <i class="fa fa-futbol-o fa-3x mb-3 d-block" style="color:rgba(255,255,255,.2);"></i>
+                <p style="color:rgba(255,255,255,.4);">No teams are registered for this season yet.</p>
+            </div>
+            {% endif %}
+
+        </div><!-- /.sp-panel -->
+
+        <!-- Bottom nav -->
+        <div class="d-flex align-items-center justify-content-between mt-4 flex-wrap" style="gap:12px;">
+            <a href="{% url 'home' %}" class="btn btn-outline-premium">
+                <i class="fa fa-arrow-left mr-2"></i>Back to Homepage
+            </a>
+            <a href="{% url 'matches:fixture_list' %}" class="btn btn-premium">
+                View All Fixtures <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+
+    </div><!-- /.container -->
+</section>
+
+{% endblock %}
