@@ -19,3 +19,6 @@ def match_detail(request, pk):
         'activations': activations,
     })
 
+
+
+

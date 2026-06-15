@@ -9,7 +9,7 @@
         <title>Pitch Prime League</title>
         <meta name="keywords" content="HTML5 Template" />
         <meta name="description" content="Pitch Prime League">
-        <meta name="author" content="iwthemes.com">
+        <meta name="author" content="Lumie.com">
 
         <!-- Mobile Metas -->
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -47,7 +47,7 @@
                 height: 2px;
                 bottom: 0;
                 left: 50%;
-                background-color: #ffcc00; /* Brand Accent Color */
+                background-color: #00e676; /* Brand Accent Color */
                 transition: all 0.3s ease;
                 transform: translateX(-50%);
             }
@@ -87,7 +87,7 @@
             <!-- Header-->
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
                 <div class="container">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="{% url 'home' %}">
                         <img src="{% static 'img/logo-light.png' %}" alt="Pitch Prime League">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,10 +96,10 @@
                     <div class="collapse navbar-collapse" id="mainNavbar">
                         <ul class="navbar-nav mx-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="index.html">Home</a>
+                                <a class="nav-link" href="{% url 'home' %}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="teams.html">Teams</a>
+                                <a class="nav-link" href="{% url 'league:team' %}">Teams</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="players.html">Players</a>

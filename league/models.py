@@ -30,19 +30,56 @@ class Season(models.Model):
 
 
 class Team(models.Model):
-    season = models.ForeignKey(Season, on_delete=models.CASCADE, related_name='teams')
+    season = models.ForeignKey(
+        Season,
+        on_delete=models.CASCADE,
+        related_name='teams'
+    )
+
     president = models.OneToOneField(
         'accounts.President',
         on_delete=models.PROTECT,
         related_name='team',
     )
+
     name = models.CharField(max_length=150)
+
     logo_url = models.URLField(blank=True)
+
+    foundation_year = models.PositiveIntegerField(
+        blank=True,
+        null=True
+    )
+
+    manager_name = models.CharField(
+        max_length=150,
+        blank=True
+    )
+
+    total_titles = models.PositiveIntegerField(
+        default=0
+    )
+
+    location = models.CharField(
+        max_length=150,
+        blank=True
+    )
+
+    website = models.URLField(blank=True)
+
+    facebook_url = models.URLField(blank=True)
+
+    twitter_url = models.URLField(blank=True)
+
+    youtube_url = models.URLField(blank=True)
+
     games_played = models.PositiveIntegerField(default=0)
     wins = models.PositiveIntegerField(default=0)
     draws = models.PositiveIntegerField(default=0)
     losses = models.PositiveIntegerField(default=0)
+
     total_points = models.PositiveIntegerField(default=0)
+
     goals_for = models.PositiveIntegerField(default=0)
     goals_against = models.PositiveIntegerField(default=0)
 
