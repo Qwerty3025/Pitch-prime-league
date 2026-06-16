@@ -22,7 +22,7 @@
 
         <li>
             <h6>
-                <strong>Foundation:</strong>
+                <strong>Year Founded:</strong>
                 {{ team.foundation_year|default:"" }}
             </h6>
         </li>
@@ -394,328 +394,162 @@
                                     <!-- Tab Theree - fixtures -->
                                     <div class="tab-pane" id="fixtures">
 
-                                        <table class="table-striped table-responsive table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Team A</th>
-                                                    <th class="text-center">VS</th>
-                                                    <th>Team B</th>
-                                                    <th>Details</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/clubs-logos/colombia.png" alt="icon">
-                                                        <strong>Colombia</strong><br>
-                                                        <small class="meta-text">GROUP H.</small>
-                                                    </td>
-                                                    <td class="text-center">Vs</td>
-                                                    <td>
-                                                        <img src="img/clubs-logos/japan.png" alt="icon1">
-                                                        <strong>Japan</strong><br>
-                                                        <small class="meta-text">GROUP H.</small>
-                                                    </td>
-                                                    <td>
-                                                        Jun 19,  07:00<br>
-                                                        <small class="meta-text">Mordovia Arena,Saransk</small>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                   <td>
-                                                        <img src="img/clubs-logos/pol.png" alt="icon1">
-                                                        <strong>Poland</strong><br>
-                                                        <small class="meta-text">GROUP H.</small>
-                                                    </td>
-                                                    <td class="text-center">Vs</td>
-                                                    <td>
-                                                        <img src="img/clubs-logos/colombia.png" alt="icon">
-                                                        <strong>Colombia</strong><br>
-                                                        <small class="meta-text">GROUP H.</small>
-                                                    </td>
-                                                    <td>
-                                                        Jun 24,  13:00<br>
-                                                        <small class="meta-text">Kazan Arena,Kazan</small>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                   <td>
-                                                        <img src="img/clubs-logos/sen.png" alt="icon1">
-                                                        <strong>Senegal</strong><br>
-                                                        <small class="meta-text">GROUP H.</small>
-                                                    </td>
-                                                    <td class="text-center">Vs</td>
-                                                    <td>
-                                                        <img src="img/clubs-logos/colombia.png" alt="icon">
-                                                        <strong>Colombia</strong><br>
-                                                        <small class="meta-text">GROUP H.</small>
-                                                    </td>
-                                                    <td>
-                                                        Jun 28, 09:00<br>
-                                                        <small class="meta-text">Samara Arena,Samara</small>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                   <td>
-                                                        <img src="img/clubs-logos/colombia.png" alt="icon">
-                                                        <strong>Colombia</strong><br>
-                                                        <small class="meta-text">GROUP H.</small>
-                                                   </td>
-                                                   <td class="text-center">Vs</td>
-                                                   <td>
-                                                        <img src="img/clubs-logos/pol.png" alt="icon1">
-                                                        <strong>Poland</strong><br>
-                                                        <small class="meta-text">GROUP H.</small>
-                                                    </td>
-                                                    <td>
-                                                        Jun 24,  13:00<br>
-                                                        <small class="meta-text">Kazan Arena,Kazan</small>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+    <table class="table-striped table-responsive table-hover">
 
-                                    </div>
+        <thead>
+            <tr>
+                <th>Home Team</th>
+                <th class="text-center">VS</th>
+                <th>Away Team</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for fixture in fixtures %}
+
+            <tr>
+
+                <td>
+                    {% if fixture.home_team.logo_url %}
+                        <img src="{{ fixture.home_team.logo_url }}"
+                             alt="{{ fixture.home_team.name }}"
+                             width="40">
+                    {% endif %}
+
+                    <strong>{{ fixture.home_team.name }}</strong><br>
+
+                    <small class="meta-text">
+                        {{ fixture.home_team.season.name }}
+                    </small>
+                </td>
+
+                <td class="text-center">
+
+                    {% if fixture.status == 'live' %}
+                        <span class="badge badge-danger">LIVE</span>
+                    {% else %}
+                        Vs
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    {% if fixture.away_team.logo_url %}
+                        <img src="{{ fixture.away_team.logo_url }}"
+                             alt="{{ fixture.away_team.name }}"
+                             width="40">
+                    {% endif %}
+
+                    <strong>{{ fixture.away_team.name }}</strong><br>
+
+                    <small class="meta-text">
+                        {{ fixture.away_team.season.name }}
+                    </small>
+                </td>
+
+                <td>
+
+                    {{ fixture.scheduled_time|date:"M d, H:i" }}
+
+                    <br>
+
+                    <small class="meta-text">
+
+                        {% if fixture.status == 'live' %}
+                            Match In Progress
+                        {% else %}
+                            Upcoming Fixture
+                        {% endif %}
+
+                    </small>
+
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+                <td colspan="4" class="text-center">
+                    No upcoming fixtures available.
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
                                     <!-- End Tab Theree - fixtures -->
 
                                     <!-- Tab Theree - results -->
                                     <div class="tab-pane" id="results">
-                                        <div class="recent-results results-page">
-                                            <div class="info-results">
-                                                <ul>
-                                                    <li>
-                                                        <span class="head">
-                                                            Portugal Vs Spain <span class="date">27 Jun 2017</span>
-                                                        </span>
+    <div class="recent-results results-page">
+        <div class="info-results">
 
-                                                        <div class="goals-result">
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/por.png" alt="">
-                                                                Portugal
-                                                            </a>
+            <ul>
 
-                                                            <span class="goals">
-                                                                <b>2</b> - <b>3</b>
-                                                                <a href="single-result.html" class="btn theme">View More</a>
-                                                            </span>
+                {% for result in results %}
+                <li>
 
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/esp.png" alt="">
-                                                                Spain
-                                                            </a>
-                                                        </div>
-                                                    </li>
+                    <span class="head">
+                        {{ result.home_team.name }} Vs {{ result.away_team.name }}
 
-                                                    <li>
-                                                        <span class="head">
-                                                            Rusia Vs Colombia <span class="date">30 Jun 2017</span>
-                                                        </span>
+                        <span class="date">
+                            {{ result.scheduled_time|date:"d M Y" }}
+                        </span>
+                    </span>
 
-                                                        <div class="goals-result">
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/rusia.png" alt="">
-                                                                Rusia
-                                                            </a>
+                    <div class="goals-result">
 
-                                                            <span class="goals">
-                                                                <b>2</b> - <b>3</b>
-                                                                <a href="single-result.html" class="btn theme">View More</a>
-                                                            </span>
+                        <a href="{% url 'league:team_detail' result.home_team.pk %}">
+                            {% if result.home_team.logo %}
+                                <img src="{{ result.home_team.logo.url }}" alt="{{ result.home_team.name }}">
+                            {% endif %}
+                            {{ result.home_team.name }}
+                        </a>
 
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/colombia.png" alt="">
-                                                                 Colombia
-                                                            </a>
-                                                        </div>
-                                                    </li>
+                        <span class="goals">
 
-                                                    <li>
-                                                        <span class="head">
-                                                            Uruguay Vs Portugal <span class="date">31 Jun 2017</span>
-                                                        </span>
+                            <b>{{ result.home_score }}</b>
+                            -
+                            <b>{{ result.away_score }}</b>
 
-                                                        <div class="goals-result">
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/uru.png" alt="">
-                                                                Uruguay
-                                                            </a>
+                            <a href="#" class="btn theme">
+                                View More
+                            </a>
 
-                                                            <span class="goals">
-                                                                <b>2</b> - <b>3</b>
-                                                                <a href="single-result.html" class="btn theme">View More</a>
-                                                            </span>
+                        </span>
 
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/por.png" alt="">
-                                                                 Portugal
-                                                            </a>
-                                                        </div>
-                                                    </li>
+                        <a href="{% url 'league:team_detail' result.away_team.pk %}">
+                            {% if result.away_team.logo %}
+                                <img src="{{ result.away_team.logo.url }}" alt="{{ result.away_team.name }}">
+                            {% endif %}
+                            {{ result.away_team.name }}
+                        </a>
 
-                                                    <li>
-                                                        <span class="head">
-                                                            Uruguay Vs Portugal <span class="date">31 Jun 2017</span>
-                                                        </span>
+                    </div>
 
-                                                        <div class="goals-result">
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/uru.png" alt="">
-                                                                Uruguay
-                                                            </a>
+                </li>
+                {% empty %}
 
-                                                            <span class="goals">
-                                                                <b>2</b> - <b>3</b>
-                                                                <a href="single-result.html" class="btn theme">View More</a>
-                                                            </span>
+                <li>
+                    <div class="alert alert-info mb-0">
+                        No completed matches found.
+                    </div>
+                </li>
 
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/por.png" alt="">
-                                                                 Portugal
-                                                            </a>
-                                                        </div>
-                                                    </li>
+                {% endfor %}
 
-                                                    <li>
-                                                        <span class="head">
-                                                            Uruguay Vs Portugal <span class="date">31 Jun 2017</span>
-                                                        </span>
+            </ul>
 
-                                                        <div class="goals-result">
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/uru.png" alt="">
-                                                                Uruguay
-                                                            </a>
-
-                                                            <span class="goals">
-                                                                <b>2</b> - <b>3</b>
-                                                                <a href="single-result.html" class="btn theme">View More</a>
-                                                            </span>
-
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/por.png" alt="">
-                                                                 Portugal
-                                                            </a>
-                                                        </div>
-                                                    </li>
-
-                                                    <li>
-                                                        <span class="head">
-                                                            Uruguay Vs Portugal <span class="date">31 Jun 2017</span>
-                                                        </span>
-
-                                                        <div class="goals-result">
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/uru.png" alt="">
-                                                                Uruguay
-                                                            </a>
-
-                                                            <span class="goals">
-                                                                <b>2</b> - <b>3</b>
-                                                                <a href="single-result.html" class="btn theme">View More</a>
-                                                            </span>
-
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/por.png" alt="">
-                                                                 Portugal
-                                                            </a>
-                                                        </div>
-                                                    </li>
-
-                                                    <li>
-                                                        <span class="head">
-                                                            Uruguay Vs Portugal <span class="date">31 Jun 2017</span>
-                                                        </span>
-
-                                                        <div class="goals-result">
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/uru.png" alt="">
-                                                                Uruguay
-                                                            </a>
-
-                                                            <span class="goals">
-                                                                <b>2</b> - <b>3</b>
-                                                                <a href="single-result.html" class="btn theme">View More</a>
-                                                            </span>
-
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/por.png" alt="">
-                                                                 Portugal
-                                                            </a>
-                                                        </div>
-                                                    </li>
-
-                                                     <li>
-                                                        <span class="head">
-                                                            Portugal Vs Spain <span class="date">27 Jun 2017</span>
-                                                        </span>
-
-                                                        <div class="goals-result">
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/por.png" alt="">
-                                                                Portugal
-                                                            </a>
-
-                                                            <span class="goals">
-                                                                <b>2</b> - <b>3</b>
-                                                                <a href="single-result.html" class="btn theme">View More</a>
-                                                            </span>
-
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/esp.png" alt="">
-                                                                Spain
-                                                            </a>
-                                                        </div>
-                                                    </li>
-
-                                                    <li>
-                                                        <span class="head">
-                                                            Uruguay Vs Portugal <span class="date">31 Jun 2017</span>
-                                                        </span>
-
-                                                        <div class="goals-result">
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/uru.png" alt="">
-                                                                Uruguay
-                                                            </a>
-
-                                                            <span class="goals">
-                                                                <b>2</b> - <b>3</b>
-                                                                <a href="single-result.html" class="btn theme">View More</a>
-                                                            </span>
-
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/por.png" alt="">
-                                                                 Portugal
-                                                            </a>
-                                                        </div>
-                                                    </li>
-
-                                                     <li>
-                                                        <span class="head">
-                                                            Portugal Vs Spain <span class="date">27 Jun 2017</span>
-                                                        </span>
-
-                                                        <div class="goals-result">
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/por.png" alt="">
-                                                                Portugal
-                                                            </a>
-
-                                                            <span class="goals">
-                                                                <b>2</b> - <b>3</b>
-                                                                <a href="single-result.html" class="btn theme">View More</a>
-                                                            </span>
-
-                                                            <a href="single-team.html">
-                                                                <img src="img/clubs-logos/esp.png" alt="">
-                                                                Spain
-                                                            </a>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                       </div>
-                                    </div>
+        </div>
+    </div>
+</div>
                                     <!-- End Tab Theree - results -->
 
                                     <!-- Tab Theree - stats -->

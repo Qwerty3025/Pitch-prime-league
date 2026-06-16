@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Season, Team
+from matches.models import Match
 
 # Create your views here.
 
@@ -39,6 +40,11 @@ def team(request):
     }
     return render(request, 'teams.html', context)
 
+from django.db.models import Q
+
+from django.db.models import Q
+from matches.models import Match
+
 def team_detail(request, pk):
     team = get_object_or_404(
         Team.objects.select_related(
@@ -52,9 +58,21 @@ def team_detail(request, pk):
 
     players = team.players.all()
 
+    fixtures = Match.objects.filter(
+        Q(home_team=team) | Q(away_team=team),
+        status__in=[Match.Status.UPCOMING, Match.Status.LIVE]
+    ).order_by('scheduled_time')
+
+    results = Match.objects.filter(
+        Q(home_team=team) | Q(away_team=team),
+        status=Match.Status.COMPLETED
+    ).order_by('-scheduled_time')
+
     context = {
         'team': team,
         'players': players,
+        'fixtures': fixtures,
+        'results': results,
     }
 
     return render(request, 'team_detail.html', context)

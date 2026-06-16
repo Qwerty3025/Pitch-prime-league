@@ -30,3 +30,40 @@ class CardEventAdmin(admin.ModelAdmin):
 class PenaltyEventAdmin(admin.ModelAdmin):
     list_display = ('match', 'timestamp_minute', 'acting_team', 'associated_player', 'is_scored', 'penalty_type')
 
+<<<<<<< HEAD
+=======
+# Register your models here.
+# match/admin.py
+from django.contrib import admin
+from .models import Match
+
+# @admin.register(Match)
+# class MatchAdmin(admin.ModelAdmin):
+#     list_display = (
+#         'home_team',
+#         'away_team',
+#         'season',
+#         'scheduled_time',
+#         'status',
+#         'home_score',
+#         'away_score',
+#     )
+
+
+@admin.register(Match)
+class MatchAdmin(admin.ModelAdmin):
+    list_display = (
+        'home_team',
+        'away_team',
+        'season',
+        'scheduled_time',
+        'status',
+        'home_score',
+        'away_score',
+    )
+
+    list_filter = (
+        'status',
+        'season',
+    )
+>>>>>>> cad37bb (fixtures/results in team detail fixed)
