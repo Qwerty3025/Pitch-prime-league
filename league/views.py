@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Season, Team
 from matches.models import Match
+from accounts.models import Player
 
 # Create your views here.
 
@@ -76,3 +77,10 @@ def team_detail(request, pk):
     }
 
     return render(request, 'team_detail.html', context)
+
+def player_detail(request, pk):
+    player = get_object_or_404(Player, pk=pk)
+
+    return render(request, 'single-player.html', {
+        'player': player
+    })

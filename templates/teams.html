@@ -72,31 +72,32 @@
 
                     <span class="logo-team">
 
-                        {% if team.logo_url %}
-                            <img src="{{ team.logo_url }}" alt="{{ team.name }}">
-                        {% else %}
-                            <img src="{% static 'img/default-team.jpg' %}" alt="{{ team.name }}">
-                        {% endif %}
+                        {% if team.logo %}
+                <img src="{{ team.logo.url }}" alt="{{ team.name }}">
+            {% else %}
+                <img src="{% static 'img/clubs-teams/single-team.jpg' %}" alt="{{ team.name }}">
+            {% endif %}
+                        
 
                     </span>
 
                     <h4>{{ team.name }}</h4>
 
-                    <span class="location-team">
+                    <span style="color: black;" class="location-team">
                         <i class="fa fa-user" aria-hidden="true"></i>
                         {{ team.president }}
                     </span>
 
-                    <span class="group-team">
+                    <span style="color: black;" class="group-team">
                         <i class="fa fa-trophy" aria-hidden="true"></i>
                         {{ team.season }}
                     </span>
 
-                    <span class="group-team">
+                    <span style="color: black;" class="group-team">
                         GP: {{ team.games_played }}
                     </span>
 
-                    <span class="group-team">
+                    <span style="color: black;" class="group-team">
                         W: {{ team.wins }}
                         |
                         D: {{ team.draws }}
@@ -104,17 +105,17 @@
                         L: {{ team.losses }}
                     </span>
 
-                    <span class="group-team">
+                    <span style="color: black;" class="group-team">
                         GF: {{ team.goals_for }}
                         |
                         GA: {{ team.goals_against }}
                     </span>
 
-                    <span class="group-team">
+                    <span style="color: black;" class="group-team">
                         GD: {{ team.goal_difference }}
                     </span>
 
-                    <span class="group-team">
+                    <span style="color: black;" class="group-team">
                         {{ team.total_points }} Points
                     </span>
 

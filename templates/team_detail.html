@@ -138,26 +138,44 @@
                                     <div class="tab-pane active" id="overview">
 
                                        <div class="panel-box padding-b">
-                                          <div class="titles">
-                                              <h4>Colombia national football team</h4>
-                                          </div>
-                                            <div class="row">
-                                               <div class="col-lg-12 col-xl-4">
-                                                   <img src="img/clubs-teams/single-team.jpg" alt="">
-                                               </div>
 
-                                               <div class="col-lg-12 col-xl-8">
-                                                   <p>The Colombia national football team (Spanish: Selección de fútbol de Colombia) represents Colombia in international football competitions and is overseen by the Colombian Football Federation. It is a member of the CONMEBOL and is currently ranked thirteenth in the FIFA World Rankings.[3] The team are nicknamed Los Cafeteros due to the coffee production in their country.</p>
+    <div class="titles">
+        <h4>{{ team.name }}</h4>
+    </div>
 
-                                                    <p>Since the mid-1980s, the national team has been a symbol fighting the country's negative reputation. This has made the sport popular and made the national team a sign of nationalism, pride and passion for many Colombians worldwide.</p>
-                                               </div>
-                                           </div>
-                                       </div>
+    <div class="row">
+
+        <div class="col-lg-12 col-xl-4">
+
+            {% if team.logo %}
+                <img src="{{ team.logo.url }}" alt="{{ team.name }}">
+            {% else %}
+                <img src="{% static 'img/clubs-teams/single-team.jpg' %}" alt="{{ team.name }}">
+            {% endif %}
+
+        </div>
+
+        <div style="color: black;" class="col-lg-12 col-xl-8">
+
+            {% if team.description %}
+
+                <p>{{ team.description|linebreaks }}</p>
+
+            {% else %}
+
+                <p>No team description available.</p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+</div>
 
                                        <!--Items Club News -->
                                        <div class="row">
                                           <div class="col-md-12">
-                                              <h3 class="clear-title">Latest Club News</h3>
+                                              <h3 style="color: #ffffff;" class="clear-title">Latest Club News</h3>
                                           </div>
 
                                           <!--Item Club News -->
@@ -167,9 +185,9 @@
                                                     <div class="titles no-margin">
                                                         <h4><a href="#">World football's dates.</a></h4>
                                                     </div>
-                                                    <a href="#"><img src="img/blog/1.jpg" alt=""></a>
+                                                    <a href="#"><img src="{% static 'img/blog/1.jpg' %}" alt=""></a>
                                                     <div class="row">
-                                                       <div class="info-panel">
+                                                       <div style="color: #000000;" class="info-panel">
                                                             <p>Fans from all around the world can apply for 2018 FIFA World Cup™ tickets as the first window of sales.</p>
                                                        </div>
                                                     </div>
@@ -185,9 +203,9 @@
                                                     <div class="titles no-margin">
                                                         <h4><a href="#">Mbappe’s year to remember</a></h4>
                                                     </div>
-                                                    <a href="#"><img src="img/blog/2.jpg" alt=""></a>
+                                                    <a href="#"><img src="{% static 'img/blog/2.jpg' %}" alt=""></a>
                                                     <div class="row">
-                                                       <div class="info-panel">
+                                                       <div style="color: #000000;" class="info-panel">
                                                             <p>Tickets may be purchased online by using Visa payment cards or Visa Checkout. Visa is the official.</p>
                                                        </div>
                                                     </div>
@@ -203,9 +221,9 @@
                                                     <div class="titles no-margin">
                                                         <h4><a href="#">Egypt are one family</a></h4>
                                                     </div>
-                                                    <a href="#"><img src="img/blog/3.jpg" alt=""></a>
+                                                    <a href="#"><img src="{% static 'img/blog/3.jpg' %}" alt=""></a>
                                                     <div class="row">
-                                                       <div class="info-panel">
+                                                       <div style="color: #000000;" class="info-panel">
                                                             <p>Successful applicants who have applied for supporter tickets and conditional supporter tickets will.</p>
                                                        </div>
                                                     </div>
@@ -220,7 +238,7 @@
                                        <!--Items Club video -->
                                        <div class="row no-line-height">
                                           <div class="col-md-12">
-                                              <h3 class="clear-title">Latest Club Videos</h3>
+                                              <h3 style="color: #ffffff;" class="clear-title">Latest Club Videos</h3>
                                           </div>
 
                                           <!--Item Club News -->
@@ -267,7 +285,7 @@
                                        <!--Sponsors CLub -->
                                        <div class="row no-line-height">
                                               <div class="col-md-12">
-                                                  <h3 class="clear-title">Sponsors Club</h3>
+                                                  <h3 style="color: #ffffff;" class="clear-title">Sponsors Club</h3>
                                               </div>
                                         </div>
                                         <!--End Sponsors CLub -->
@@ -303,7 +321,7 @@
                     {% endif %}
 
                     <div class="overlay">
-                        <a href="{% url 'player_detail' player.pk %}">+</a>
+                        <a href="{% url 'league:player_detail' player.pk %}">+</a>
                     </div>
 
                 </div>
@@ -322,13 +340,13 @@
                     <ul>
 
                         <li>
-                            <strong>TEAM</strong>
-                            <span>{{ team.name }}</span>
+                            <strong  style="color: black;">TEAM</strong>
+                            <span style="color: black;">{{ team.name }}</span>
                         </li>
 
                         <li>
-                            <strong>GOALS:</strong>
-                            <span>
+                            <strong style="color: black;">GOALS:</strong>
+                            <span style="color: black;">
                                 {% if player.stats %}
                                     {{ player.stats.goals }}
                                 {% else %}
@@ -338,8 +356,8 @@
                         </li>
 
                         <li>
-                            <strong>ASSISTS:</strong>
-                            <span>
+                            <strong style="color: black;">ASSISTS:</strong>
+                            <span style="color: black;">
                                 {% if player.stats %}
                                     {{ player.stats.assists }}
                                 {% else %}
@@ -349,8 +367,8 @@
                         </li>
 
                         <li>
-                            <strong>MVP:</strong>
-                            <span>
+                            <strong style="color: black;">MVP:</strong>
+                            <span style="color: black;">
                                 {% if player.stats %}
                                     {{ player.stats.mvp_awards }}
                                 {% else %}
@@ -360,15 +378,15 @@
                         </li>
 
                         <li>
-                            <strong>RATING:</strong>
-                            <span>{{ player.skill_rating }}</span>
+                            <strong style="color: black;">RATING:</strong>
+                            <span style="color: black;">{{ player.skill_rating }}</span>
                         </li>
 
                     </ul>
 
                 </div>
 
-                <a href="{% url 'player_detail' player.pk %}" class="btn">
+                <a href="{% url 'league:player_detail' player.pk %}" class="btn">
                     View Player
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
                 </a>
