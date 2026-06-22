@@ -51,6 +51,12 @@ class Team(models.Model):
         blank=True,
         null=True
     )
+
+    cover_image = models.ImageField(
+    upload_to='team_covers/',
+    blank=True,
+    null=True
+)
     
     manager_name = models.CharField(
         max_length=150,

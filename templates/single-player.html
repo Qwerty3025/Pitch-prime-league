@@ -7,18 +7,19 @@
 
 
             <!-- Section Title -->
-            <div class="section-title single-player" style="background:url(img/slide/3.jpg)">
+            <div class="section-title single-player" style="background-image:url(&quot;{% static 'img/slide/3.jpg' %}&quot;);">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8">
-                            <h1>Single Player</h1>
+                            <h1>{{ player.name }}</h1>
                         </div>
 
                         <div class="col-md-4">
                             <div class="breadcrumbs">
                                 <ul>
                                     <li><a href="{% url 'home' %}">Home</a></li>
-                                    <li>Inner Page</li>
+                                    <li><a href="{% url 'accounts:player_list' %}">Players</a></li>
+                                    <li>{{ player.name }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -39,28 +40,41 @@
 
                                 <div class="item-player single-player">
                                     <div class="head-player">
-                                        <img src="img/players/7.jpg" alt="location-team">
-                                    </div>
-                                    <div class="info-player">
-                                        <span class="number-player">
-                                            10
-                                        </span>
-                                        <h4>
-                                            Jamez Rodriguez
-                                            <span>Forward</span>
-                                        </h4>
-                                        <ul>
-                                            <li>
-                                                <strong>CLUB NAME:</strong> <span><img src="img/clubs-logos/colombia.png" alt=""> Colombia </span
-                                            </li>
-                                            <li><strong>MATCHES:</strong> <span>90</span></li>
-                                            <li><strong>AGE:</strong> <span>28</span></li>
-                                            <li><strong>Goals:</strong> <span>108</span></li>
-                                            <li><strong>Discipline:</strong> <span>4 fouls against</span></li>
-                                            <li><strong>Passing:</strong> <span>40 free kicks</span></li>
-                                        </ul>
+                                    {% if player.profile_image %}
+                                        <img src="{{ player.profile_image.url }}" alt="{{ player.name }}">
+                                    {% elif player.current_team and player.current_team.logo %}
+                                        <img src="{{ player.current_team.logo.url }}" alt="{{ player.name }}">
+                                    {% else %}
+                                        <img src="{% static 'img/players/default-player.jpg' %}" alt="{{ player.name }}">
+                                    {% endif %}
+                                </div>
+                                <div class="info-player">
+                                    <span class="number-player">
+                                        {{ player.skill_rating }}
+                                    </span>
+                                    <h4>
+                                        {{ player.name }}
+                                        <span>{{ player.get_position_display }}</span>
+                                    </h4>
+                                    <ul style="color: black;" class="list-data-player">
+                                        <li>
+                                            <strong>CLUB NAME:</strong>
+                                            <span>
+                                                {% if player.current_team %}
+                                                    {{ player.current_team.name }}
+                                                {% else %}
+                                                    Free Agent
+                                                {% endif %}
+                                            </span>
+                                        </li>
+                                        <li><strong>POSITION:</strong> <span>{{ player.get_position_display }}</span></li>
+                                        <li><strong>SKILL:</strong> <span>{{ player.skill_rating }}</span></li>
+                                        <li><strong>GOALS:</strong> <span>{% if player.stats %}{{ player.stats.goals }}{% else %}0{% endif %}</span></li>
+                                        <li><strong>ASSISTS:</strong> <span>{% if player.stats %}{{ player.stats.assists }}{% else %}0{% endif %}</span></li>
+                                        <li><strong>MVP:</strong> <span>{% if player.stats %}{{ player.stats.mvp_awards }}{% else %}0{% endif %}</span></li>
+                                    </ul>
 
-                                        <h6>Follow Jamez Rodriguez</h6>
+                                        <h6>Follow {{ player.name }}</h6>
 
                                         <ul class="social-player">
                                             <li>
@@ -93,12 +107,12 @@
                                     <div class="titles no-margin">
                                         <h4><i class="fa fa-user"></i>Personal Info</h4>
                                     </div>
-                                    <ul class="list-panel">
-                                        <li><p>Weight <span>70 Kg</span></p></li>
-                                        <li><p>Height <span>1.70 Mts</span></p></li>
-                                        <li><p>Nationality <span>Colombia</span></p></li>
-                                        <li><p>Place of Birth <span>Cucuta</span></p></li>
-                                        <li><p>Date of Birth <span>March 5th, 1989</span></p></li>
+                                    <ul style="color: black;" class="list-panel">
+                                        <li><p>Email <span>{{ player.email }}</span></p></li>
+                                        <li><p>Draft Status <span>{{ player.get_draft_status_display }}</span></p></li>
+                                        <li><p>Team <span>{% if player.current_team %}{{ player.current_team.name }}{% else %}Free Agent{% endif %}</span></p></li>
+                                        <li><p>Role <span>{{ player.get_role_display }}</span></p></li>
+                                        <li><p>Goals <span>{% if player.stats %}{{ player.stats.goals }}{% else %}0{% endif %}</span></p></li>
                                     </ul>
                                 </div>
                                 <!-- End Attack -->
@@ -121,325 +135,117 @@
 
                                         <div class="panel-box padding-b">
                                           <div class="titles">
-                                              <h4>Jamez overview</h4>
+                                              <h4>{{ player.name }} overview</h4>
                                           </div>
                                             <div class="row">
                                                <div class="col-lg-12 col-xl-4">
-                                                   <img src="img/clubs-teams/single-team.jpg" alt="">
+                                                   {% if player.profile_image %}
+                                                       <img src="{{ player.profile_image.url }}" alt="{{ player.name }}">
+                                                   {% elif player.current_team and player.current_team.logo %}
+                                                       <img src="{{ player.current_team.logo.url }}" alt="{{ player.name }}">
+                                                   {% else %}
+                                                       <img src="{% static 'img/clubs-teams/single-team.jpg' %}" alt="{{ player.name }}">
+                                                   {% endif %}
                                                </div>
 
-                                               <div class="col-lg-12 col-xl-8">
-                                                   <p>The Colombia national football team (Spanish: Selección de fútbol de Colombia) represents Colombia in international football competitions and is overseen by the Colombian Football Federation. It is a member of the CONMEBOL and is currently ranked thirteenth in the FIFA World Rankings.[3] The team are nicknamed Los Cafeteros due to the coffee production in their country.</p>
-
-                                                    <p>Since the mid-1980s, the national team has been a symbol fighting the country's negative reputation. This has made the sport popular and made the national team a sign of nationalism, pride and passion for many Colombians worldwide.</p>
+                                               <div style="color: black;" class="col-lg-12 col-xl-8">
+                                                   {% if player.description %}
+                                                       <p>{{ player.description|linebreaks }}</p>
+                                                   {% elif player.current_team and player.current_team.description %}
+                                                       <p>{{ player.current_team.description|linebreaks }}</p>
+                                                   {% else %}
+                                                       <p>{{ player.name }} is a {{ player.get_position_display }} with a skill rating of {{ player.skill_rating }}. So far, {{ player.name }} has scored {% if player.stats %}{{ player.stats.goals }}{% else %}0{% endif %} goals and provided {% if player.stats %}{{ player.stats.assists }}{% else %}0{% endif %} assists.</p>
+                                                   {% endif %}
                                                </div>
                                            </div>
                                        </div>
 
-                                       <!--Items Club News -->
-                                       <div class="row">
-                                          <div class="col-md-12">
-                                              <h3 class="clear-title">Latest Player News</h3>
-                                          </div>
 
-                                          <!--Item Club News -->
-                                          <div class="col-lg-6 col-xl-4">
-                                               <!-- Widget Text-->
-                                                <div class="panel-box">
-                                                    <div class="titles no-margin">
-                                                        <h4><a href="#">World football's dates.</a></h4>
-                                                    </div>
-                                                    <a href="#"><img src="img/blog/1.jpg" alt=""></a>
-                                                    <div class="row">
-                                                       <div class="info-panel">
-                                                            <p>Fans from all around the world can apply for 2018 FIFA World Cup™ tickets as the first window of sales.</p>
-                                                       </div>
-                                                    </div>
-                                                </div>
-                                                <!-- End Widget Text-->
-                                           </div>
-                                           <!--End Item Club News -->
-
-                                           <!--Item Club News -->
-                                          <div class="col-lg-6 col-xl-4">
-                                               <!-- Widget Text-->
-                                                <div class="panel-box">
-                                                    <div class="titles no-margin">
-                                                        <h4><a href="#">Mbappe’s year to remember</a></h4>
-                                                    </div>
-                                                    <a href="#"><img src="img/blog/2.jpg" alt=""></a>
-                                                    <div class="row">
-                                                       <div class="info-panel">
-                                                            <p>Tickets may be purchased online by using Visa payment cards or Visa Checkout. Visa is the official.</p>
-                                                       </div>
-                                                    </div>
-                                                </div>
-                                                <!-- End Widget Text-->
-                                           </div>
-                                           <!--End Item Club News -->
-
-                                           <!--Item Club News -->
-                                          <div class="col-lg-6 col-xl-4">
-                                               <!-- Widget Text-->
-                                                <div class="panel-box">
-                                                    <div class="titles no-margin">
-                                                        <h4><a href="#">Egypt are one family</a></h4>
-                                                    </div>
-                                                    <a href="#"><img src="img/blog/3.jpg" alt=""></a>
-                                                    <div class="row">
-                                                       <div class="info-panel">
-                                                            <p>Successful applicants who have applied for supporter tickets and conditional supporter tickets will.</p>
-                                                       </div>
-                                                    </div>
-                                                </div>
-                                                <!-- End Widget Text-->
-                                           </div>
-                                           <!--End Item Club News -->
-                                       </div>
-                                       <!--End Items Club News -->
-
-
-                                       <!--Items Club video -->
-                                       <div class="row no-line-height">
-                                          <div class="col-md-12">
-                                              <h3 class="clear-title">Latest Player Videos</h3>
-                                          </div>
-
-                                          <!--Item Club News -->
-                                          <div class="col-lg-6 col-xl-4">
-                                               <!-- Widget Text-->
-                                                <div class="panel-box">
-                                                    <div class="titles no-margin">
-                                                        <h4><a href="#">Eliminatory to the world.</a></h4>
-                                                    </div>
-                                                    <iframe class="video" src="https://www.youtube.com/embed/Ln8rXkeeyP0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
-                                                </div>
-                                                <!-- End Widget Text-->
-                                           </div>
-                                           <!--End Item Club News -->
-
-                                           <!--Item Club News -->
-                                          <div class="col-lg-6 col-xl-4">
-                                               <!-- Widget Text-->
-                                                <div class="panel-box">
-                                                    <div class="titles no-margin">
-                                                        <h4><a href="#">Colombia classification</a></h4>
-                                                    </div>
-                                                    <iframe class="video" src="https://www.youtube.com/embed/Z5cackyUfgk" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
-                                                </div>
-                                                <!-- End Widget Text-->
-                                           </div>
-                                           <!--End Item Club News -->
-
-                                           <!--Item Club News -->
-                                          <div class="col-lg-6 col-xl-4">
-                                               <!-- Widget Text-->
-                                                <div class="panel-box">
-                                                    <div class="titles no-margin">
-                                                        <h4><a href="#">World Cup goal</a></h4>
-                                                    </div>
-                                                    <iframe class="video" src="https://www.youtube.com/embed/hW3hnUoUS0k" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
-                                                </div>
-                                                <!-- End Widget Text-->
-                                           </div>
-                                           <!--End Item Club News -->
-                                       </div>
-                                       <!--End Items Club video -->
 
                                        <!--Sponsors CLub -->
-                                       <div class="row no-line-height">
+                                       <!-- <div class="row no-line-height">
                                               <div class="col-md-12">
                                                   <h3 class="clear-title">Sponsors Player</h3>
                                               </div>
-                                        </div>
+                                        </div> -->
                                         <!--End Sponsors CLub -->
 
-                                        <ul class="sponsors-carousel">
+                                        <!-- <ul class="sponsors-carousel">
                                             <li><a href="#"><img src="img/sponsors/1.png" alt=""></a></li>
                                             <li><a href="#"><img src="img/sponsors/2.png" alt=""></a></li>
                                             <li><a href="#"><img src="img/sponsors/3.png" alt=""></a></li>
                                             <li><a href="#"><img src="img/sponsors/4.png" alt=""></a></li>
                                             <li><a href="#"><img src="img/sponsors/5.png" alt=""></a></li>
                                             <li><a href="#"><img src="img/sponsors/3.png" alt=""></a></li>
-                                        </ul>
+                                        </ul> -->
 
                                     </div>
                                     <!-- Tab One - overview -->
 
-                                    <!-- Tab Theree - career -->
-                                    <div class="tab-pane" id="career">
+                                    <!-- Tab Three - career -->
+                                    <div class="tab-pane" id="career" style="color: black;">
                                         <div class="col-lg-12">
-                                            <table class="table-striped table-responsive table-hover career">
+                                            <table class="table-striped table-responsive table-hover career" style="color: black;">
                                                 <thead>
                                                     <tr>
-                                                        <th>Season</th>
-                                                        <th>Club</th>
-                                                        <th>Apps(Subs)</th>
-                                                        <th>Goals</th>
+                                                        <th style="color: black;">Season</th>
+                                                        <th style="color: black;">Club</th>
+                                                        <th style="color: black;">Goals</th>
+                                                        <th style="color: black;">Assists</th>
+                                                        <th style="color: black;">MVPs</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>
-                                                            2017/2018
+                                                        <td style="color: black;">
+                                                            {% if player.current_team and player.current_team.season %}
+                                                                {{ player.current_team.season.season_number }}
+                                                            {% else %}
+                                                                Current
+                                                            {% endif %}
                                                         </td>
-                                                        <td>
-                                                            <img src="img/clubs-logos/colombia.png" alt="icon1">
-                                                            Japan
+                                                        <td style="color: black;">
+                                                            {% if player.current_team %}
+                                                                {{ player.current_team.name }}
+                                                            {% else %}
+                                                                Free Agent
+                                                            {% endif %}
                                                         </td>
-                                                        <td>22(0)</td>
-                                                        <td>
-                                                            50
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            2017/2018
-                                                        </td>
-                                                        <td>
-                                                            <img src="img/clubs-logos/japan.png" alt="icon1">
-                                                            Japan
-                                                        </td>
-                                                        <td>22(0)</td>
-                                                        <td>
-                                                            50
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            2017/2018
-                                                        </td>
-                                                        <td>
-                                                            <img src="img/clubs-logos/bra.png" alt="icon1">
-                                                            Japan
-                                                        </td>
-                                                        <td>22(0)</td>
-                                                        <td>
-                                                            50
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            2017/2018
-                                                        </td>
-                                                        <td>
-                                                            <img src="img/clubs-logos/arg.png" alt="icon1">
-                                                            Japan
-                                                        </td>
-                                                        <td>22(0)</td>
-                                                        <td>
-                                                            50
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            2017/2018
-                                                        </td>
-                                                        <td>
-                                                            <img src="img/clubs-logos/uru.png" alt="icon1">
-                                                            Japan
-                                                        </td>
-                                                        <td>22(0)</td>
-                                                        <td>
-                                                            50
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            2017/2018
-                                                        </td>
-                                                        <td>
-                                                            <img src="img/clubs-logos/nga.png" alt="icon1">
-                                                            Japan
-                                                        </td>
-                                                        <td>22(0)</td>
-                                                        <td>
-                                                            50
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            2017/2018
-                                                        </td>
-                                                        <td>
-                                                            <img src="img/clubs-logos/mex.png" alt="icon1">
-                                                            Japan
-                                                        </td>
-                                                        <td>22(0)</td>
-                                                        <td>
-                                                            50
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            2017/2018
-                                                        </td>
-                                                        <td>
-                                                            <img src="img/clubs-logos/rusia.png" alt="icon1">
-                                                            Japan
-                                                        </td>
-                                                        <td>22(0)</td>
-                                                        <td>
-                                                            50
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            2017/2018
-                                                        </td>
-                                                        <td>
-                                                            <img src="img/clubs-logos/aus.png" alt="icon1">
-                                                            Japan
-                                                        </td>
-                                                        <td>22(0)</td>
-                                                        <td>
-                                                            50
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            2017/2018
-                                                        </td>
-                                                        <td>
-                                                            <img src="img/clubs-logos/arabia.png" alt="icon1">
-                                                            Japan
-                                                        </td>
-                                                        <td>22(0)</td>
-                                                        <td>
-                                                            50
-                                                        </td>
+                                                        <td style="color: black;">{% if player.stats %}{{ player.stats.goals }}{% else %}0{% endif %}</td>
+                                                        <td style="color: black;">{% if player.stats %}{{ player.stats.assists }}{% else %}0{% endif %}</td>
+                                                        <td style="color: black;">{% if player.stats %}{{ player.stats.mvp_awards }}{% else %}0{% endif %}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-                                    <!-- Tab Theree - career -->
+                                    <!-- End Tab Three - career -->
 
-                                    <!-- Tab Theree - stats -->
-                                    <div class="tab-pane" id="stats">
+                                    <!-- Tab Three - stats -->
+                                    <div class="tab-pane" id="stats" style="color: black;">
 
-                                        <div class="row">
+                                        <div class="row" style="color: black;">
                                             <div class="col-lg-12">
                                                 <div class="stats-info">
                                                     <ul>
                                                         <li>
                                                             Appearances
-                                                            <h3>50</h3>
+                                                            <h3 style="color: black;">{% if player.stats %}{{ player.stats.goals|add:player.stats.assists|default:0 }}{% else %}0{% endif %}</h3>
                                                         </li>
 
                                                         <li>
                                                             Goals
-                                                            <h3>10</h3>
+                                                            <h3 style="color: black;">{% if player.stats %}{{ player.stats.goals }}{% else %}0{% endif %}</h3>
                                                         </li>
 
                                                         <li>
-                                                            Wins
-                                                            <h3>16</h3>
+                                                            Assists
+                                                            <h3 style="color: black;">{% if player.stats %}{{ player.stats.assists }}{% else %}0{% endif %}</h3>
                                                         </li>
 
                                                         <li>
-                                                            Losses
-                                                            <h3>5</h3>
+                                                            MVP Awards
+                                                            <h3 style="color: black;">{% if player.stats %}{{ player.stats.mvp_awards }}{% else %}0{% endif %}</h3>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -448,69 +254,50 @@
 
                                         <div class="row">
                                             <div class="col-lg-6 col-xl-4">
-                                                <!-- Attack -->
-                                                <div class="panel-box">
+                                                <div class="panel-box" style="color: black;">
                                                     <div class="titles no-margin">
-                                                        <h4><i class="fa fa-calendar"></i>Attack</h4>
+                                                        <h4 style="color: black;"><i class="fa fa-calendar"></i>Attack</h4>
                                                     </div>
-                                                    <ul class="list-panel">
-                                                        <li><p>Goals <span>60</span></p></li>
-                                                        <li><p>Goals Per Match <span>1.37</span></p></li>
-                                                        <li><p>Shots <span>4,621</span></p></li>
-                                                        <li><p>Shooting Accuracy % <span>32%</span></p></li>
-                                                        <li><p>Penalties Scored <span>30</span></p></li>
-                                                        <li><p>Big Chances Created <span>293</span></p></li>
-                                                        <li><p>Hit Woodwork <span>107</span></p></li>
+                                                    <ul class="list-panel" style="color: black;">
+                                                        <li><p>Goals <span>{% if player.stats %}{{ player.stats.goals }}{% else %}0{% endif %}</span></p></li>
+                                                        <li><p>Assists <span>{% if player.stats %}{{ player.stats.assists }}{% else %}0{% endif %}</span></p></li>
+                                                        <li><p>MVP Awards <span>{% if player.stats %}{{ player.stats.mvp_awards }}{% else %}0{% endif %}</span></p></li>
+                                                        <li><p>Skill Rating <span>{{ player.skill_rating }}</span></p></li>
                                                     </ul>
                                                 </div>
-                                                <!-- End Attack -->
                                             </div>
 
                                             <div class="col-lg-6 col-xl-4">
-                                                <!-- Attack -->
-                                                <div class="panel-box">
+                                                <div class="panel-box" style="color: black;">
                                                     <div class="titles no-margin">
-                                                        <h4><i class="fa fa-calendar"></i>Team Play</h4>
+                                                        <h4 style="color: black;"><i class="fa fa-calendar"></i>Team Play</h4>
                                                     </div>
-                                                    <ul class="list-panel">
-                                                        <li><p>Passes <span>140,417</span></p></li>
-                                                        <li><p>Passes Per Match <span>162.14</span></p></li>
-                                                        <li><p>Pass Accuracy % <span>76%</span></p></li>
-                                                        <li><p>Crosses <span>8,148</span></p></li>
-                                                        <li><p>Cross Accuracy % <span>22%</span></p></li>
+                                                    <ul class="list-panel" style="color: black;">
+                                                        <li><p>Club <span>{% if player.current_team %}{{ player.current_team.name }}{% else %}Free Agent{% endif %}</span></p></li>
+                                                        <li><p>Draft Status <span>{{ player.get_draft_status_display }}</span></p></li>
+                                                        <li><p>Role <span>{{ player.get_role_display }}</span></p></li>
+                                                        <li><p>Skill Rating <span>{{ player.skill_rating }}</span></p></li>
                                                     </ul>
                                                 </div>
-                                                <!-- End Attack -->
                                             </div>
 
                                             <div class="col-lg-6 col-xl-4">
-                                                <!-- Attack -->
-                                                <div class="panel-box">
+                                                <div class="panel-box" style="color: black;">
                                                     <div class="titles no-margin">
-                                                        <h4><i class="fa fa-calendar"></i>Defence</h4>
+                                                        <h4 style="color: black;"><i class="fa fa-calendar"></i>Defence</h4>
                                                     </div>
-                                                    <ul class="list-panel">
-                                                        <li><p>Clean Sheets <span>226</span></p></li>
-                                                        <li><p>Goals Conceded <span>1,170</span></p></li>
-                                                        <li><p>Goals Conceded Per Match <span>1.35</span></p></li>
-                                                        <li><p>Saves <span>392</span></p></li>
-                                                        <li><p>Tackles <span>7,438</span></p></li>
-                                                        <li><p>Tackle Success % <span>75%</span></p></li>
-                                                        <li><p>Blocked Shots <span>1,208</span></p></li>
-                                                        <li><p>Interceptions <span>5,334</span></p></li>
-                                                        <li><p>Clearances <span>11,436</span></p></li>
-                                                        <li><p>Headed Clearance <span>3,710</span></p></li>
-                                                        <li><p>Aerial Battles/Duels Won <span>25,401</span></p></li>
-                                                        <li><p>Errors Leading To Goal <span>59</span></p></li>
-                                                        <li><p>Own Goals <span>27</span></p></li>
+                                                    <ul class="list-panel" style="color: black;">
+                                                        <li><p>Yellow Cards <span>{% if player.stats %}{{ player.stats.yellow_cards }}{% else %}0{% endif %}</span></p></li>
+                                                        <li><p>Red Cards <span>{% if player.stats %}{{ player.stats.red_cards }}{% else %}0{% endif %}</span></p></li>
+                                                        <li><p>Total Cards <span>{% if player.stats %}{{ player.stats.yellow_cards|add:player.stats.red_cards }}{% else %}0{% endif %}</span></p></li>
+                                                        <li><p>Matches <span>n/a</span></p></li>
                                                     </ul>
                                                 </div>
-                                                <!-- End Attack -->
                                             </div>
                                         </div>
 
                                     </div>
-                                    <!-- End Tab Theree - stats -->
+                                    <!-- End Tab Three - stats -->
                                 </div>
                                 <!-- Content Tabs -->
                             </div>

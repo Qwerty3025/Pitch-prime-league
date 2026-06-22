@@ -46,7 +46,7 @@
                 <div class="poster-hero" onclick="{% if featured_poster.target_url %}window.location.href='{{ featured_poster.target_url }}'{% endif %}">
                     <img src="{{ featured_poster.image.url }}" alt="{{ featured_poster.title }}">
                     <div class="poster-overlay">
-                        <span class="poster-badge">Featured Event</span>
+                        <span style="background-color: #00ff66;" class="poster-badge">Featured Event</span>
                         <h2 class="poster-title">{{ featured_poster.title }}</h2>
                         {% if featured_poster.target_url %}
                         <p class="text-white-50 mb-0">Click to learn more about this special event <i class="fa fa-external-link ml-1"></i></p>

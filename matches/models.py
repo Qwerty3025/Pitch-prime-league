@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Match(models.Model):
@@ -108,4 +110,75 @@ class PenaltyEvent(MatchEvent):
         SHOOTOUT = 'shootout', 'Shootout'
 
     is_scored = models.BooleanField(default=False)
-    penalty_type = models.CharField(max_length=20, choices=PenaltyType.choices)
+    penalty_type = models.CharField(max_length=20, choices=PenaltyType.choices)   
+
+
+class MatchStats(models.Model):
+    match = models.OneToOneField(
+        Match,
+        on_delete=models.CASCADE,
+        related_name='stats'
+    )
+
+    home_possession = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=0
+    )
+
+    away_possession = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=0
+    )
+
+    home_shots = models.PositiveIntegerField(default=0)
+    away_shots = models.PositiveIntegerField(default=0)
+
+    home_shots_on_target = models.PositiveIntegerField(default=0)
+    away_shots_on_target = models.PositiveIntegerField(default=0)
+
+    home_touches = models.PositiveIntegerField(default=0)
+    away_touches = models.PositiveIntegerField(default=0)
+
+    home_passes = models.PositiveIntegerField(default=0)
+    away_passes = models.PositiveIntegerField(default=0)
+
+    home_tackles = models.PositiveIntegerField(default=0)
+    away_tackles = models.PositiveIntegerField(default=0)
+
+    home_clearances = models.PositiveIntegerField(default=0)
+    away_clearances = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"Stats - {self.match}"
+    
+
+
+@receiver(post_save, sender=Match)
+def create_match_stats(sender, instance, created, **kwargs):
+
+    if created:
+        MatchStats.objects.create(
+            match=instance
+        ) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -79,7 +79,10 @@ def team_detail(request, pk):
     return render(request, 'team_detail.html', context)
 
 def player_detail(request, pk):
-    player = get_object_or_404(Player, pk=pk)
+    player = get_object_or_404(
+        Player.objects.select_related('current_team', 'stats'),
+        pk=pk
+    )
 
     return render(request, 'single-player.html', {
         'player': player

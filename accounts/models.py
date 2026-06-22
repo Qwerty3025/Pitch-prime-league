@@ -43,6 +43,16 @@ class Player(User):
         default=50,
         validators=[MinValueValidator(1), MaxValueValidator(100)],
     )
+    profile_image = models.ImageField(
+        upload_to='player_profiles/',
+        blank=True,
+        null=True,
+    )
+    description = models.TextField(
+        blank=True,
+        null=True,
+        help_text='Player bio or description displayed on the profile page.',
+    )
     current_team = models.ForeignKey(
         'league.Team',
         on_delete=models.SET_NULL,

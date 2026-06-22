@@ -1,0 +1,591 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Arial', sans-serif;
+}
+
+body{
+    background:#000;
+    color:white;
+    line-height:1.6;
+}
+
+
+/* HEADER */
+
+.hero{
+    min-height:80vh;
+    background:
+    linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.95)),
+    radial-gradient(circle,#00e67633,transparent 60%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:40px;
+}
+
+.hero h1{
+    font-size:60px;
+    font-weight:900;
+    text-transform:uppercase;
+    color:#00e676;
+    letter-spacing:3px;
+}
+
+.hero p{
+    max-width:850px;
+    margin:20px auto;
+    font-size:20px;
+    color:#ddd;
+}
+
+
+/* SECTION */
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+
+.section-title{
+
+    text-align:center;
+    margin:80px 0 40px;
+}
+
+.section-title h2{
+
+    color:#00e676;
+    font-size:40px;
+    text-transform:uppercase;
+}
+
+
+.section-title span{
+
+    display:block;
+    width:80px;
+    height:4px;
+    background:#00e676;
+    margin:15px auto;
+}
+
+
+
+/* RULE CARDS */
+
+
+.rules-grid{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:30px;
+
+}
+
+
+.rule-card{
+
+    background:
+    linear-gradient(145deg,#111,#050505);
+
+    border:1px solid #00e67655;
+    border-radius:20px;
+    padding:35px;
+
+    position:relative;
+    overflow:hidden;
+
+    transition:.4s;
+
+}
+
+
+
+.rule-card:hover{
+
+    transform:translateY(-10px);
+    border-color:#00e676;
+    box-shadow:
+    0 0 25px #00e67655;
+
+}
+
+
+
+.number{
+
+    position:absolute;
+    top:-20px;
+    right:-20px;
+
+    width:80px;
+    height:80px;
+
+    background:#00e676;
+    color:black;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:30px;
+    font-weight:bold;
+
+}
+
+
+.rule-card h3{
+
+    color:#00e676;
+    font-size:25px;
+    margin-bottom:20px;
+
+}
+
+
+
+.rule-card h4{
+
+    margin-top:20px;
+    color:white;
+
+}
+
+
+.rule-card ul{
+
+    margin-top:10px;
+    padding-left:20px;
+
+}
+
+
+.rule-card li{
+
+    margin-bottom:8px;
+    color:#ccc;
+
+}
+
+
+.highlight{
+
+    margin-top:20px;
+    padding:15px;
+
+    background:#00e67615;
+    border-left:4px solid #00e676;
+
+    color:#fff;
+
+}
+
+
+
+/* ENTERTAINMENT */
+
+
+.feature-box{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+
+}
+
+
+.feature{
+
+background:#080808;
+padding:30px;
+
+border-radius:18px;
+
+border:1px solid #222;
+
+transition:.3s;
+
+}
+
+
+
+.feature:hover{
+
+border-color:#00e676;
+
+}
+
+
+
+.feature h3{
+
+color:#00e676;
+
+font-size:24px;
+
+}
+
+
+
+/* DISCIPLINE */
+
+
+.discipline{
+
+background:
+
+linear-gradient(135deg,#00e676,#003b20);
+
+color:black;
+
+padding:50px;
+
+border-radius:25px;
+
+margin:80px 0;
+
+}
+
+
+.discipline h2{
+
+font-size:35px;
+
+margin-bottom:20px;
+
+}
+
+
+
+.discipline li{
+
+margin:10px;
+
+}
+
+
+/* FOOTER */
+
+
+
+
+
+
+@media(max-width:700px){
+
+.hero h1{
+
+font-size:38px;
+
+}
+
+.section-title h2{
+
+font-size:30px;
+
+}
+
+}
+
+
+</style>
+
+
+
+
+<br> <br> <br>
+<section class="hero">
+
+<div>
+
+<h1>
+The Ultimate Nigerian PPL Gamechanger Rulebook
+</h1>
+
+<p>
+Official rules transforming Nigerian street football culture into a world-class sports entertainment experience.
+Skill. Drama. Music. Culture. Competition.
+</p>
+
+</div>
+
+</section>
+
+
+
+
+
+<div class="container">
+
+
+
+<div class="section-title">
+
+<h2>Official Gamechanger Rules</h2>
+
+<span></span>
+
+</div>
+
+
+
+<div class="rules-grid">
+
+
+
+<div class="rules-grid">
+
+
+{% for rule in rules %}
+
+
+<div class="rule-card">
+
+
+<div class="number">
+
+{{rule.number}}
+
+</div>
+
+
+<h3>
+
+{{rule.title}}
+
+</h3>
+
+
+
+<h4>
+The Rule
+</h4>
+
+
+<p>
+
+{{rule.rule_description}}
+
+</p>
+
+
+
+{% if rule.punishment %}
+
+<h4>
+Punishment Choice
+</h4>
+
+
+<ul>
+
+{% for item in rule.punishment.splitlines %}
+
+<li>
+{{item}}
+</li>
+
+{% endfor %}
+
+</ul>
+
+
+{% endif %}
+
+
+
+
+{% if rule.special_rule %}
+
+
+<h4>
+Special Rule
+</h4>
+
+
+<ul>
+
+
+{% for item in rule.special_rule.splitlines %}
+
+<li>
+
+{{item}}
+
+</li>
+
+
+{% endfor %}
+
+
+</ul>
+
+
+
+{% endif %}
+
+
+
+
+{% if rule.highlight %}
+
+
+<div class="highlight">
+
+{{rule.highlight}}
+
+</div>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+{% endfor %}
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+<div class="section-title">
+
+<h2>Matchday Entertainment</h2>
+
+<span></span>
+
+</div>
+
+
+
+
+
+<div class="feature-box">
+
+
+
+<div class="feature-box">
+
+
+{% for feature in features %}
+
+
+<div class="feature">
+
+
+<h3>
+
+{{feature.title}}
+
+</h3>
+
+
+<p>
+
+{{feature.description}}
+
+</p>
+
+
+</div>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<div class="discipline">
+
+
+<h2>Discipline & Fair Play</h2>
+
+
+<ul>
+
+
+{% for item in discipline %}
+
+
+<li>
+
+{{item.rule}}
+
+</li>
+
+
+{% endfor %}
+
+
+</ul>
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

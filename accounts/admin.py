@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import User, President, Player, PlayerStats
+from django.utils.html import format_html
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
@@ -18,9 +19,24 @@ class PlayerStatsInline(admin.StackedInline):
 
 @admin.register(Player)
 class PlayerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'position', 'draft_status', 'skill_rating', 'current_team')
+    def profile_thumbnail(self, obj):
+        if getattr(obj, 'profile_image', None):
+            return format_html('<img src="{}" style="width:45px;height:auto;border-radius:50%;" />', obj.profile_image.url)
+        return ''
+
+    profile_thumbnail.short_description = 'Photo'
+
+    def description_summary(self, obj):
+        if obj.description:
+            return obj.description[:75] + ('...' if len(obj.description) > 75 else '')
+        return '-'
+
+    description_summary.short_description = 'Description'
+
+    list_display = ('profile_thumbnail', 'name', 'description_summary', 'email', 'position', 'draft_status', 'skill_rating', 'current_team')
     list_filter = ('position', 'draft_status', 'current_team')
-    search_fields = ('name', 'email')
+    search_fields = ('name', 'email', 'description')
+    fields = ('name', 'email', 'role', 'position', 'draft_status', 'skill_rating', 'description', 'profile_image', 'current_team')
     inlines = [PlayerStatsInline]
 
 @admin.register(PlayerStats)

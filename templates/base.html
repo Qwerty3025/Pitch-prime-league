@@ -105,7 +105,7 @@
                                 <a class="nav-link" href="{% url 'league:team' %}">Teams</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="players.html">Players</a>
+                                <a class="nav-link" href="{% url 'accounts:player_list' %}">Players</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'matches:fixture_list' %}">Fixtures</a>
@@ -116,9 +116,12 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'league:season_list' %}">League Table</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'rules' %}">Rules</a>
+                            </li>
                         </ul>
                         <div class="navbar-nav">
-                            <a href="#" class="btn btn-primary btn-nav-cta px-4">Contact</a>
+                            <a href="{% url 'contact' %}" class="btn btn-primary btn-nav-cta px-4">Contact</a>
                         </div>
                     </div>
                 </div>
@@ -259,7 +262,7 @@
                             <!-- Column Links -->
                             <div class="col-lg-4 col-md-7 col-sm-7">
                                 <div class="info-links">
-                                   <h5>Groups</h5>
+                                   <h5>Teams</h5>
                                     <ul class="columns">
                                         <li><a href="#">GROUP A</a></li>
                                         <li><a href="#">GROUP B</a></li>
