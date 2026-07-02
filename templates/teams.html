@@ -6,7 +6,9 @@
 {% block content %}
 
             <!-- Section Title -->
-            <div class="section-title" style="background:url(img/slide/1.jpg)">
+            <div class="section-title" style="background:
+        linear-gradient(rgba(15,15,15,0.75), rgba(15,15,15,0.75)),
+        url('{% static "img/slide/1.jpg" %}') center center/cover no-repeat;"">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8">
@@ -28,145 +30,67 @@
 
             <!-- Section Area - Content Central -->
             <section class="content-info">
+                <div class="container paddings-mini">
+                    <div class="page-shell">
+                        <div class="page-intro glass-panel">
+                            <div>
+                                <h2 class="page-title">Teams</h2>
+                                <p class="page-subtitle">Explore the clubs building the season with skill, pace and heart.</p>
+                            </div>
+                            <span class="matches-phone-pill">{{ teams|length }} clubs</span>
+                        </div>
 
-                <!-- Nav Filters -->
-                <div class="portfolioFilter">
-                    <div class="container">
-                        <h5><i class="fa fa-filter" aria-hidden="true"></i>Filter By:</h5>
-                        <a href="#" data-filter="*" class="current">Show All</a>
-                        <a href="#" data-filter=".group-a">Group A</a>
-                        <a href="#" data-filter=".group-b">Group B</a>
-                        <a href="#" data-filter=".group-c">Group C</a>
-                        <a href="#" data-filter=".group-d">Group D</a>
-                        <a href="#" data-filter=".group-e">Group E</a>
-                        <a href="#" data-filter=".group-f">Group F</a>
-                        <a href="#" data-filter=".group-g">Group G</a>
-                        <a href="#" data-filter=".group-h">Group H</a>
+                        <div class="card-grid teams-grid">
+                            {% for team in teams %}
+                                <article class="info-card team-card">
+                                    <a href="{% url 'league:team_detail' team.pk %}" class="card-link">
+                                        <div class="card-media">
+                                            {% if team.cover_image %}
+                                                <img src="{{ team.cover_image.url }}" alt="{{ team.name }}">
+                                            {% else %}
+                                                <img src="{% static 'img/default-team.jpg' %}" alt="{{ team.name }}">
+                                            {% endif %}
+                                            <div class="card-badge">{{ team.season }}</div>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <div class="card-topline">
+                                                <div class="team-avatar">
+                                                    {% if team.logo %}
+                                                        <img src="{{ team.logo.url }}" alt="{{ team.name }}">
+                                                    {% elif team.logo_url %}
+                                                        <img src="{{ team.logo_url }}" alt="{{ team.name }}">
+                                                    {% else %}
+                                                        <img src="{% static 'img/clubs-teams/single-team.jpg' %}" alt="{{ team.name }}">
+                                                    {% endif %}
+                                                </div>
+                                                <div>
+                                                    <h4 class="card-title">{{ team.name }}</h4>
+                                                    <p class="card-muted">{{ team.president }}</p>
+                                                </div>
+                                            </div>
+
+                                            <ul class="stat-list">
+                                                <li><span>GP</span><strong>{{ team.games_played }}</strong></li>
+                                                <li><span>W</span><strong>{{ team.wins }}</strong></li>
+                                                <li><span>D</span><strong>{{ team.draws }}</strong></li>
+                                                <li><span>L</span><strong>{{ team.losses }}</strong></li>
+                                                <li><span>GF</span><strong>{{ team.goals_for }}</strong></li>
+                                                <li><span>GA</span><strong>{{ team.goals_against }}</strong></li>
+                                                <li><span>GD</span><strong>{{ team.goal_difference }}</strong></li>
+                                                <li><span>PTS</span><strong>{{ team.total_points }}</strong></li>
+                                            </ul>
+                                        </div>
+                                    </a>
+                                </article>
+                            {% empty %}
+                                <div class="col-12">
+                                    <div class="empty-state">No teams have been created yet.</div>
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
-                <!-- End Nav Filters -->
-
-                <div class="container padding-top">
-                    <div class="row portfolioContainer">
-
-                        {% for team in teams %}
-        <div class="col-md-6 col-lg-4 col-xl-3">
-
-            <div class="item-team">
-
-                <!-- Team Cover Image -->
-                <div style="background-color: #00e676;" class="head-team">
-
-                    {% if team.cover_image %}
-                        <img src="{{ team.cover_image.url }}" alt="{{ team.name }}">
-                    {% else %}
-                        <img src="{% static 'img/default-team.jpg' %}" alt="{{ team.name }}">
-                    {% endif %}
-                    
-
-                    {% if team.logo_url %}
-                        <img src="{{ team.logo_url }}" alt="{{ team.name }}">
-                    {% else %}
-                        <img src="{% static 'img/default-team.jpg' %}" alt="{{ team.name }}">
-                    {% endif %}
-
-                    <div class="overlay">
-                        <a href="{% url 'league:team_detail' team.id %}">+</a>
-                    </div>
-
-                </div>
-
-                <div class="info-team">
-
-                    <span class="logo-team">
-
-                        {% if team.logo %}
-                <img src="{{ team.logo.url }}" alt="{{ team.name }}">
-            {% else %}
-                <img src="{% static 'img/clubs-teams/single-team.jpg' %}" alt="{{ team.name }}">
-            {% endif %}
-                        
-
-                    </span>
-
-                    <h4>{{ team.name }}</h4>
-
-                    <span style="color: black;" class="location-team">
-                        <i class="fa fa-user" aria-hidden="true"></i>
-                        {{ team.president }}
-                    </span>
-
-                    <span style="color: black;" class="group-team">
-                        <i class="fa fa-trophy" aria-hidden="true"></i>
-                        {{ team.season }}
-                    </span>
-
-                    <span style="color: black;" class="group-team">
-                        GP: {{ team.games_played }}
-                    </span>
-
-                    <span style="color: black;" class="group-team">
-                        W: {{ team.wins }}
-                        |
-                        D: {{ team.draws }}
-                        |
-                        L: {{ team.losses }}
-                    </span>
-
-                    <span style="color: black;" class="group-team">
-                        GF: {{ team.goals_for }}
-                        |
-                        GA: {{ team.goals_against }}
-                    </span>
-
-                    <span style="color: black;" class="group-team">
-                        GD: {{ team.goal_difference }}
-                    </span>
-
-                    <span style="color: black;" class="group-team">
-                        {{ team.total_points }} Points
-                    </span>
-
-                </div>
-
-                <a href="{% url 'league:team_detail' team.id %}" class="btn">
-                    Team Profile
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
-                </a>
-
-            </div>
-
-        </div>
-
-        {% empty %}
-
-        <div class="col-md-12">
-            <div class="alert alert-info">
-                No teams have been created yet.
-            </div>
-        </div>
-
-        {% endfor %}
-                        <!-- End Item Team Group H-->
-
-                    </div>
-                </div>
-
-                
-
-        <!-- ======================= JQuery libs =========================== -->
-        <!-- jQuery local-->
-        <script type="9f73f8f756e93a92a3191d57-text/javascript" src="{% static 'assets/js/jquery.js' %}"></script>
-        <!-- popper.js-->
-        <script type="9f73f8f756e93a92a3191d57-text/javascript" src="{% static 'assets/js/popper.min.js' %}"></script>
-        <!-- bootstrap.min.js-->
-        <script type="9f73f8f756e93a92a3191d57-text/javascript" src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-        <!-- required-scripts.js-->
-        <script type="9f73f8f756e93a92a3191d57-text/javascript" src="{% static 'assets/js/theme-scripts.js' %}"></script>
-        <!-- theme-main.js-->
-        <script type="9f73f8f756e93a92a3191d57-text/javascript" src="{% static 'assets/js/theme-main.js' %}"></script>
-        <!-- ======================= End JQuery libs =========================== -->
-
-    <script src="{% static '../../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js' %}" data-cf-settings="9f73f8f756e93a92a3191d57-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"56295f114ba5467d8767bbed7e63ce1e","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+            </section>
 
     {% endblock %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SpecialPoster,GameRule,EntertainmentFeature,DisciplineRule
+from .models import SpecialPoster,GameRule,EntertainmentFeature,DisciplineRule,PartnerLogo
 
 @admin.register(SpecialPoster)
 class SpecialPosterAdmin(admin.ModelAdmin):
@@ -43,3 +43,10 @@ class DisciplineRuleAdmin(admin.ModelAdmin):
     list_display = (
         'rule',
     )
+
+
+@admin.register(PartnerLogo)
+class PartnerLogoAdmin(admin.ModelAdmin):
+    list_display = ('name', 'category', 'is_active', 'sort_order')
+    list_filter = ('category', 'is_active')
+    search_fields = ('name',)

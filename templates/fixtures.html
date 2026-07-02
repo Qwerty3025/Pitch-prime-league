@@ -4,9 +4,11 @@
 {% block content %}
 
             <!-- Section Title -->
-            <div class="section-title" style="background:url(img/slide/1.jpg)">
+            <div class="section-title" style="background:
+        linear-gradient(rgba(15,15,15,0.75), rgba(15,15,15,0.75)),
+        url('{% static "img/slide/1.jpg" %}') center center/cover no-repeat;"">
                 <div class="container">
-                    <div class="row">
+                    <div class="row align-items-center">
                         <div class="col-md-8">
                             <h1>Fixtures</h1>
                         </div>
@@ -15,7 +17,7 @@
                             <div class="breadcrumbs">
                                 <ul>
                                     <li><a href="{% url 'home' %}">Home</a></li>
-                                    <li>Inner Page</li>
+                                    <li>Matches</li>
                                 </ul>
                             </div>
                         </div>
@@ -24,120 +26,67 @@
             </div>
             <!-- End Section Title -->
 
-            <!-- Section Area - Content Central -->
             <section class="content-info">
+                <div class="container paddings-mini">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-xl-10">
+                            <div class="matches-phone-shell">
+                                <div class="matches-phone-screen">
+                                    <div class="matches-phone-topbar">
+                                        <span class="matches-phone-notch"></span>
+                                        <span class="matches-phone-status">Live Schedule</span>
+                                    </div>
 
-                {% load static %}
+                                    <div class="matches-phone-header">
+                                        <div>
+                                            <h3 class="matches-phone-title">Upcoming Fixtures</h3>
+                                            <p class="matches-phone-subtitle">Stay on top of every matchday with a cleaner view.</p>
+                                        </div>
+                                        <span class="matches-phone-pill">{{ fixtures|length }} games</span>
+                                    </div>
 
-<div class="container paddings-mini">
-    <div class="row">
+                                    <div class="match-list">
+                                        {% for fixture in fixtures %}
+                                            <div class="match-item">
+                                                <div class="match-team">
+                                                    {% if fixture.home_team.logo %}
+                                                        <img src="{{ fixture.home_team.logo.url }}" alt="{{ fixture.home_team.name }}">
+                                                    {% else %}
+                                                        <img src="{% static 'img/default-team.jpg' %}" alt="{{ fixture.home_team.name }}">
+                                                    {% endif %}
+                                                    <div>
+                                                        <div class="match-team-name">{{ fixture.home_team.name }}</div>
+                                                        <div class="match-team-meta">{{ fixture.season }}</div>
+                                                    </div>
+                                                </div>
 
-        <div class="col-lg-12">
-            <h3 style="color: #ffff;" class="clear-title">Matches</h3>
-        </div>
+                                                <div class="match-center">
+                                                    <span class="match-vs-pill">VS</span>
+                                                    <span class="match-time">{{ fixture.scheduled_time|date:"M d, H:i" }}</span>
+                                                    <span class="match-status">{{ fixture.get_status_display }}</span>
+                                                </div>
 
-        <div class="col-lg-12">
+                                                <div class="match-team" style="justify-content:flex-end;">
+                                                    <div class="text-end">
+                                                        <div class="match-team-name">{{ fixture.away_team.name }}</div>
+                                                        <div class="match-team-meta">{{ fixture.season }}</div>
+                                                    </div>
+                                                    {% if fixture.away_team.logo %}
+                                                        <img src="{{ fixture.away_team.logo.url }}" alt="{{ fixture.away_team.name }}">
+                                                    {% else %}
+                                                        <img src="{% static 'img/default-team.jpg' %}" alt="{{ fixture.away_team.name }}">
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {% empty %}
+                                            <div class="empty-state">No upcoming fixtures available.</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-            <table class="table-striped table-responsive table-hover">
-
-                <thead>
-                    <tr>
-                        <th>Home Team</th>
-                        <th class="text-center">VS</th>
-                        <th>Away Team</th>
-                        <th>Match Details</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    {% for fixture in fixtures %}
-
-                    <tr>
-
-                        <!-- Home Team -->
-                        <td>
-
-                            {% if fixture.home_team.logo %}
-                                <img src="{{ fixture.home_team.logo.url }}"
-                                     alt="{{ fixture.home_team.name }}"
-                                     width="35">
-                            {% else %}
-                                <img src="{% static 'img/default-team.jpg' %}"
-                                     alt="{{ fixture.home_team.name }}"
-                                     width="35">
-                            {% endif %}
-
-                            <strong style="color: black;">{{ fixture.home_team.name }}</strong><br>
-
-                            <small style="color: black;" class="meta-text">
-                                {{ fixture.season }}
-                            </small>
-
-                        </td>
-
-                        <!-- VS -->
-                        <td style="color: black;" class="text-center">
-
-                            {% if fixture.status == 'live' %}
-                                <span style="color: black;" class="badge bg-danger">LIVE</span>
-                            {% else %}
-                                Vs
-                            {% endif %}
-
-                        </td>
-
-                        <!-- Away Team -->
-                        <td>
-
-                            {% if fixture.away_team.logo %}
-                                <img src="{{ fixture.away_team.logo.url }}"
-                                     alt="{{ fixture.away_team.name }}"
-                                     width="35">
-                            {% else %}
-                                <img src="{% static 'img/default-team.jpg' %}"
-                                     alt="{{ fixture.away_team.name }}"
-                                     width="35">
-                            {% endif %}
-
-                            <strong style="color: black;">{{ fixture.away_team.name }}</strong><br>
-
-                            <small style="color: black;" class="meta-text">
-                                {{ fixture.season }}
-                            </small>
-
-                        </td>
-
-                        <!-- Match Details -->
-                        <td style="color: black;">
-
-                            {{ fixture.scheduled_time|date:"M d, H:i" }}<br>
-
-                            <small style="color: black;" class="meta-text">
-                                {{ fixture.get_status_display }}
-                            </small>
-
-                        </td>
-
-                    </tr>
-
-                    {% empty %}
-
-                    <tr>
-                        <td colspan="4" class="text-center">
-                            No upcoming fixtures available.
-                        </td>
-                    </tr>
-
-                    {% endfor %}
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-</div>
-
-            {% endblock %}   
+{% endblock %}

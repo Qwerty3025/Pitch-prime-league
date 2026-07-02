@@ -16,6 +16,8 @@
         <!-- Theme CSS -->
         <link href="{% static 'assets/css/main.css' %}" rel="stylesheet" media="screen">
         <link href="{% static 'assets/css/custom.css' %}" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
         <style>
             /* ===== Navbar Glass Effect ===== */
@@ -64,6 +66,36 @@
                 font-size: 0.75rem;
                 text-transform: uppercase;
             }
+            .page-loading-overlay {
+                position: fixed;
+                inset: 0;
+                z-index: 99999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(4, 10, 9, 0.86);
+                backdrop-filter: blur(8px);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: opacity 0.2s ease, visibility 0.2s ease;
+            }
+            .page-loading-overlay.show {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+            }
+            .page-loading-overlay .spinner {
+                width: 46px;
+                height: 46px;
+                border: 3px solid rgba(255,255,255,0.16);
+                border-top-color: #00e676;
+                border-radius: 50%;
+                animation: spin 0.8s linear infinite;
+            }
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
             @media (max-width: 991.98px) {
                 .custom-navbar .navbar-collapse {
                     background-color: rgba(0, 0, 0, 0.96);
@@ -73,6 +105,68 @@
                     text-align: center;
                 }
                 .custom-navbar .nav-link::after { display: none; }
+            }
+
+            /* ===== Newsletter Compact & Premium Design ===== */
+            .section-newsletter {
+                padding: 40px 0 45px 0 !important;
+                background-color: #070709 !important; /* Matches premium dark bg */
+                border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            }
+            .section-newsletter h2 {
+                font-size: 1.5rem !important;
+                font-weight: 700 !important;
+                margin-bottom: 6px !important;
+                color: #fff !important;
+            }
+            .section-newsletter p {
+                font-size: 0.88rem !important;
+                color: rgba(255, 255, 255, 0.6) !important;
+                margin-bottom: 20px !important;
+            }
+            #newsletterForm {
+                max-width: 800px !important;
+            }
+            #newsletterForm .input-group-addon {
+                background-color: rgba(255, 255, 255, 0.03) !important;
+                border: 1px solid rgba(255, 255, 255, 0.08) !important;
+                border-right: none !important;
+                color: rgba(255, 255, 255, 0.6) !important;
+                border-radius: 6px 0 0 6px !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0 15px;
+            }
+            #newsletterForm .form-control {
+                background-color: rgba(255, 255, 255, 0.02) !important;
+                border: 1px solid rgba(255, 255, 255, 0.08) !important;
+                border-left: none !important;
+                color: #fff !important;
+                border-radius: 0 6px 6px 0 !important;
+                height: 46px !important;
+                font-size: 0.9rem !important;
+            }
+            #newsletterForm .form-control::placeholder {
+                color: rgba(255, 255, 255, 0.4) !important;
+            }
+            #newsletterForm .btn-primary {
+                background: linear-gradient(90deg, var(--accent-green), #00b95a) !important;
+                border: none !important;
+                color: #000 !important;
+                font-weight: 700 !important;
+                height: 46px !important;
+                border-radius: 6px !important;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-size: 0.8rem !important;
+                box-shadow: 0 4px 12px rgba(0, 230, 118, 0.15) !important;
+                transition: var(--transition-smooth) !important;
+            }
+            #newsletterForm .btn-primary:hover {
+                transform: translateY(-1px) !important;
+                box-shadow: 0 6px 18px rgba(0, 230, 118, 0.3), var(--glow-green) !important;
             }
         </style>
 
@@ -84,6 +178,9 @@
     </head>
 
     <body>
+        <div id="page-loading-overlay" class="page-loading-overlay" aria-hidden="true">
+            <div class="spinner" aria-hidden="true"></div>
+        </div>
 
         <!-- layout-->
         <div id="layout">
@@ -139,28 +236,28 @@
                             <div class="col-md-12">
                                 <div class="text-center">
                                     <h2>Enter your e-mail and <span class="text-resalt">subscribe</span> to our newsletter.</h2>
-                                    <p>Duis non lorem porta,  eros sit amet, tempor sem. Donec nunc arcu, semper a tempus et, consequat.</p>
+                                    <p>Stay updated with the latest league news, fixtures, and standings.</p>
                                 </div>
                                 <form id="newsletterForm" action="https://html.iwthemes.com/sportscup/run/php/mailchip/newsletter-subscribe.php">
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-5 col-sm-12 mb-3 mb-md-0">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
-                                                    <i class="fa fa-envelope"></i>
+                                                    <i class="fa fa-user"></i>
                                                 </span>
-                                                <input class="form-control" placeholder="Your Name" name="name"  type="text" required="required">
+                                                <input class="form-control" placeholder="Your Name" name="name" type="text" required="required">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-5 col-sm-12 mb-3 mb-md-0">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-envelope"></i>
                                                 </span>
-                                                <input class="form-control" placeholder="Your  Email" name="email"  type="email" required="required">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-primary" type="submit" name="subscribe" >SIGN UP</button>
-                                                 </span>
+                                                <input class="form-control" placeholder="Your Email" name="email" type="email" required="required">
                                             </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-12">
+                                            <button class="btn btn-primary btn-block" type="submit" name="subscribe">SIGN UP</button>
                                         </div>
                                     </div>
                                 </form>
@@ -177,7 +274,7 @@
                 <div class="btn-instagram">
                     <i class="fa fa-instagram"></i>
                     FOLLOW
-                    <a href="https://www.instagram.com/pitchprimingleague/" target="_blank">&#64;pitchprimingleague</a>
+                    <a href="https://www.instagram.com/pitchprimeleague/" target="_blank">&#64;pitchprimingleague</a>
                 </div>
             </div>
 
@@ -186,134 +283,89 @@
             </div>  
 
             <!-- footer-->
-            <footer id="footer">
-                <!-- Footer Top-->
-                <div class="top-footer">
-
-                    <!-- Logo Footer-->
-                   <div class="col-lg-12">
-                        <div class="logo-footer">
+            <footer id="footer" class="site-footer">
+                <div class="container">
+                    <div class="site-footer-top">
+                        <div class="site-footer-brand">
+                            <p class="site-footer-eyebrow">Official League Platform</p>
                             <h2>Pitch Prime League</h2>
+                            <p class="site-footer-copy">Connecting football, culture, and community with a premium event experience.</p>
                         </div>
-                   </div>
-                    <!-- End Logo Footer-->
-
-                    <!-- Social Icons-->
-                    <ul class="social">
-                        <li>
-                            <div>
-                                <a href="#" class="facebook">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="#" class="twitter-icon">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="#" class="vimeo">
-                                    <i class="fa fa-vimeo-square"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="#" class="google-plus">
-                                    <i class="fa fa-google-plus"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="#" class="youtube">
-                                    <i class="fa fa-youtube"></i>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- End Social Icons-->
-                </div>
-                <!-- End Footer Top-->
-
-                <!-- Links Footer-->
-                <div class="links-footer">
-                    <div class="container">
-                        <div class="row">
-
-                           <!-- Column Links -->
-                            <div class="col-lg-2 col-md-5 col-sm-5">
-                                <div class="info-links">
-                                   <h5>Organisation</h5>
-                                    <ul>
-                                        <li><a href="#">Volunteers</a></li>
-                                        <li><a href="#">Committees</a></li>
-                                        <li><a href="#">Official Documents</a></li>
-                                        <li><a href="#">Terms of Service</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- End Column Links -->
-
-                            <!-- Column Links -->
-                            <div class="col-lg-4 col-md-7 col-sm-7">
-                                <div class="info-links">
-                                   <h5>Teams</h5>
-                                    <ul class="columns">
-                                        <li><a href="#">GROUP A</a></li>
-                                        <li><a href="#">GROUP B</a></li>
-                                        <li><a href="#">GROUP C</a></li>
-                                        <li><a href="#">GROUP D</a></li>
-                                        <li><a href="#">GROUP E</a></li>
-                                        <li><a href="#">GROUP F</a></li>
-                                        <li><a href="#">GROUP G</a></li>
-                                        <li><a href="#">GROUP H</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- End Column Links -->
-
-                            <!-- Column Links -->
-                            <div class="col-lg-2 col-md-5 col-sm-5">
-                                <div class="info-links">
-                                   <h5>Interest Links</h5>
-                                    <ul>
-                                        <li><a href="#">Statistics</a></li>
-                                        <li><a href="#">Teams</a></li>
-                                        <li><a href="#">Qualifiers</a></li>
-                                        <li><a href="#">Ticketing</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- End Column Links -->
-
-                            <!-- Column Links -->
-                            <div class="col-lg-4 col-md-7 col-sm-7">
-                                <div class="info-links">
-                                   <h5>Organisation</h5>
-                                    <ul class="columns">
-                                        <li><a href="#">NIZHNY NOVGOROD</a></li>
-                                        <li><a href="#">SAINT PETERSBURG</a></li>
-                                        <li><a href="#">EKATERINBURG</a></li>
-                                        <li><a href="#">MOSCOW</a></li>
-                                        <li><a href="#">KAZAN</a></li>
-                                        <li><a href="#">KALININGRAD</a></li>
-                                        <li><a href="#">VOLGOGRAD</a></li>
-                                        <li><a href="#">ROSTOV-ON-DON</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- End Column Links -->
-
+                        <div class="site-footer-social">
+                            <a href="https://www.instagram.com/pitchprimingleague/" target="_blank" rel="noopener"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-youtube"></i></a>
                         </div>
                     </div>
-                </div>
-                <!-- End Links Footer-->
 
+                    <div class="site-footer-logos">
+                        <div class="site-footer-section">
+                            <div class="site-footer-section-title">Featured Teams</div>
+                            <div class="logo-strip">
+                                {% if footer_teams %}
+                                    {% for team in footer_teams %}
+                                        <a href="{% url 'league:team_detail' team.pk %}" class="footer-logo-card" title="{{ team.name }}">
+                                            {% if team.logo %}
+                                                <img src="{{ team.logo.url }}" alt="{{ team.name }}">
+                                            {% else %}
+                                                <span>{{ team.name }}</span>
+                                            {% endif %}
+                                        </a>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="footer-logo-card footer-logo-card-empty">Team logos will appear here</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="site-footer-section">
+                            <div class="site-footer-section-title">Sponsors</div>
+                            <div class="logo-strip">
+                                {% if footer_sponsors %}
+                                    {% for logo in footer_sponsors %}
+                                        <a href="{{ logo.website|default:'#' }}" class="footer-logo-card" target="_blank" rel="noopener" title="{{ logo.name }}">
+                                            {% if logo.logo %}
+                                                <img src="{{ logo.logo.url }}" alt="{{ logo.name }}">
+                                            {% else %}
+                                                <span>{{ logo.name }}</span>
+                                            {% endif %}
+                                        </a>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="footer-logo-card footer-logo-card-empty">Sponsor logos will appear here</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="site-footer-section">
+                            <div class="site-footer-section-title">Suppliers</div>
+                            <div class="logo-strip">
+                                {% if footer_suppliers %}
+                                    {% for logo in footer_suppliers %}
+                                        <a href="{{ logo.website|default:'#' }}" class="footer-logo-card" target="_blank" rel="noopener" title="{{ logo.name }}">
+                                            {% if logo.logo %}
+                                                <img src="{{ logo.logo.url }}" alt="{{ logo.name }}">
+                                            {% else %}
+                                                <span>{{ logo.name }}</span>
+                                            {% endif %}
+                                        </a>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="footer-logo-card footer-logo-card-empty">Supplier logos will appear here</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="site-footer-links">
+                        <a href="{% url 'rules' %}">Rules</a>
+                        <a href="#">Terms of Participation</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms &amp; Conditions</a>
+                        <a href="#">Cookies Policy</a>
+                    </div>
+                </div>
             </footer>
             <!-- End footer-->
 
@@ -333,19 +385,20 @@
 
         <!-- ======================= JQuery libs =========================== -->
         <!-- jQuery local-->
-        <script type="text/javascript" src="{% static 'assets/js/jquery.js' %}"></script>
+        <script defer src="{% static 'assets/js/jquery.js' %}"></script>
         <!-- popper.js-->
-        <script type="text/javascript" src="{% static 'assets/js/popper.min.js' %}"></script>
+        <script defer src="{% static 'assets/js/popper.min.js' %}"></script>
         <!-- bootstrap.min.js-->
-        <script type="text/javascript" src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+        <script defer src="{% static 'assets/js/bootstrap.min.js' %}"></script>
         <!-- required-scripts.js-->
-        <script type="text/javascript" src="{% static 'assets/js/theme-scripts.js' %}"></script>
+        <script defer src="{% static 'assets/js/theme-scripts.js' %}"></script>
         <!-- theme-main.js-->
-        <script type="text/javascript" src="{% static 'assets/js/theme-main.js' %}"></script>
+        <script defer src="{% static 'assets/js/theme-main.js' %}"></script>
         <!-- ======================= End JQuery libs =========================== -->
         <!-- Scroll Reveal Script -->
         <script>
             document.addEventListener("DOMContentLoaded", function() {
+                const overlay = document.getElementById('page-loading-overlay');
                 const revealElements = document.querySelectorAll('.reveal');
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
@@ -355,8 +408,41 @@
                         }
                     });
                 }, { threshold: 0.05 });
-                
+
+                document.querySelectorAll('img').forEach(function(img) {
+                    if (!img.hasAttribute('loading')) {
+                        img.setAttribute('loading', img.closest('header, .hero, .navbar, .carousel') ? 'eager' : 'lazy');
+                    }
+                    if (!img.hasAttribute('decoding')) {
+                        img.setAttribute('decoding', 'async');
+                    }
+                });
+
+                document.querySelectorAll('a[href]').forEach(function(link) {
+                    const href = link.getAttribute('href') || '';
+                    const isLocal = href.startsWith('/') || href.startsWith('./') || href.startsWith('../') || href.startsWith('#') === false && link.origin === window.location.origin;
+                    if (!isLocal || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || link.hasAttribute('target')) {
+                        return;
+                    }
+                    link.addEventListener('click', function() {
+                        overlay.classList.add('show');
+                    });
+                });
+
                 revealElements.forEach(el => observer.observe(el));
+
+                window.addEventListener('load', function() {
+                    overlay.classList.remove('show');
+                });
+
+                // Dismiss loading overlay when navigating back/forward via cache (bfcache)
+                window.addEventListener('pageshow', function(event) {
+                    overlay.classList.remove('show');
+                });
+
+                window.addEventListener('pagehide', function() {
+                    overlay.classList.remove('show');
+                });
             });
         </script>
 </body>

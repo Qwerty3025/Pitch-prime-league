@@ -3,104 +3,86 @@
 {% load static %}
 
 {% block content %}
+<section class="content-info contact-page-shell">
+    <div class="container">
+        <div class="contact-hero">
+            <div>
+                <p class="contact-eyebrow">Get in touch</p>
+                <h1>We’d love to hear from you.</h1>
+                <p class="contact-copy">Reach out for partnerships, event updates, or anything related to the Pitch Prime League experience.</p>
+            </div>
+            <div class="contact-highlights">
+                <div class="contact-pill"><i class="fa fa-phone"></i> +234 800 000 0000</div>
+                <div class="contact-pill"><i class="fa fa-envelope"></i> hello@pitchprimeleague.com</div>
+                <div class="contact-pill"><i class="fa fa-map-marker"></i> Lekki Phase 1, Lagos</div>
+            </div>
+        </div>
 
-           <br><br> <br><br><!-- Google Map -->
-            <div id="map">
-    <iframe
-        src="https://maps.google.com/maps?q=Lekki%20Phase%201%2C%20Lagos%2C%20Nigeria&t=&z=15&ie=UTF8&iwloc=&output=embed"
-        width="600"
-        height="450"
-        frameborder="0"
-        style="border:0;"
-        allowfullscreen=""
-        loading="lazy">
-    </iframe>
-</div>
-            <!-- End Google Map -->
+        <div class="contact-map-card">
+            <div class="contact-map-frame">
+                <iframe
+                    src="https://maps.google.com/maps?q=Lekki%20Phase%201%2C%20Lagos%2C%20Nigeria&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    loading="lazy"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
 
-            <!-- Section Area - Content Central -->
-            <section class="content-info">
-
-                <div class="container">
-                    <div class="row paddings-mini">
-                        <!-- Left Content -->
-                        <div class="col-md-4">
-                            <aside class="panel-box">
-                                <div class="titles no-margin">
-                                    <h4>The Office</h4>
-                                </div>
-                                <div class="info-panel">
-                                    <address>
-                                      <strong>Sports Cup, Inc.</strong><br>
-                                      <i class="fa fa-map-marker"></i><strong>Address: </strong> fa795 Folsom Ave, Suite 600<br>
-                                      <i class="fa fa-plane"></i><strong>City: </strong>San Francisco, CA 94107<br>
-                                      <i class="fa fa-phone"></i> <abbr title="Phone">P:</abbr> (123) 456-7890
-                                    </address>
-                                </div>
-                            </aside>
-
-                            <aside class="panel-box">
-                                <div class="titles no-margin">
-                                    <h4>Emails Contact</h4>
-                                </div>
-                                <div class="info-panel">
-                                    <address>
-                                      <i class="fa fa-envelope"></i><strong>Email:</strong><a href="https://html.iwthemes.com/cdn-cgi/l/email-protection#81a2"> <span class="__cf_email__" data-cfemail="b4c7d5d8d1c7f4c7c4dbc6c0c7d7c1c49ad7dbd9">[email&#160;protected]</span></a><br>
-                                      <i class="fa fa-envelope"></i><strong>Email:</strong><a href="https://html.iwthemes.com/cdn-cgi/l/email-protection#f9da"> <span class="__cf_email__" data-cfemail="f3808683839c8187b380839c818780908683dd909c9e">[email&#160;protected]</span></a>
-                                    </address>
-                                </div>
-                            </aside>
-                        </div>
-                        <!-- End Left Content -->
-
-                        <!-- Right Content -->
-                        <div class="col-md-8">
-                            <div class="panel-box">
-                                <div class="titles no-margin">
-                                    <h4>Contact Form</h4>
-                                </div>
-                                <div class="info-panel">
-                                    <!-- Form Contact -->
-                                    <form class="form-theme" action="https://html.iwthemes.com/sportscup/run/php/send-mail.php">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Your name *</label>
-                                                <input type="text"  required="required" value="" maxlength="100" class="form-control" name="Name" id="name">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Your email address *</label>
-                                                <input type="email"  required="required" value="" maxlength="100" class="form-control" name="Email" id="email">
-                                            </div>
-                                        </div>
-                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <label>Subject *</label>
-                                                <input type="text"  required="required" value="" maxlength="100" class="form-control" name="Email" id="email">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label>Comment *</label>
-                                                <textarea maxlength="5000" rows="10" class="form-control" name="message"  style="height: 138px;" required="required" ></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <input type="submit" value="Send Message" class="btn btn-lg btn-primary">
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <!-- End Form Contact -->
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="result"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Right Content -->
+        <div class="contact-grid">
+            <div class="contact-sidebar">
+                <div class="info-card contact-card">
+                    <div class="card-body">
+                        <h3 class="card-title">Visit the office</h3>
+                        <p class="card-muted">Stop by our headquarters for league updates, community events, and fan meetups.</p>
+                        <ul class="contact-details-list">
+                            <li><i class="fa fa-map-marker"></i><span>12 Admiralty Way, Lekki Phase 1, Lagos</span></li>
+                            <li><i class="fa fa-phone"></i><span>+234 800 000 0000</span></li>
+                            <li><i class="fa fa-envelope"></i><span>hello@pitchprimeleague.com</span></li>
+                        </ul>
                     </div>
                 </div>
 
-    {% endblock %}
+                <div class="info-card contact-card">
+                    <div class="card-body">
+                        <h3 class="card-title">Follow the league</h3>
+                        <p class="card-muted">Stay in the loop with fixtures, highlights, and upcoming events.</p>
+                        <div class="social-row">
+                            <a href="#" class="social-chip"><i class="fa fa-facebook"></i></a>
+                            <a href="#" class="social-chip"><i class="fa fa-twitter"></i></a>
+                            <a href="#" class="social-chip"><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card contact-form-card">
+                <div class="card-body">
+                    <h3 class="card-title">Send a message</h3>
+                    <p class="card-muted">Fill out the form below and our team will reply as soon as possible.</p>
+                    <form class="contact-form" action="#">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Your name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Your email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="6" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-premium-sm">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

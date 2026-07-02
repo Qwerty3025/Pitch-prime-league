@@ -75,3 +75,23 @@ class DisciplineRule(models.Model):
 
     def __str__(self):
         return self.rule
+
+
+class PartnerLogo(models.Model):
+    CATEGORY_CHOICES = [
+        ('sponsor', 'Sponsor'),
+        ('supplier', 'Supplier'),
+    ]
+
+    name = models.CharField(max_length=150)
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
+    logo = models.ImageField(upload_to='partner_logos/')
+    website = models.URLField(blank=True)
+    is_active = models.BooleanField(default=True)
+    sort_order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['sort_order', 'name']
+
+    def __str__(self):
+        return self.name

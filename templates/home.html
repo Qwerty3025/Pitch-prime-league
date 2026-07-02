@@ -20,7 +20,7 @@
                     <p class="lead text-white-50 mt-3" style="max-width: 600px; font-weight: 500;">
                         Nigerian youth football redefined. Experience high-octane 6-a-side indoor action, cultural legends, and dynamic digital integration.
                     </p>
-                    <div class="mt-4 d-flex gap-3">
+                    <div class="mt-4 d-flex gap-3 hero-actions">
                         {% if next_match %}
                         <button class="btn btn-premium px-4 py-3" data-toggle="modal" data-target="#countdownModal">
                             Next Match Details <i class="fa fa-arrow-right ml-2"></i>
@@ -38,7 +38,6 @@
 <!-- Content Area -->
 <section class="content-info pt-5 pb-5">
     <div class="container">
-        
         <!-- Featured Poster Banner Section -->
         {% if featured_poster %}
         <div class="row reveal">
@@ -105,14 +104,16 @@
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <div class="d-flex align-items-center gap-3" style="gap: 12px;">
-                                                            {% if team.logo %}
-                                                                <img class="team-logo-img" src="{{ team.logo.url }}" alt="{{ team.name }} Logo">
-                                                            {% else %}
-                                                                <div class="team-logo-badge">{{ team.name|slice:":1" }}</div>
-                                                            {% endif %}
-                                                            <span class="font-weight-bold">{{ team.name }}</span>
-                                                        </div>
+                                                        <a href="{% url 'league:team_detail' team.pk %}" class="standings-team-link">
+                                                            <div class="d-flex align-items-center gap-3" style="gap: 12px;">
+                                                                {% if team.logo %}
+                                                                    <img class="team-logo-img" src="{{ team.logo.url }}" alt="{{ team.name }} Logo">
+                                                                {% else %}
+                                                                    <div class="team-logo-badge">{{ team.name|slice:":1" }}</div>
+                                                                {% endif %}
+                                                                <span class="font-weight-bold">{{ team.name }}</span>
+                                                            </div>
+                                                        </a>
                                                     </td>
                                                     <td class="text-center text-white-50 font-weight-bold">{{ team.games_played }}</td>
                                                     <td class="text-center {% if team.goal_difference > 0 %}text-success{% elif team.goal_difference < 0 %}text-danger{% else %}text-muted{% endif %} font-weight-bold">

@@ -489,19 +489,21 @@
 
                             <!-- Club -->
                             <td class="text-left col-club">
-                                <div class="d-flex align-items-center" style="gap:12px;">
-                                    {% if team.logo %}
-                                        <img class="team-avatar" src="{{ team.logo.url }}" alt="{{ team.name }}">
-                                    {% else %}
-                                        <span class="team-init">{{ team.name|slice:":1"|upper }}</span>
-                                    {% endif %}
-                                    <div>
-                                        <span class="club-name">{{ team.name }}</span>
-                                        {% if team.location %}
-                                        <span class="club-loc d-block">{{ team.location }}</span>
+                                <a href="{% url 'league:team_detail' team.pk %}" class="standings-team-link">
+                                    <div class="d-flex align-items-center" style="gap:12px;">
+                                        {% if team.logo %}
+                                            <img class="team-avatar" src="{{ team.logo.url }}" alt="{{ team.name }}">
+                                        {% else %}
+                                            <span class="team-init">{{ team.name|slice:":1"|upper }}</span>
                                         {% endif %}
+                                        <div>
+                                            <span class="club-name">{{ team.name }}</span>
+                                            {% if team.location %}
+                                            <span class="club-loc d-block">{{ team.location }}</span>
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </td>
 
                             <!-- Played -->
