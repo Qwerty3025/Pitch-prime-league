@@ -61,7 +61,7 @@ def team_detail(request, pk):
 
     fixtures = Match.objects.filter(
         Q(home_team=team) | Q(away_team=team),
-        status__in=[Match.Status.UPCOMING, Match.Status.LIVE]
+        status__in=[Match.Status.UPCOMING, Match.Status.LIVE, Match.Status.HALF_TIME]
     ).order_by('scheduled_time')
 
     results = Match.objects.filter(

@@ -1,517 +1,348 @@
-
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block content %}
-            
-            
-            <!-- Section Title --> <br> <br>
-            <div class="section-title single-result" style="background:url(img/locations/3.jpg)">
-                <div class="container">
-                    <div class="row">
-                        <!-- Result Location -->
-                        <div class="col-lg-12">
-                            <div class="result-location">
-                                <ul>
-                                    <li>{{ match.scheduled_time|date:"D d M Y" }}</li>
-<li>
-    <i class="fa fa-trophy"></i>
-    {{ match.season }}
-</li>
-<li>{{ match.get_status_display }}</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Result Location -->
-
-                    <!-- Result -->
-                    <div class="row">
-                        <div class="col-md-5 col-lg-5">
-                            <div class="team">
-                                {% if match.home_team.logo %}
-<img src="{{ match.home_team.logo.url }}" alt="{{ match.home_team.name }}">
-{% endif %}
-
-<a href="{% url 'league:team_detail' match.home_team.pk %}">
-    {{ match.home_team.name }}
-</a>
-                                <ul>
-    {% for event in events %}
-        {% if event.acting_team == match.home_team %}
-            <li>
-                {{ event.associated_player }}
-                {{ event.timestamp_minute }}'
-
-                {% if event.event_type == 'goal' %}
-                    <i class="fa fa-futbol-o"></i>
-                {% elif event.event_type == 'card' %}
-                    <i class="fa fa-square"></i>
-                {% elif event.event_type == 'penalty' %}
-                    <i class="fa fa-dot-circle-o"></i>
+<div class="match-detail-page container">
+    <!-- Match Hero Banner -->
+    <div class="match-hero-banner" style="background: linear-gradient(180deg, rgba(7, 7, 9, 0.45) 0%, rgba(7, 7, 9, 0.95) 100%), url('{% static 'img/locations/3.jpg' %}') center/cover no-repeat;">
+        <div class="match-hero-overlay">
+            <div class="text-center mb-4">
+                <span class="match-meta-pill" style="background-color: #00e676; color: #fff">
+                    <i class="fa fa-calendar"></i> {{ match.scheduled_time|date:"D d M Y" }}
+                </span>
+                <span class="match-meta-pill mx-2" style="background-color: #00e676; color: #fff">
+                    <i class="fa fa-trophy"></i> {{ match.season }}
+                </span>
+                {% if match.status == 'completed' %}
+                    <span class="match-status-badge status-badge-completed">Full Time</span>
+                {% elif match.status == 'half_time' %}
+                    <span class="match-status-badge status-badge-halftime">Half Time</span>
+                {% elif match.status == 'live' %}
+                    <span class="match-status-badge status-badge-live">Live</span>
+                {% else %}
+                    <span class="match-status-badge status-badge-upcoming">Upcoming</span>
                 {% endif %}
-            </li>
-        {% endif %}
-    {% empty %}
-        <li>No match events.</li>
-    {% endfor %}
-</ul>
-                            </div>
-                        </div>
+            </div>
 
-                        <div class="col-md-2 col-lg-2">
-                            <div class="result-match">
-    {{ match.home_score }} : {{ match.away_score }}
-</div>
-
-                            <div class="live-on">
-                                <a href="#">
-                                    Live on
-                                    <img src="img/img-theme/espn.gif" alt="">
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-5 col-lg-5">
-                            <div class="team right">
-                                <a href="{% url 'league:team_detail' match.away_team.pk %}">
-    {{ match.away_team.name }}
-</a>
-
-{% if match.away_team.logo %}
-<img src="{{ match.away_team.logo.url }}" alt="{{ match.away_team.name }}">
-{% endif %}
-                                <ul>
-    {% for event in events %}
-        {% if event.acting_team == match.away_team %}
-            <li>
-                {% if event.event_type == 'goal' %}
-                    <i class="fa fa-futbol-o"></i>
-                {% elif event.event_type == 'card' %}
-                    <i class="fa fa-square"></i>
-                {% elif event.event_type == 'penalty' %}
-                    <i class="fa fa-dot-circle-o"></i>
-                {% endif %}
-
-                {{ event.associated_player }}
-                {{ event.timestamp_minute }}'
-            </li>
-        {% endif %}
-    {% empty %}
-        <li>No match events.</li>
-    {% endfor %}
-</ul>
-                            </div>
-                        </div>
+            <!-- Matchup Grid -->
+            <div class="matchup-grid">
+                <!-- Home Team -->
+                <div class="hero-team">
+                    <div class="hero-team-logo">
+                        {% if match.home_team.logo %}
+                            <img src="{{ match.home_team.logo.url }}" alt="{{ match.home_team.name }}">
+                        {% else %}
+                            <span class="team-logo-badge">{{ match.home_team.name|slice:":2"|upper }}</span>
+                        {% endif %}
                     </div>
-                    <!-- End Result -->
+                    <a href="{% url 'league:team_detail' match.home_team.pk %}" class="hero-team-name">
+                        {{ match.home_team.name }}
+                    </a>
+                    
+                    <!-- Quick Goals list under team -->
+                    <ul class="hero-team-events">
+                        {% for event in events %}
+                            {% if event.acting_team == match.home_team and event.event_type == 'goal' %}
+                                <li>
+                                    <i class="fa fa-futbol-o text-success"></i>
+                                    {{ event.associated_player }} ({{ event.timestamp_minute }}')
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="timeline-result">
-                                <div class="team-timeline">
-                                    {% if match.home_team.logo %}
-<img src="{{ match.home_team.logo.url }}" alt="">
-{% endif %}
+                <!-- Center Score/VS -->
+                <div class="hero-score-center">
+                    {% if match.status == 'upcoming' %}
+                        <div class="hero-score-display">VS</div>
+                        <p class="text-muted mt-2">{{ match.scheduled_time|date:"H:i" }}</p>
+                    {% else %}
+                        <div class="hero-score-display">{{ match.home_score }} : {{ match.away_score }}</div>
+                        <p class="text-success font-weight-bold text-uppercase mt-2" style="letter-spacing: 2px;">
+                            {% if match.status == 'live' %}Live{% elif match.status == 'half_time' %}Half Time{% else %}Full Time{% endif %}
+                        </p>
+                    {% endif %}
+                </div>
 
-<a href="{% url 'league:team_detail' match.home_team.pk %}">
-    {{ match.home_team.name|slice:":3" }}
-</a>
-                                </div>
-                                <ul class="timeline">
-
-    {% for event in events %}
-
-        <li
-            class="card-result {% if forloop.counter|divisibleby:2 %}top{% else %}bottom{% endif %}
-            {% if event.event_type == 'goal' %}goal{% endif %}"
-
-            style="left:{% widthratio event.timestamp_minute 90 100 %}%"
-
-            data-placement="top"
-            data-trigger="hover"
-            data-toggle="popover"
-            title="{{ event.get_event_type_display }}"
-            data-content="{{ event.associated_player }}"
-        >
-
-            {{ event.timestamp_minute }}'
-
-        </li>
-
-    {% endfor %}
-
-</ul>
-                                <div class="team-timeline">
-                                    {% if match.away_team.logo %}
-<img src="{{ match.away_team.logo.url }}" alt="">
-{% endif %}
-
-<a href="{% url 'league:team_detail' match.away_team.pk %}">
-    {{ match.away_team.name|slice:":3" }}
-</a>
-                                </div>
-                            </div>
-                        </div>
+                <!-- Away Team -->
+                <div class="hero-team right-side">
+                    <div class="hero-team-logo">
+                        {% if match.away_team.logo %}
+                            <img src="{{ match.away_team.logo.url }}" alt="{{ match.away_team.name }}">
+                        {% else %}
+                            <span class="team-logo-badge">{{ match.away_team.name|slice:":2"|upper }}</span>
+                        {% endif %}
                     </div>
-
+                    <a href="{% url 'league:team_detail' match.away_team.pk %}" class="hero-team-name">
+                        {{ match.away_team.name }}
+                    </a>
+                    
+                    <!-- Quick Goals list under team -->
+                    <ul class="hero-team-events">
+                        {% for event in events %}
+                            {% if event.acting_team == match.away_team and event.event_type == 'goal' %}
+                                <li>
+                                    <i class="fa fa-futbol-o text-success"></i>
+                                    {{ event.associated_player }} ({{ event.timestamp_minute }}')
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
-            <!-- End Section Title -->
 
-            <!-- Section Area - Content Central -->
-            <section class="content-info">
+            <!-- Timeline Section -->
+            <div class="match-timeline-box glass-panel">
+                <h3 class="timeline-title text-center text-uppercase">Match Timeline</h3>
+                <div class="timeline-wrapper">
+                    <!-- Left Team Badge -->
+                    <div class="timeline-team-badge" title="{{ match.home_team.name }}">
+                        {% if match.home_team.logo %}
+                            <img src="{{ match.home_team.logo.url }}" alt="">
+                        {% else %}
+                            <span class="team-logo-badge" style="font-size: 0.8rem;">{{ match.home_team.name|slice:":2"|upper }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Track -->
+                    <div class="timeline-track-container">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-labels">
+                            <span style="left: 0%">0'</span>
+                            <span style="left: 50%">HT</span>
+                            <span style="left: 100%">90'</span>
+                        </div>
+                        
+                        <!-- Home Team Events (placed top) -->
+                        {% for event in events %}
+                            {% if event.acting_team == match.home_team %}
+                                <div class="timeline-marker home-event {% if event.event_type == 'goal' %}marker-goal{% elif event.event_type == 'card' %}marker-card{% else %}marker-penalty{% endif %}"
+                                     style="left: {% widthratio event.timestamp_minute 90 100 %}%"
+                                     data-toggle="tooltip"
+                                     data-placement="top"
+                                     title="{{ event.timestamp_minute }}' - {{ event.get_event_type_display }}: {{ event.associated_player }}">
+                                    {% if event.event_type == 'goal' %}
+                                        <i class="fa fa-futbol-o"></i>
+                                    {% elif event.event_type == 'card' %}
+                                        <i class="fa fa-square"></i>
+                                    {% else %}
+                                        <i class="fa fa-dot-circle-o"></i>
+                                    {% endif %}
+                                    <span class="marker-min">{{ event.timestamp_minute }}'</span>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
 
-                <!-- Single Team Tabs -->
-                <div class="single-team-tabs">
-                   <div class="container">
-                        <div class="row">
-                            <!-- Left Content - Tabs and Carousel -->
-                            <div class="col-xl-12 col-md-12">
-                                <!-- Nav Tabs -->
-                                <ul class="nav nav-tabs" id="myTab">
-                                   <li class="active"><a href="#summary" data-toggle="tab">Summary</a></li>
-                                   <li><a href="#stats" data-toggle="tab">Match Stats</a></li>
-                                </ul>
-                                <!-- End Nav Tabs -->
+                        <!-- Away Team Events (placed bottom) -->
+                        {% for event in events %}
+                            {% if event.acting_team == match.away_team %}
+                                <div class="timeline-marker away-event {% if event.event_type == 'goal' %}marker-goal{% elif event.event_type == 'card' %}marker-card{% else %}marker-penalty{% endif %}"
+                                     style="left: {% widthratio event.timestamp_minute 90 100 %}%"
+                                     data-toggle="tooltip"
+                                     data-placement="bottom"
+                                     title="{{ event.timestamp_minute }}' - {{ event.get_event_type_display }}: {{ event.associated_player }}">
+                                    {% if event.event_type == 'goal' %}
+                                        <i class="fa fa-futbol-o"></i>
+                                    {% elif event.event_type == 'card' %}
+                                        <i class="fa fa-square"></i>
+                                    {% else %}
+                                        <i class="fa fa-dot-circle-o"></i>
+                                    {% endif %}
+                                    <span class="marker-min">{{ event.timestamp_minute }}'</span>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                        <!-- Secret Card Activations -->
+                        {% for activation in activations %}
+                            <div class="timeline-marker card-activation-marker {% if activation.activating_team == match.home_team %}home-activation{% else %}away-activation{% endif %}"
+                                 style="left: {% widthratio activation.activation_minute 90 100 %}%"
+                                 data-toggle="tooltip"
+                                 data-placement="{% if activation.activating_team == match.home_team %}top{% else %}bottom{% endif %}"
+                                 title="{{ activation.activation_minute }}' - Secret Card Activated: {{ activation.card }} by {{ activation.activating_team.name }}">
+                                <i class="fa fa-magic"></i>
+                                <span class="marker-min">{{ activation.activation_minute }}'</span>
                             </div>
+                        {% endfor %}
+                    </div>
 
-                            <div class="col-lg-12">
-                                <!-- Content Tabs -->
-                                <div class="tab-content">
-                                    <!-- Tab One - Summary -->
-                                    <div class="tab-pane active" id="summary">
-
-                                        <div class="panel-box padding-b">
-                                          <div class="titles">
-    <h4>
-        {{ match.home_team.name }}
-        vs
-        {{ match.away_team.name }}
-    </h4>
-</div>
-                                            <div class="row">
-                                               <div class="col-lg-12 col-xl-4">
-
-        {% if match.home_team.logo %}
-            <img src="{{ match.home_team.logo.url }}" alt="">
-        {% endif %}
-
+                    <!-- Right Team Badge -->
+                    <div class="timeline-team-badge" title="{{ match.away_team.name }}">
+                        {% if match.away_team.logo %}
+                            <img src="{{ match.away_team.logo.url }}" alt="">
+                        {% else %}
+                            <span class="team-logo-badge" style="font-size: 0.8rem;">{{ match.away_team.name|slice:":2"|upper }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-                                               <div class="col-lg-12 col-xl-8">
+    <!-- Details Section (Tabs) -->
+    <div class="glass-panel mt-4 p-4">
+        <!-- Tabs Navigation -->
+        <ul class="nav nav-tabs mb-4" id="matchTabs" role="tablist">
+            <li class="nav-item flex-fill text-center flex-md-grow-0">
+                <a class="nav-link active" id="summary-tab" data-toggle="tab" href="#summary" role="tab" aria-controls="summary" aria-selected="true">
+                    <i class="fa fa-list-ul mr-2"></i> Summary
+                </a>
+            </li>
+            <li class="nav-item flex-fill text-center flex-md-grow-0">
+                <a class="nav-link" id="stats-tab" data-toggle="tab" href="#stats" role="tab" aria-controls="stats" aria-selected="false">
+                    <i class="fa fa-bar-chart mr-2"></i> Match Stats
+                </a>
+            </li>
+            {% if activations %}
+            <li class="nav-item flex-fill text-center flex-md-grow-0">
+                <a class="nav-link" id="cards-tab" data-toggle="tab" href="#cards" role="tab" aria-controls="cards" aria-selected="false">
+                    <i class="fa fa-magic mr-2"></i> Secret Cards ({{ activations|length }})
+                </a>
+            </li>
+            {% endif %}
+        </ul>
 
-        <p style="color: #000000;">
-            Match played on
-            {{ match.scheduled_time|date:"d M Y H:i" }}
-            during the {{ match.season }} season.
-        </p>
-
-        <p style="color: #000000;">
-            Final Score:
-            {{ match.home_team.name }}
-            {{ match.home_score }}
-            -
-            {{ match.away_score }}
-            {{ match.away_team.name }}
-        </p>
-
-        <p style="color: #000000;">
-            Status:
-            {{ match.get_status_display }}
-        </p>
-
-        <p style="color: #000000;">
-            Total Match Events:
-            {{ events|length }}
-        </p>
-
-    </div>
-                                           </div>
-                                       </div>
-
-                                       <!--Items Club News -->
-                                       <div class="row">
-                                          <!-- <div class="col-md-12">
-                                              <h3 class="clear-title">Match News</h3>
-                                          </div> -->
-
-                                          <!--Item Club News -->
-                                          <div class="col-lg-6 col-xl-3">
-                                               <!-- Widget Text-->
-                                                <!-- <div class="panel-box">
-                                                    <div class="titles no-margin">
-                                                        <h4><a href="#">World football's dates.</a></h4>
-                                                    </div>
-                                                    <a href="#"><img src="img/blog/1.jpg" alt=""></a>
-                                                    <div class="row">
-                                                       <div class="info-panel">
-                                                            <p>Fans from all around the world can apply for 2018 FIFA World Cup™ tickets as the first window of sales.</p>
-                                                       </div>
-                                                    </div>
-                                                </div> -->
-                                                <!-- End Widget Text-->
-                                           </div>
-                                           <!--End Item Club News -->
-
-                                           <!--Item Club News -->
-                                          <div class="col-lg-6 col-xl-3">
-                                               <!-- Widget Text-->
-                                                <!-- <div class="panel-box">
-                                                    <div class="titles no-margin">
-                                                        <h4><a href="#">Mbappe’s year to remember</a></h4>
-                                                    </div>
-                                                    <a href="#"><img src="img/blog/2.jpg" alt=""></a>
-                                                    <div class="row">
-                                                       <div class="info-panel">
-                                                            <p>Tickets may be purchased online by using Visa payment cards or Visa Checkout. Visa is the official.</p>
-                                                       </div>
-                                                    </div>
-                                                </div> -->
-                                                <!-- End Widget Text-->
-                                           </div>
-                                           <!--End Item Club News -->
-
-                                          <!--Item Club News -->
-                                          <div class="col-lg-6 col-xl-3">
-                                               <!-- Widget Text-->
-                                                <!-- <div class="panel-box">
-                                                    <div class="titles no-margin">
-                                                        <h4><a href="#">Egypt are one family</a></h4>
-                                                    </div>
-                                                    <a href="#"><img src="img/blog/3.jpg" alt=""></a>
-                                                    <div class="row">
-                                                       <div class="info-panel">
-                                                            <p>Successful applicants who have applied for supporter tickets and conditional supporter tickets will.</p>
-                                                       </div>
-                                                    </div>
-                                                </div> -->
-                                                <!-- End Widget Text-->
-                                           </div>
-                                           <!--End Item Club News -->
-
-                                            <!--Item Club News -->
-                                          <div class="col-lg-6 col-xl-3"> 
-                                               <!-- Widget Text-->
-                                                 <!-- <div class="panel-box">
-                                                    <div class="titles no-margin">
-                                                        <h4><a href="#">Egypt are one family</a></h4>
-                                                    </div>
-                                                    <a href="#"><img src="img/blog/4.jpg" alt=""></a>
-                                                    <div class="row">
-                                                       <div class="info-panel">
-                                                            <p>Successful applicants who have applied for supporter tickets and conditional supporter tickets will.</p>
-                                                       </div>
-                                                    </div>
-                                                </div>  -->
-                                                <!-- End Widget Text-->
-                                           </div> 
-                                           <!-- End Item Club News -->
-
-                                       </div>
-                                       <!--End Items Club News -->
-
-
-                                       
-                                       </div>
-                                       <!--End Items Club video -->
-
-                                       <!--Sponsors CLub -->
-                                       <!-- <div class="row no-line-height">
-                                              <div class="col-md-12">
-                                                  <h3 class="clear-title">Match Sponsors</h3>
-                                              </div>
-                                        </div> -->
-                                        <!--End Sponsors CLub -->
-
-                                        <!-- <ul class="sponsors-carousel">
-                                            <li><a href="#"><img src="img/sponsors/1.png" alt=""></a></li>
-                                            <li><a href="#"><img src="img/sponsors/2.png" alt=""></a></li>
-                                            <li><a href="#"><img src="img/sponsors/3.png" alt=""></a></li>
-                                            <li><a href="#"><img src="img/sponsors/4.png" alt=""></a></li>
-                                            <li><a href="#"><img src="img/sponsors/5.png" alt=""></a></li>
-                                            <li><a href="#"><img src="img/sponsors/3.png" alt=""></a></li>
-                                        </ul> -->
-
+        <!-- Tabs Content -->
+        <div class="tab-content" id="matchTabsContent">
+            <!-- Summary Tab -->
+            <div class="tab-pane fade show active" id="summary" role="tabpanel" aria-labelledby="summary-tab">
+                <div class="row">
+                    <!-- Events Log column -->
+                    <div class="col-lg-7 mb-4 mb-lg-0">
+                        <h4 class="text-uppercase mb-3" style="font-size: 0.94rem; letter-spacing: 1px; color: var(--accent-green);">
+                            Match Timeline Events
+                        </h4>
+                        
+                        <ul class="event-feed">
+                            {% for event in timeline_events %}
+                                <li class="event-feed-item">
+                                    <span class="event-feed-time">{{ event.minute }}'</span>
+                                    <div class="event-feed-icon">
+                                        <i class="{{ event.icon }}"></i>
                                     </div>
-                                    <!-- Tab One - Summary -->
+                                    <div class="event-feed-detail">
+                                        {{ event.detail }}
+                                        {% if event.description %}
+                                            <small class="d-block text-muted mt-1">{{ event.description }}</small>
+                                        {% endif %}
+                                    </div>
+                                    <span class="event-feed-team text-right text-muted font-weight-bold">
+                                        {{ event.team.name|slice:":3"|upper }}
+                                    </span>
+                                </li>
+                            {% empty %}
+                                <div class="empty-state">No events recorded during this match.</div>
+                            {% endfor %}
+                        </ul>
+                    </div>
 
-                                    <!-- Tab Two - stats -->
-                                    <div class="tab-pane" id="stats">
-
-    <!-- Result -->
-    <div class="row match-stats">
-
-        <div class="col-lg-5">
-            <div class="team">
-
-                {% if match.home_team.logo %}
-                    <img src="{{ match.home_team.logo.url }}" alt="{{ match.home_team.name }}">
-                {% else %}
-                    <img src="{% static 'img/default-team.jpg' %}" alt="{{ match.home_team.name }}">
-                {% endif %}
-
-                <a href="{% url 'league:team_detail' match.home_team.pk %}">
-                    {{ match.home_team.name }}
-                </a>
-
-            </div>
-        </div>
-
-        <div class="col-lg-2">
-            <div class="result-match">
-                VS
-            </div>
-        </div>
-
-        <div class="col-lg-5">
-            <div class="team right">
-
-                <a href="{% url 'league:team_detail' match.away_team.pk %}">
-                    {{ match.away_team.name }}
-                </a>
-
-                {% if match.away_team.logo %}
-                    <img src="{{ match.away_team.logo.url }}" alt="{{ match.away_team.name }}">
-                {% else %}
-                    <img src="{% static 'img/default-team.jpg' %}" alt="{{ match.away_team.name }}">
-                {% endif %}
-
-            </div>
-        </div>
-
-        <div class="col-lg-12">
-            <ul>
-
-                <li style="color: #ffff;">
-                    <span class="left">
-    {{ match.stats.home_possession|floatformat:0 }}%
-</span>
-
-                    <span class="center">
-                        Possession %
-                    </span>
-
-                    <span class="right">
-    {{ match.stats.away_possession|floatformat:0 }}%
-</span>
-                </li>
-
-                <li style="color: #ffff;">
-                    <span class="left">
-                        {{ match.stats.home_shots_on_target }}
-                    </span>
-
-                    <span class="center">
-                        Shots On Target
-                    </span>
-
-                    <span class="right">
-                        {{ match.stats.away_shots_on_target }}
-                    </span>
-                </li>
-
-                <li style="color: #ffff;">
-                    <span class="left">
-                        {{ match.stats.home_shots }}
-                    </span>
-
-                    <span class="center">
-                        Shots
-                    </span>
-
-                    <span class="right">
-                        {{ match.stats.away_shots }}
-                    </span>
-                </li>
-
-                <li style="color: #ffff;">
-                    <span class="left">
-                        {{ match.stats.home_touches }}
-                    </span>
-
-                    <span class="center">
-                        Touches
-                    </span>
-
-                    <span class="right">
-                        {{ match.stats.away_touches }}
-                    </span>
-                </li>
-
-                <li style="color: #ffff;">
-                    <span class="left">
-                        {{ match.stats.home_passes }}
-                    </span>
-
-                    <span class="center">
-                        Passes
-                    </span>
-
-                    <span class="right">
-                        {{ match.stats.away_passes }}
-                    </span>
-                </li>
-
-                <li style="color: #ffff;">
-                    <span class="left">
-                        {{ match.stats.home_tackles }}
-                    </span>
-
-                    <span class="center">
-                        Tackles
-                    </span>
-
-                    <span class="right">
-                        {{ match.stats.away_tackles }}
-                    </span>
-                </li>
-
-                <li style="color: #ffff;">
-                    <span class="left">
-                        {{ match.stats.home_clearances }}
-                    </span>
-
-                    <span class="center">
-                        Clearances
-                    </span>
-
-                    <span class="right">
-                        {{ match.stats.away_clearances }}
-                    </span>
-                </li>
-
-                <li style="color: #ffff;">
-                    <span class="left">
-                        {{ match.home_score }}
-                    </span>
-
-                    <span class="center">
-                        Goals
-                    </span>
-
-                    <span class="right">
-                        {{ match.away_score }}
-                    </span>
-                </li>
-
-            </ul>
-        </div>
-
-    </div>
-    <!-- End Result -->
-
-</div>
-                                    <!-- End Tab Two - stats -->
-                                </div>
-                                <!-- Content Tabs -->
-                            </div>
-
+                    <!-- Match Details column -->
+                    <div class="col-lg-5">
+                        <h4 class="text-uppercase mb-3" style="font-size: 0.94rem; letter-spacing: 1px; color: var(--accent-gold);">
+                            Match Details
+                        </h4>
+                        
+                        <div class="card bg-dark border-0 p-3 mb-4" style="background: rgba(255, 255, 255, 0.02) !important; border-radius: 12px; border: 1px solid var(--border-color) !important;">
+                            <table class="table table-borderless text-white mb-0" style="font-size: 0.9rem;">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-muted pl-0">Season</td>
+                                        <td class="text-right font-weight-bold">{{ match.season }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted pl-0">Date Played</td>
+                                        <td class="text-right">{{ match.scheduled_time|date:"d M Y H:i" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted pl-0">Match ID</td>
+                                        <td class="text-right">#{{ match.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted pl-0">Winner</td>
+                                        <td class="text-right text-success font-weight-bold">
+                                            {% if match.get_winner %}
+                                                {{ match.get_winner.name }}
+                                            {% else %}
+                                                Draw
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <!-- Single Team Tabs -->
+            </div>
 
-                
+            <!-- Stats Tab -->
+            <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+                {% if stats_list %}
+                    <div class="stats-container">
+                        {% for stat in stats_list %}
+                            <div class="stat-item">
+                                <div class="stat-labels">
+                                    <span class="stat-value home-val">{{ stat.home_value }}</span>
+                                    <span class="stat-name">{{ stat.name }}</span>
+                                    <span class="stat-value away-val">{{ stat.away_value }}</span>
+                                </div>
+                                <div class="stat-bar-wrapper">
+                                    <div class="stat-bar-half home-bar">
+                                        <div class="stat-bar-fill" style="width: {{ stat.home_pct }}%"></div>
+                                    </div>
+                                    <div class="stat-bar-half away-bar">
+                                        <div class="stat-bar-fill" style="width: {{ stat.away_pct }}%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">Detailed statistics are not available for this match.</div>
+                {% endif %}
+            </div>
+
+            <!-- Secret Cards Tab -->
+            {% if activations %}
+            <div class="tab-pane fade" id="cards" role="tabpanel" aria-labelledby="cards-tab">
+                <div class="activation-card-grid">
+                    {% for activation in activations %}
+                        <div class="activation-card">
+                            <div class="activation-card-header">
+                                <h5 class="activation-card-title">{{ activation.card }}</h5>
+                                <span class="activation-card-badge">{{ activation.activation_minute }}'</span>
+                            </div>
+                            <div class="activation-card-team">
+                                <i class="fa fa-shield mr-1"></i> {{ activation.activating_team.name }}
+                            </div>
+                            {% if activation.card.description %}
+                                <p class="activation-card-desc mt-2">{{ activation.card.description }}</p>
+                            {% else %}
+                                <p class="activation-card-desc text-muted mt-2">No description available for this card.</p>
+                            {% endif %}
+                            <div class="mt-3">
+                                {% if activation.is_exhausted %}
+                                    <span class="badge badge-secondary py-1 px-2">Exhausted</span>
+                                {% else %}
+                                    <span class="badge badge-success py-1 px-2" style="background-color: var(--accent-green); color: #000;">Active Effect</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Script to initialize tooltips for timeline events -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize tooltips using jQuery if present
+        if (typeof $ !== 'undefined') {
+            $('[data-toggle="tooltip"]').tooltip();
+        }
+    });
+</script>
 {% endblock %}

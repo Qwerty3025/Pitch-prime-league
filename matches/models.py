@@ -7,7 +7,8 @@ class Match(models.Model):
     class Status(models.TextChoices):
         UPCOMING = 'upcoming', 'Upcoming'
         LIVE = 'live', 'Live'
-        COMPLETED = 'completed', 'Completed'
+        HALF_TIME = 'half_time', 'Half Time'
+        COMPLETED = 'completed', 'Full Time'
 
     season = models.ForeignKey('league.Season', on_delete=models.CASCADE, related_name='matches')
     home_team = models.ForeignKey(

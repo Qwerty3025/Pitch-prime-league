@@ -14,7 +14,7 @@ def home(request):
     standings = current_season.get_standings() if current_season else []
 
     recent_results = Match.objects.filter(status=Match.Status.COMPLETED).order_by('-scheduled_time')[:5]
-    next_match = Match.objects.filter(status__in=[Match.Status.UPCOMING, Match.Status.LIVE]).order_by('scheduled_time').first()
+    next_match = Match.objects.filter(status__in=[Match.Status.UPCOMING, Match.Status.LIVE, Match.Status.HALF_TIME]).order_by('scheduled_time').first()
     featured_poster = SpecialPoster.objects.filter(is_active=True).order_by('-created_at').first()
 
     context = {
