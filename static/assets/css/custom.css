@@ -993,6 +993,166 @@ body {
     text-align: center;
 }
 
+/* ===== Fixtures Page Refresh ===== */
+.fixtures-page {
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 12% 8%, rgba(0, 230, 118, 0.11), transparent 30%),
+        radial-gradient(circle at 86% 18%, rgba(2, 132, 199, 0.12), transparent 28%),
+        linear-gradient(180deg, #070b0c 0%, #0c1211 100%);
+}
+
+.fixtures-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.65), transparent 72%);
+}
+
+.fixtures-page .container {
+    position: relative;
+    z-index: 1;
+}
+
+.fixtures-page .matches-phone-shell {
+    max-width: 1080px;
+    padding: 1px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(0, 230, 118, 0.22), rgba(255,255,255,0.08));
+    border: 0;
+    box-shadow: 0 26px 70px rgba(0, 0, 0, 0.28);
+}
+
+.fixtures-page .matches-phone-screen {
+    min-height: auto;
+    padding: clamp(18px, 3vw, 30px);
+    border-radius: 23px;
+    background:
+        linear-gradient(180deg, rgba(13, 20, 19, 0.94), rgba(7, 11, 12, 0.98)),
+        rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.fixtures-page .matches-phone-topbar {
+    margin-bottom: 22px;
+}
+
+.fixtures-page .matches-phone-notch {
+    width: 44px;
+    height: 4px;
+    background: var(--accent-green);
+    box-shadow: 0 0 18px rgba(0, 230, 118, 0.45);
+}
+
+.fixtures-page .matches-phone-status {
+    color: rgba(255,255,255,0.58);
+}
+
+.fixtures-page .matches-phone-header {
+    align-items: center;
+    margin-bottom: 22px;
+    padding: 0 0 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.09);
+}
+
+.fixtures-page .matches-phone-title {
+    font-size: clamp(1.35rem, 2.4vw, 2.05rem);
+    letter-spacing: 0;
+}
+
+.fixtures-page .matches-phone-subtitle {
+    max-width: 560px;
+    color: rgba(255,255,255,0.64);
+}
+
+.fixtures-page .matches-phone-pill {
+    min-width: 92px;
+    padding: 10px 14px;
+    color: #06110c;
+    background: linear-gradient(135deg, var(--accent-green), #7cffb4);
+    border: 0;
+    box-shadow: 0 10px 28px rgba(0, 230, 118, 0.22);
+}
+
+.fixtures-page .match-list {
+    gap: 14px;
+}
+
+.fixtures-page .match-item {
+    position: relative;
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.045);
+    border: 1px solid rgba(255,255,255,0.075);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.fixtures-page .match-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    bottom: 14px;
+    width: 3px;
+    border-radius: 999px;
+    background: var(--accent-green);
+    opacity: 0.72;
+}
+
+.fixtures-page .match-item:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(0, 230, 118, 0.2);
+    box-shadow: 0 18px 42px rgba(0,0,0,0.22);
+}
+
+.fixtures-page .match-team img {
+    width: 46px;
+    height: 46px;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+}
+
+.fixtures-page .match-team-name {
+    font-size: 0.98rem;
+}
+
+.fixtures-page .match-team-meta {
+    color: rgba(255,255,255,0.5);
+}
+
+.fixtures-page .match-center {
+    min-width: 108px;
+}
+
+.fixtures-page .match-vs-pill {
+    background: rgba(255,255,255,0.09);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.fixtures-page .match-time {
+    color: rgba(255,255,255,0.82);
+    font-weight: 700;
+}
+
+.fixtures-page .match-status {
+    color: var(--accent-green);
+    font-weight: 800;
+}
+
+.fixtures-page .empty-state {
+    border-style: solid;
+    background: rgba(255,255,255,0.05);
+}
+
 @media (max-width: 991px) {
     .matches-phone-shell {
         max-width: 100%;
@@ -1872,6 +2032,23 @@ body {
     .match-team {
         width: 100%;
     }
+
+    .fixtures-page .matches-phone-shell {
+        border-radius: 18px;
+    }
+
+    .fixtures-page .matches-phone-screen {
+        border-radius: 17px;
+    }
+
+    .fixtures-page .match-item::before {
+        top: 12px;
+        bottom: 12px;
+    }
+
+    .fixtures-page .match-center {
+        padding-left: 52px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1920,6 +2097,18 @@ body {
 
     .match-team-name {
         font-size: 0.88rem;
+    }
+
+    .fixtures-page .matches-phone-header {
+        align-items: flex-start;
+    }
+
+    .fixtures-page .match-item {
+        padding: 14px;
+    }
+
+    .fixtures-page .match-center {
+        padding-left: 0;
     }
 }
     font-weight: 800;
@@ -1971,9 +2160,19 @@ body {
     z-index: 2;
 }
 
+.match-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px 12px;
+    text-align: center;
+}
+
 .match-meta-pill {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     padding: 6px 14px;
     border-radius: 50px;
@@ -1984,6 +2183,9 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--text-muted);
+    line-height: 1.35;
+    max-width: 100%;
+    white-space: normal;
 }
 
 .match-status-badge {
@@ -2546,6 +2748,10 @@ body {
 
 /* Responsive Overrides */
 @media (max-width: 991px) {
+    .match-hero-overlay {
+        padding: 40px 22px;
+    }
+
     .matchup-grid {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -2567,6 +2773,32 @@ body {
     
     .timeline-track-container {
         min-width: 600px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .match-detail-page {
+        padding-top: 92px;
+    }
+
+    .match-hero-overlay {
+        padding: 30px 14px;
+    }
+
+    .match-meta-row {
+        align-items: stretch;
+        gap: 8px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .match-meta-pill,
+    .match-status-badge {
+        width: 100%;
+        min-height: 36px;
+        padding: 8px 12px;
+        font-size: 0.68rem;
+        letter-spacing: 0.7px;
     }
 }
 

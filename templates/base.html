@@ -195,30 +195,30 @@
                     </button>
                     <div class="collapse navbar-collapse" id="mainNavbar">
                         <ul class="navbar-nav mx-auto">
-                            <li class="nav-item active">
+                            <li class="nav-item {% if request.resolver_match.view_name == 'home' %}active{% endif %}">
                                 <a class="nav-link" href="{% url 'home' %}">Home</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {% if request.resolver_match.view_name == 'league:team' or request.resolver_match.view_name == 'league:team_detail' %}active{% endif %}">
                                 <a class="nav-link" href="{% url 'league:team' %}">Teams</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {% if request.resolver_match.view_name == 'accounts:player_list' or request.resolver_match.view_name == 'accounts:player_detail' %}active{% endif %}">
                                 <a class="nav-link" href="{% url 'accounts:player_list' %}">Players</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {% if request.resolver_match.view_name == 'matches:fixture_list' %}active{% endif %}">
                                 <a class="nav-link" href="{% url 'matches:fixture_list' %}">Fixtures</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {% if request.resolver_match.view_name == 'matches:result_list' or request.resolver_match.view_name == 'matches:match_detail' %}active{% endif %}">
                                 <a class="nav-link" href="{% url 'matches:result_list' %}">Results</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {% if request.resolver_match.view_name == 'league:season_list' %}active{% endif %}">
                                 <a class="nav-link" href="{% url 'league:season_list' %}">League Table</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {% if request.resolver_match.view_name == 'rules' %}active{% endif %}">
                                 <a class="nav-link" href="{% url 'rules' %}">Rules</a>
                             </li>
                         </ul>
                         <div class="navbar-nav">
-                            <a href="{% url 'contact' %}" class="btn btn-primary btn-nav-cta px-4">Contact</a>
+                            <a href="{% url 'contact' %}" class="btn btn-primary btn-nav-cta px-4 {% if request.resolver_match.view_name == 'contact' %}active{% endif %}">Contact</a>
                         </div>
                     </div>
                 </div>
@@ -358,7 +358,7 @@
                         </div>
                     </div>
 
-                    <div class="site-footer-links">
+                    <div class="site-footer-links text-center d-flex justify-content-center flex-wrap">
                         <a href="{% url 'rules' %}">Rules</a>
                         <a href="#">Terms of Participation</a>
                         <a href="#">Privacy Policy</a>

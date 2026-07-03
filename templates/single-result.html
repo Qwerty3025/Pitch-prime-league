@@ -6,11 +6,11 @@
     <!-- Match Hero Banner -->
     <div class="match-hero-banner" style="background: linear-gradient(180deg, rgba(7, 7, 9, 0.45) 0%, rgba(7, 7, 9, 0.95) 100%), url('{% static 'img/locations/3.jpg' %}') center/cover no-repeat;">
         <div class="match-hero-overlay">
-            <div class="text-center mb-4">
+            <div class="match-meta-row mb-4">
                 <span class="match-meta-pill" style="background-color: #00e676; color: #fff">
                     <i class="fa fa-calendar"></i> {{ match.scheduled_time|date:"D d M Y" }}
                 </span>
-                <span class="match-meta-pill mx-2" style="background-color: #00e676; color: #fff">
+                <span class="match-meta-pill" style="background-color: #00e676; color: #fff">
                     <i class="fa fa-trophy"></i> {{ match.season }}
                 </span>
                 {% if match.status == 'completed' %}
