@@ -215,6 +215,10 @@
                                                             {% endif %}
                                                             <span>{{ result.away_team.name }}</span>
                                                         </a>
+                                                        
+                                                    </div>
+                                                    <div class="result-actions">
+                                                        <a href="{% url 'matches:match_detail' result.pk %}" class="btn btn-primary btn-primary-sm px-4 py-2">View Match</a>
                                                     </div>
                                                 </article>
                                             {% empty %}
